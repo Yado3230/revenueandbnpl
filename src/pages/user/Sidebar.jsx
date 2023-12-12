@@ -63,6 +63,28 @@ function Sidebar() {
                 </Link>
               </li>
 
+              <li>
+                <Link to="/users/uapi">
+                  <svg
+                    className="w-6 h-6 text-primary"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    strokeWidth="2"
+                    stroke="currentColor"
+                    fill="none"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    {" "}
+                    <path stroke="none" d="M0 0h24v24H0z" />{" "}
+                    <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />{" "}
+                    <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+                  </svg>
+                  Api Links
+                </Link>
+              </li>
+
               <li className="mb-1">
                 <Link to={"/users/transactions"}>
                   <svg
@@ -388,7 +410,7 @@ function Sidebar() {
                 </li>
               )}
 
-              {service_name?.includes("BNPL") && kyc.rbf === false && (
+              {service_name?.includes("BNPL") && (
                 <li className="mb-1">
                   <Link to="loan">
                     <svg
@@ -436,7 +458,7 @@ function Sidebar() {
                   </Link>
                 </li>
               )}
-              {service_name?.includes("Payment Processor") && (
+              {/* {service_name?.includes("Payment Processor") && (
                 <li>
                   <Link to="/users/uapi">
                     <svg
@@ -458,7 +480,7 @@ function Sidebar() {
                     Api Links
                   </Link>
                 </li>
-              )}
+              )} */}
               {service_name?.includes("Payment Processor") && (
                 <li>
                   <Link to="/users/domains">
