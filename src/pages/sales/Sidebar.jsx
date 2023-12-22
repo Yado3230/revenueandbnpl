@@ -54,7 +54,7 @@ function Sidebar() {
               Inventory
             </Link>
           </li> */}
-          {/* <li className="mb-1">
+          <li className="mb-1">
             <Link to="request">
               <svg
                 class="h-6 w-6 text-primary"
@@ -74,7 +74,7 @@ function Sidebar() {
               </svg>
               Loan Request
             </Link>
-          </li> */}
+          </li>
           <li className="mb-1">
             <Link to="itemlists">
               <svg
