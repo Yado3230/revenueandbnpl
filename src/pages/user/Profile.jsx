@@ -53,7 +53,7 @@ function Profile() {
     setBusinessLicence(e.target.files[0]);
   };
   let formData = new FormData();
-  const substring = "uploads/merchantKyc";
+  // const substring = "uploads/merchantKyc";
   // result = url.replace(substring, "")
   return (
     <>
@@ -304,15 +304,13 @@ function Profile() {
                           <>
                             <div className="col-span-2">
                               <img
+                                crossorigin="anonymous"
                                 width={1240}
                                 height={1752}
                                 className="mb-3"
                                 src={
                                   kyc.valid_identification
-                                    ? kyc.valid_identification?.replace(
-                                        substring,
-                                        ""
-                                      )
+                                    ? kyc.valid_identification
                                     : "https://dummyimage.com/1240x1752/d1d1d1/000000"
                                 }
                                 alt="ID Card"
@@ -326,15 +324,13 @@ function Profile() {
                             </div>
                             <div className="col-span-2">
                               <img
+                                crossorigin="anonymous"
                                 width={1240}
                                 height={1752}
                                 className="mb-3"
                                 src={
                                   kyc.business_licnense
-                                    ? kyc.business_licnense?.replace(
-                                        substring,
-                                        ""
-                                      )
+                                    ? kyc.business_licnense
                                     : "https://dummyimage.com/1240x1752/d1d1d1/000000"
                                 }
                                 alt="Business Lisence"
@@ -348,12 +344,13 @@ function Profile() {
                             </div>
                             <div className="col-span-2">
                               <img
+                                crossorigin="anonymous"
                                 width={1240}
                                 height={1752}
                                 className="mb-3"
                                 src={
                                   kyc.agreement_doc
-                                    ? kyc.agreement_doc?.replace(substring, "")
+                                    ? kyc.agreement_doc
                                     : "https://dummyimage.com/1240x1752/d1d1d1/000000"
                                 }
                                 alt="Agreement Document"

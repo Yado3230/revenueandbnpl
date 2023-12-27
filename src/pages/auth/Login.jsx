@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import AuthService from "../../services/auth.service";
 import { useDispatch } from "react-redux";
-// import { PASSWORD } from "../../../../server/configs/db";
 import { Formik } from "formik";
 import souq from "../../assets/images/logo.png";
 import * as Yup from "yup";
@@ -18,6 +17,7 @@ function Login() {
       .min(6, "Password must be at least 6 characters")
       .max(40, "Password must not exceed 40 characters"),
   });
+
   let navigate = useNavigate();
   let dispatch = useDispatch();
   return (
@@ -102,7 +102,7 @@ function Login() {
                               htmlFor="username"
                               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                             >
-                              Username
+                              Username <span className="text-red-500">*</span>
                             </label>
                             <span className="text-sm link-error">
                               {props.errors.username && props.touched.username
@@ -125,7 +125,7 @@ function Login() {
                               htmlFor="password"
                               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                             >
-                              Password
+                              Password <span className="text-red-500">*</span>
                             </label>
                             <span className="text-sm link-error">
                               {props.errors.password && props.touched.password

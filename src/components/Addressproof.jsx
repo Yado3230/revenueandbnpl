@@ -21,11 +21,8 @@ function Addressproof(props) {
             {image || props.picture ? (
               <>
                 <img
-                  src={
-                    image
-                      ? image
-                      : `http://192.168.14.245:5000/image/${props.picture}`
-                  }
+                  crossorigin="anonymous"
+                  src={image ? image : `${props.picture}`}
                   className="h-24"
                   alt={fileName}
                 />
@@ -71,7 +68,9 @@ function Addressproof(props) {
           />
         </label>
       </div>
-      <section>{fileName}</section>
+      <section>
+        {props.picture && fileName === "No File Selected" ? "" : fileName}
+      </section>
     </>
   );
 }

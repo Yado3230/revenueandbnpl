@@ -67,6 +67,7 @@ const login = async (
     });
   } catch (error) {
     try {
+      console.log(error);
       setMessage(error?.response?.data?.message);
       setLoading(false);
       error?.response?.data?.message === "In active Account"
@@ -101,7 +102,7 @@ const login = async (
           });
     } catch (error) {
       setLoading(false);
-      setMessage(error?.message);
+      setMessage(error?.response?.data?.error);
     }
   }
 };

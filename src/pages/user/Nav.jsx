@@ -6,13 +6,17 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { getEkyInfo, setlogOut } from "../../store/actions/userProfileAction";
 import KYCService from "../../services/kyc.service";
+import jwtDecode from "jwt-decode";
 
 function Nav() {
   // const [currentUser, setCurrentUser] = useState({});
   const userData = useSelector((state) => state.userProfile);
-  const { username } = userData;
+  const { username, token } = userData;
 
   const [firstChar, setFirstChar] = useState("");
+
+  const user_token = jwtDecode(token);
+  const service_name = user_token?.service_name;
 
   const logOut = () => {
     setlogOut();
@@ -58,18 +62,20 @@ function Nav() {
             </svg>
           </label>
         </div>
-        <div className="form-control mx-3">
-          <label className="cursor-pointer label border rounded-xl">
-            <span className="label-text mx-2 font-bold">BNPL</span>
-            <input
-              type="checkbox"
-              className="toggle toggle-accent"
-              checked={kyc?.rbf}
-              onClick={() => handleToggleEdit()}
-            />
-            <span className="label-text mx-2 font-bold">RBF</span>
-          </label>
-        </div>
+        {service_name?.includes("BNPL") && (
+          <div className="form-control mx-3">
+            <label className="cursor-pointer label border rounded-xl">
+              <span className="label-text mx-2 font-bold">BNPL</span>
+              <input
+                type="checkbox"
+                className="toggle toggle-accent"
+                checked={kyc?.rbf}
+                onClick={() => handleToggleEdit()}
+              />
+              <span className="label-text mx-2 font-bold">RBF</span>
+            </label>
+          </div>
+        )}
         <div className="flex-none">
           <div className="dropdown dropdown-end">
             <div tabIndex={0} className="avatar placeholder  cursor-pointer">

@@ -140,32 +140,20 @@ function Product() {
   const showEditFormModal = (values, data) => {
     return new Promise((resolve, reject) => {
       MySwal.fire({
-        title: "Edit Item",
+        title: "Edit Product",
         html: (
-          <EditInventory
+          <AddProduct
             values={values}
-            data={data}
-            onSubmit={(values, { resetForm }) => {
-              formData.append("item_name", values.item_name);
-              formData.append("item_type", values.item_type);
-              formData.append("item_price", values.item_price);
-              formData.append("item_code", values.item_code);
-              formData.append("picture", values.picture);
-              resetForm({ values: "" });
-
+            kyc={kyc}
+            onSubmit={(values) => {
               dispatch(
-                InventoryService.EditInventory(
-                  formData,
-                  data,
-                  setUpdated,
-                  updated
-                )
+                InventoryService.EditProduct(values, setUpdated, updated)
                   .then(
                     (response) =>
                       response &&
                       Swal.fire({
                         icon: "success",
-                        title: "Inventory Edited Successfully",
+                        title: "Product Updated Successfully",
                         showConfirmButton: false,
                         timer: 3000,
                       })
@@ -273,12 +261,12 @@ function Product() {
   const showEditModal = (data) => {
     showEditFormModal(
       {
-        item_type: data.item_type,
-        picture: "",
-        item_code: data.item_code,
-        item_price: data.item_price,
-        item_name: data.item_name,
-        loan_limit: data.loan_limit,
+        product_id: data.product_id,
+        product_name: data.product_name || "",
+        product_category: data.product_category || "",
+        product_price: data.product_price || "",
+        product_availablity: data.product_availablity || "",
+        product_description: data.product_description || "",
         merchant_id: userID,
       },
       data

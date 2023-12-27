@@ -37,6 +37,17 @@ const EditInventory = async (formData, setUpdated, updated) => {
     }
   );
 };
+const EditProduct = async (values, setUpdated, updated) => {
+  return await NODE_API.put(
+    `/rb/product?product_id=${values.product_id}`,
+    values,
+    headers
+  ).then((response) => {
+    setUpdated(!updated);
+    return response;
+  });
+};
+
 const ToggleStatus = async (row, setToggeled, toggeled) => {
   return await NODE_API.put("/items/editItemStatus", {
     item_id: row.item_id,
@@ -75,6 +86,7 @@ const InventoryService = {
   ToggleStatus,
   getAllProducts,
   CreateProduct,
+  EditProduct,
   SellItem,
 };
 
