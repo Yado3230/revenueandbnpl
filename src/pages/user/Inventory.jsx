@@ -21,6 +21,7 @@ import { getAllCategoryData } from "../../store/actions/conf.action";
 const MySwal = withReactContent(Swal);
 
 function Inventory() {
+  const currentDate = new Date().toISOString().split("T")[0];
   const columns = [
     {
       name: "Image",
@@ -28,7 +29,8 @@ function Inventory() {
         return (
           <div className="p-2">
             <img
-              src={`${row.item_pic}`}
+              crossorigin="anonymous"
+              src={`${row.item_pic?.replace("/uploads/", "/")}`}
               style={{ width: "40px", height: "40px" }}
               alt=""
             />
@@ -235,28 +237,73 @@ function Inventory() {
     return new Promise((resolve, reject) => {
       MySwal.fire({
         title: "Edit Item",
+        width: 1000,
         html: (
           <EditInventory
             values={values}
             data={data}
+            kyc={kyc}
+            categories={categories}
             onSubmit={(values, { resetForm }) => {
-              formData.append("item_name", values.item_name);
-              formData.append("item_type", values.item_type);
-              formData.append("item_price", values.item_price);
-              formData.append("item_code", values.item_code);
-              formData.append("picture", values.picture);
-              formData.append("loan_limit", values.loan_limit);
-              formData.append("merchant_id", userID);
-              formData.append("item_id", data.item_id);
+              formData.append("item_id", values.item_id ? values.item_id : "");
+              formData.append(
+                "item_name",
+                values.item_name ? values.item_name : ""
+              );
+              formData.append(
+                "item_type",
+                values.item_type ? values.item_type : ""
+              );
+              formData.append(
+                "item_price",
+                values.item_price ? values.item_price : ""
+              );
+              formData.append(
+                "item_code",
+                values.item_code ? values.item_code : ""
+              );
+              formData.append("picture", values.picture ? values.picture : "");
+              formData.append(
+                "location",
+                values.location ? values.location : ""
+              );
+              formData.append(
+                "description",
+                values.description ? values.description : ""
+              );
+              formData.append(
+                "supplier",
+                values.supplier ? values.supplier : ""
+              );
+              formData.append(
+                "purchaseDate",
+                values.purchaseDate ? values.purchaseDate : ""
+              );
+              formData.append(
+                "reorderPointUnit",
+                values.reorderPointUnit ? values.reorderPointUnit : ""
+              );
+              formData.append(
+                "unitPrice",
+                values.unitPrice ? values.unitPrice : ""
+              );
+              formData.append("onStock", values.onStock ? values.onStock : "");
+              formData.append(
+                "totalBuyPrice",
+                values.totalBuyPrice ? values.totalBuyPrice : ""
+              );
+              formData.append(
+                "totalQuantity",
+                values.totalQuantity ? values.totalQuantity : ""
+              );
+              formData.append(
+                "item_category_id",
+                values.item_category_id ? values.item_category_id : ""
+              );
               resetForm({ values: "" });
 
               dispatch(
-                InventoryService.EditInventory(
-                  formData,
-                  data,
-                  setUpdated,
-                  updated
-                )
+                InventoryService.EditInventory(formData, setUpdated, updated)
                   .then(
                     (response) =>
                       response &&
@@ -467,6 +514,7 @@ function Inventory() {
       item_name: "",
       loan_limit: "",
       merchant_id: userID,
+      purchaseDate: currentDate,
       item_category_id: "",
     })
       .then((values) => values)
@@ -476,12 +524,21 @@ function Inventory() {
   const showEditModal = (data) => {
     showEditFormModal(
       {
+        item_id: data.item_id,
         item_type: data.item_type,
-        picture: "",
         item_code: data.item_code,
         item_price: data.item_price,
         item_name: data.item_name,
         loan_limit: data.loan_limit,
+        totalQuantity: data.totalQuantity,
+        totalBuyPrice: data.totalBuyPrice,
+        reorderPointUnit: data.reorderPointUnit,
+        purchaseDate: data.purchaseDate.split("T")[0] || currentDate,
+        supplier: data.supplier,
+        location: data.location,
+        description: data.description,
+        item_category_id: data.item_category_id,
+        picture: data.picture,
         merchant_id: userID,
       },
       data

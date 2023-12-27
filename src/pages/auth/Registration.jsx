@@ -104,7 +104,8 @@ function Registration() {
                             htmlFor="username"
                             className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                           >
-                            User Name (Email or Phone Number)
+                            User Name (Email or Phone Number){" "}
+                            <span className="text-red-500">*</span>
                           </label>
                           <span className="text-sm link-error">
                             {props.errors.username && props.touched.username
@@ -128,7 +129,7 @@ function Registration() {
                             htmlFor="password"
                             className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                           >
-                            Password
+                            Password <span className="text-red-500">*</span>
                           </label>
                           <span className="text-sm link-error">
                             {props.errors.password && props.touched.password
@@ -151,7 +152,8 @@ function Registration() {
                             htmlFor="confirm-password"
                             className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                           >
-                            Confirm password
+                            Confirm password{" "}
+                            <span className="text-red-500">*</span>
                           </label>
                           <span className="text-sm link-error">
                             {props.errors.confirmPassword &&

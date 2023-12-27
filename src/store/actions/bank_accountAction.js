@@ -109,13 +109,13 @@ export const createTutorial =
         });
       } else if (res[1] == "403") {
         interpretResponse({
-          message: res[0].message,
+          message: res[0].error,
           response: "error",
           responseCode: res[1],
         });
       } else if (res[1] == "409") {
         interpretResponse({
-          message: res[0].message,
+          message: res[0].error,
           response: "error",
           responseCode: res[1],
         });
@@ -140,7 +140,7 @@ export const getAccountByPhone =
       const res = await BankAccountServices.getBankAccountByPhone(phoneNumber);
       if (res[1] == "200") {
         interpretResponse({
-          message: res[0].message,
+          message: res[0].error,
           response: "success",
           responseCode: res[1],
         });

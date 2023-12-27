@@ -7,7 +7,7 @@ function Selectinput(props) {
         htmlFor={props.id}
         className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
       >
-        {props.title}
+        {props.title} <span className="text-red-500">*</span>
       </label>
       <select
         id={props.id}

@@ -21,18 +21,18 @@ function AddInventory({ onSubmit, values, onCancel, kyc, categories }) {
   }));
 
   const ValidationSchema = Yup.object().shape({
-    picture: Yup.mixed()
-      .required("A file is required")
-      .test(
-        "fileSize",
-        "File too large",
-        (value) => value && value.size <= FILE_SIZE
-      )
-      .test(
-        "fileFormat",
-        "Unsupported Format",
-        (value) => value && SUPPORTED_FORMATS.includes(value.type)
-      ),
+    // picture: Yup.mixed()
+    //   .required("A file is required")
+    //   .test(
+    //     "fileSize",
+    //     "File too large",
+    //     (value) => value && value.size <= FILE_SIZE
+    //   )
+    //   .test(
+    //     "fileFormat",
+    //     "Unsupported Format",
+    //     (value) => value && SUPPORTED_FORMATS.includes(value.type)
+    //   ),
     item_code: Yup.string().optional(),
     item_price: Yup.string().required("Price is required"),
     item_name: Yup.string().required("Name is required"),
@@ -42,7 +42,7 @@ function AddInventory({ onSubmit, values, onCancel, kyc, categories }) {
     totalBuyPrice: Yup.string().required("Total Buy Price is required"),
     unitPrice: Yup.string().optional(),
     reorderPointUnit: Yup.string().required("Reorder Point Unit is required"),
-    purchaseDate: Yup.string().required("Purchase Date is required"),
+    purchaseDate: Yup.string().optional(),
     supplier: Yup.string().optional(),
     location: Yup.string().optional(),
     description: Yup.string().optional(),
@@ -64,7 +64,7 @@ function AddInventory({ onSubmit, values, onCancel, kyc, categories }) {
                   htmlFor="item_name"
                   className="mb-2 text-sm font-medium text-gray-900"
                 >
-                  Item Name
+                  Item Name <span className="text-red-500">*</span>
                 </label>
                 <span className="text-sm link-error">
                   <ErrorMessage name="item_name"></ErrorMessage>
@@ -84,7 +84,7 @@ function AddInventory({ onSubmit, values, onCancel, kyc, categories }) {
                   htmlFor="item_price"
                   className="mb-2 text-sm font-medium text-gray-900"
                 >
-                  Item Price
+                  Item Price <span className="text-red-500">*</span>
                 </label>
                 <span className="text-sm link-error">
                   <ErrorMessage name="item_price"></ErrorMessage>
@@ -181,7 +181,7 @@ function AddInventory({ onSubmit, values, onCancel, kyc, categories }) {
                   htmlFor="totalQuantity"
                   className="mb-2 text-sm font-medium text-gray-900"
                 >
-                  Total Quantity
+                  Total Quantity <span className="text-red-500">*</span>
                 </label>
                 <span className="text-sm link-error">
                   <ErrorMessage name="totalQuantity"></ErrorMessage>
@@ -203,7 +203,7 @@ function AddInventory({ onSubmit, values, onCancel, kyc, categories }) {
                   htmlFor="totalBuyPrice"
                   className="mb-2 text-sm font-medium text-gray-900"
                 >
-                  Total Buy Price
+                  Total Buy Price <span className="text-red-500">*</span>
                 </label>
                 <span className="text-sm link-error">
                   <ErrorMessage name="totalBuyPrice"></ErrorMessage>
@@ -269,7 +269,7 @@ function AddInventory({ onSubmit, values, onCancel, kyc, categories }) {
                   htmlFor="reorderPointUnit"
                   className="mb-2 text-sm font-medium text-gray-900"
                 >
-                  Reorder Quantity
+                  Reorder Quantity <span className="text-red-500">*</span>
                 </label>
                 <span className="text-sm link-error">
                   <ErrorMessage name="reorderPointUnit"></ErrorMessage>
@@ -291,7 +291,7 @@ function AddInventory({ onSubmit, values, onCancel, kyc, categories }) {
                   htmlFor="purchaseDate"
                   className="mb-2 text-sm font-medium text-gray-900"
                 >
-                  Purchase Date
+                  Purchase Date <span className="text-red-500">*</span>
                 </label>
                 <span className="text-sm link-error">
                   <ErrorMessage name="purchaseDate"></ErrorMessage>
@@ -345,7 +345,7 @@ function AddInventory({ onSubmit, values, onCancel, kyc, categories }) {
                   onChange={formik.handleChange}
                 />
               </div>
-              <div className="col-span-3">
+              <div className="col-span-1">
                 <label
                   htmlFor="description"
                   className="mb-2 text-sm font-medium text-gray-900"
@@ -360,12 +360,12 @@ function AddInventory({ onSubmit, values, onCancel, kyc, categories }) {
                   id="description"
                   value={formik.values.description}
                   onChange={formik.handleChange}
-                  rows="4"
+                  rows="6"
                   className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary focus:border-primary dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
                   placeholder="Your description here"
                 ></textarea>
               </div>
-              <div className="sm:col-span-3">
+              <div className="sm:col-span-1">
                 <Addressproof
                   lable="picture"
                   id="picture"

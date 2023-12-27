@@ -3,13 +3,8 @@ import ReactDOM from "react-dom";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { useDispatch, useSelector } from "react-redux";
-import AuthService from "../services/auth.service";
 import BankAccountServices from "../services/bank-account.services";
 import { createTutorial } from "../store/actions/bank_accountAction";
-import { Provider } from "react-redux";
-import store from "../store/store";
-import Otp from "./Otp";
-import Input from "./Input";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import jwtDecode from "jwt-decode";
@@ -17,23 +12,11 @@ import OTP from "../pages/auth/OTP";
 const MySwal = withReactContent(Swal);
 
 function ModalFire() {
-  const [customerName, setcustomerName] = useState("");
   const [trys, setTry] = useState(true);
-  // const [phoneNumber, setPhoneNumber] = useState();
-  const [accountNumber, setAccountNumber] = useState();
-  const loggedInuser = useSelector((state) => state.userProfile);
   const customerName2 = useRef("");
-  const [dependency, setdependency] = useState(false);
   const AccountListData = useSelector((state) => state.accountsList);
   const dispatch = useDispatch();
-  const {
-    bankAccounts,
-    message,
-    otpValue,
-    accountMessage,
-    criteriaValue,
-    loading,
-  } = AccountListData;
+  const { criteriaValue } = AccountListData;
 
   const [otp1, setOpt1] = useState("");
 

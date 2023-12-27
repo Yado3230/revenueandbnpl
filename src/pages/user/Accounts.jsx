@@ -76,11 +76,11 @@ const columns = [
     selector: (row) => row.account_level,
     sortable: true,
   },
-  {
-    name: "Status",
-    selector: (row) => (row.status === "1" ? "activated" : "pending"),
-    sortable: true,
-  },
+  // {
+  //   name: "Status",
+  //   selector: (row) => (row.status === "1" ? "activated" : "pending"),
+  //   sortable: true,
+  // },
 ];
 
 // choose[0] = { label: "Set Primary", value: "1" };

@@ -96,7 +96,7 @@ export default function CustomizedMenus({
         open={open}
         onClose={handleClose}
       >
-        {/* <MenuItem
+        <MenuItem
           onClick={() => {
             showEditModal(data);
             handleClose();
@@ -105,7 +105,7 @@ export default function CustomizedMenus({
         >
           <EditIcon />
           Edit
-        </MenuItem> */}
+        </MenuItem>
         {/* <MenuItem
           onClick={() => {
             showDetailModal(data);
