@@ -24,7 +24,8 @@ import Home from "./pages/user/Home";
 import Expense from "./pages/user/Expense";
 import RBFHome from "./pages/user/RBFHome";
 import Product from "./pages/user/Product";
-import Reports from "./pages/user/Reports";
+import Reports from "./pages/user/ReportsAnalysis";
+import InventoryReport from "./pages/user/Reports";
 function Users() {
   const tokenInfo = useSelector((state) => state.userProfile);
   const { token, kyc } = tokenInfo;
@@ -76,7 +77,7 @@ function Users() {
               <Route path="devices" element={<Devices />}></Route>
               <Route path="profile" element={<Profile />}></Route>
               <Route path="setting" element={<Settings />}></Route>
-              <Route path="reports" element={<Reports />}></Route>
+              <Route path="reports" element={<InventoryReport />}></Route>
               <Route path="*" element={<E404 />}></Route>
             </Routes>
           </div>
