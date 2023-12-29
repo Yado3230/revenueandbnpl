@@ -241,7 +241,8 @@ function Profile() {
                               htmlFor={"date"}
                               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                             >
-                              Date of Establishment
+                              Date of Establishment{" "}
+                              <span className="text-red-500">*</span>
                             </label>
                             <input
                               type="date"
@@ -306,8 +307,8 @@ function Profile() {
                               <img
                                 crossorigin="anonymous"
                                 width={1240}
-                                height={1752}
-                                className="mb-3"
+                                height={600}
+                                className="mb-3 border"
                                 src={
                                   kyc.valid_identification
                                     ? kyc.valid_identification
@@ -315,6 +316,40 @@ function Profile() {
                                 }
                                 alt="ID Card"
                               />
+                              {kyc.valid_identification && (
+                                <div>
+                                  <button
+                                    onClick={() =>
+                                      window.open(
+                                        kyc.valid_identification,
+                                        "_blank"
+                                      )
+                                    }
+                                    className="border text-white font-bold py-2 px-4 rounded"
+                                  >
+                                    <svg
+                                      class="h-6 w-6 text-teal-500"
+                                      width="24"
+                                      height="24"
+                                      viewBox="0 0 24 24"
+                                      stroke-width="2"
+                                      stroke="currentColor"
+                                      fill="none"
+                                      stroke-linecap="round"
+                                      stroke-linejoin="round"
+                                    >
+                                      {" "}
+                                      <path
+                                        stroke="none"
+                                        d="M0 0h24v24H0z"
+                                      />{" "}
+                                      <circle cx="12" cy="12" r="2" />{" "}
+                                      <path d="M2 12l1.5 2a11 11 0 0 0 17 0l1.5 -2" />{" "}
+                                      <path d="M2 12l1.5 -2a11 11 0 0 1 17 0l1.5 2" />
+                                    </svg>
+                                  </button>
+                                </div>
+                              )}
                               <label
                                 htmlFor=""
                                 className="text-xl font-bold py-2"
@@ -326,8 +361,8 @@ function Profile() {
                               <img
                                 crossorigin="anonymous"
                                 width={1240}
-                                height={1752}
-                                className="mb-3"
+                                height={600}
+                                className="mb-3 border"
                                 src={
                                   kyc.business_licnense
                                     ? kyc.business_licnense
@@ -335,6 +370,40 @@ function Profile() {
                                 }
                                 alt="Business Lisence"
                               />
+                              {kyc.business_licnense && (
+                                <div>
+                                  <button
+                                    onClick={() =>
+                                      window.open(
+                                        kyc.business_licnense,
+                                        "_blank"
+                                      )
+                                    }
+                                    className="border text-white font-bold py-2 px-4 rounded"
+                                  >
+                                    <svg
+                                      class="h-6 w-6 text-teal-500"
+                                      width="24"
+                                      height="24"
+                                      viewBox="0 0 24 24"
+                                      stroke-width="2"
+                                      stroke="currentColor"
+                                      fill="none"
+                                      stroke-linecap="round"
+                                      stroke-linejoin="round"
+                                    >
+                                      {" "}
+                                      <path
+                                        stroke="none"
+                                        d="M0 0h24v24H0z"
+                                      />{" "}
+                                      <circle cx="12" cy="12" r="2" />{" "}
+                                      <path d="M2 12l1.5 2a11 11 0 0 0 17 0l1.5 -2" />{" "}
+                                      <path d="M2 12l1.5 -2a11 11 0 0 1 17 0l1.5 2" />
+                                    </svg>
+                                  </button>
+                                </div>
+                              )}
                               <label
                                 htmlFor=""
                                 className="text-xl font-bold py-2"
@@ -346,8 +415,8 @@ function Profile() {
                               <img
                                 crossorigin="anonymous"
                                 width={1240}
-                                height={1752}
-                                className="mb-3"
+                                height={600}
+                                className="mb-3 border"
                                 src={
                                   kyc.agreement_doc
                                     ? kyc.agreement_doc
@@ -355,6 +424,37 @@ function Profile() {
                                 }
                                 alt="Agreement Document"
                               />
+                              {kyc.agreement_doc && (
+                                <div>
+                                  <button
+                                    onClick={() =>
+                                      window.open(kyc.agreement_doc, "_blank")
+                                    }
+                                    className="border text-white font-bold py-2 px-4 rounded"
+                                  >
+                                    <svg
+                                      class="h-6 w-6 text-teal-500"
+                                      width="24"
+                                      height="24"
+                                      viewBox="0 0 24 24"
+                                      stroke-width="2"
+                                      stroke="currentColor"
+                                      fill="none"
+                                      stroke-linecap="round"
+                                      stroke-linejoin="round"
+                                    >
+                                      {" "}
+                                      <path
+                                        stroke="none"
+                                        d="M0 0h24v24H0z"
+                                      />{" "}
+                                      <circle cx="12" cy="12" r="2" />{" "}
+                                      <path d="M2 12l1.5 2a11 11 0 0 0 17 0l1.5 -2" />{" "}
+                                      <path d="M2 12l1.5 -2a11 11 0 0 1 17 0l1.5 2" />
+                                    </svg>
+                                  </button>
+                                </div>
+                              )}
                               <label
                                 htmlFor=""
                                 className="text-xl font-bold py-2"

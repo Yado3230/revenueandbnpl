@@ -7,7 +7,12 @@ function Input(props) {
         htmlFor={props.label}
         className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
       >
-        {props.title}
+        {props.title}{" "}
+        {props.title === "Website URL" ? (
+          ""
+        ) : (
+          <span className="text-red-500">*</span>
+        )}
       </label>
       <input
         type={props.type}
