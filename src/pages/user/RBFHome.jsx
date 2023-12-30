@@ -11,7 +11,7 @@ function RBFHome() {
   const { kyc } = userData;
 
   useEffect(() => {
-    dispatch(getDashboardCardDetail());
+    dispatch(getDashboardCardDetail("2023-01-01", "2023-02-02"));
   }, []);
 
   const reportData = useSelector((state) => state.reportInfo);
