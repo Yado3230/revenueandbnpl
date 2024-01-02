@@ -14,28 +14,141 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-const data = [
-  { name: "Profit", value: 624 },
-  { name: "Remaining", value: 1000 - 624 },
-];
-
 const COLORS1 = ["#F082DD", "#e0e0e0"];
 const COLORS = ["#00bcd4", "#e0e0e0"];
 
-const ReportAnalysis = ({ dashboardCardReport }) => {
+const ReportAnalysis = ({
+  dashboardCardReport,
+  yearlyRevenueandprofit,
+  previousAndCurrentMonth,
+}) => {
   const items = {
     revenue: 500,
     totalBuy: 10000,
     totalexpence: 2582,
   };
-  const revenueDetails = [
-    { id: 1, name: "Laptop", revenue: 3000 },
-    { id: 2, name: "T-shirt", revenue: 3750 },
-    { id: 3, name: "Book", revenue: 1500 },
-    { id: 4, name: "Smartphone", revenue: 4000 },
-    { id: 5, name: "Sneakers", revenue: 5600 },
-    { id: 6, name: "Headphones", revenue: 2000 },
+
+  const revenue = [
+    {
+      name: "Revenue",
+      value: previousAndCurrentMonth?.revenue?.[0]?.total,
+    },
+    {
+      name: "Remaining",
+      value: previousAndCurrentMonth?.revenue?.[1]?.total,
+    },
   ];
+
+  const expense = [
+    {
+      name: "Expense",
+      value: previousAndCurrentMonth?.expenses?.[0]?.total_expense,
+    },
+    {
+      name: "Remaining",
+      value: previousAndCurrentMonth?.expenses?.[1]?.total_expense,
+    },
+  ];
+
+  const profit = [
+    {
+      name: "Profit",
+      value: previousAndCurrentMonth?.profit?.[0]?.total_profit,
+    },
+    {
+      name: "Remaining",
+      value: previousAndCurrentMonth?.profit?.[1]?.total_profit,
+    },
+  ];
+
+  const data1 = previousAndCurrentMonth?.profit?.[0]?.total_profit;
+  console.log("first", data1);
+
+  const yearlyRevenueandprofitnew = yearlyRevenueandprofit.monthly_revenue
+    ? yearlyRevenueandprofit
+    : {
+        monthly_revenue: [
+          {
+            year_month: "2023-12",
+            total: "0",
+          },
+        ],
+        monthly_profit: [
+          {
+            year_month: "2023-12",
+            total_profit: "0",
+          },
+        ],
+      };
+  console.log(yearlyRevenueandprofitnew);
+  // Extract year and month from the backend response
+  const yearMonth = yearlyRevenueandprofitnew?.monthly_revenue[0]?.year_month;
+  const [year, month] = yearMonth?.split("-");
+
+  // Create an array to store monthly data
+  const yearlyRevenueAndProfitData = [];
+
+  // Function to pad single-digit months with a leading zero
+  const padMonth = (m) => (m < 10 ? `0${m}` : `${m}`);
+
+  // Function to convert month number to three-letter abbreviation
+  const monthAbbreviation = (m) => {
+    const months = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
+    return months[m - 1];
+  };
+
+  // Generate monthly data for the whole year
+  for (let i = 1; i <= 12; i++) {
+    const monthData = {
+      month: monthAbbreviation(i),
+      earning: 0,
+      expense: 0,
+    };
+
+    // Check if the month matches the backend response month
+    if (i == month) {
+      monthData.earning = parseInt(
+        yearlyRevenueandprofitnew?.monthly_revenue[0].total
+      );
+      monthData.expense =
+        parseInt(yearlyRevenueandprofitnew?.monthly_profit[0].total_profit) *
+        -1;
+    }
+
+    yearlyRevenueAndProfitData.push(monthData);
+  }
+
+  console.log("ds", yearlyRevenueAndProfitData);
+
+  // Assuming you have the original data for each month
+  // const yearlyRevenueAndProfitData = [
+  //   { month: "Jan", earning: 5000, expense: -2000 },
+  //   { month: "Feb", earning: 6000, expense: -2500 },
+  //   { month: "Mar", earning: 7500, expense: -1800 },
+  //   { month: "Apr", earning: 4500, expense: -2300 },
+  //   { month: "May", earning: 5800, expense: -2100 },
+  //   { month: "Jun", earning: 7000, expense: -2400 },
+  //   { month: "Jul", earning: 9000, expense: -2700 },
+  //   { month: "Aug", earning: 6200, expense: -1900 },
+  //   { month: "Sep", earning: 7500, expense: -2000 },
+  //   { month: "Oct", earning: 8000, expense: -2200 },
+  //   { month: "Nov", earning: 6700, expense: -2500 },
+  //   { month: "Dec", earning: 7200, expense: -1800 },
+  // ];
+
   return (
     <div>
       <div className="grid grid-cols-6 gap-4">
@@ -193,7 +306,7 @@ const ReportAnalysis = ({ dashboardCardReport }) => {
                   <ResponsiveContainer width="100%" height={100}>
                     <PieChart>
                       <Pie
-                        data={data}
+                        data={expense}
                         cx="50%"
                         cy={100}
                         startAngle={180}
@@ -204,7 +317,7 @@ const ReportAnalysis = ({ dashboardCardReport }) => {
                         paddingAngle={5}
                         dataKey="value"
                       >
-                        {data.map((entry, index) => (
+                        {expense.map((entry, index) => (
                           <Cell
                             key={`cell-${index}`}
                             fill={COLORS1[index % COLORS1.length]}
@@ -215,7 +328,11 @@ const ReportAnalysis = ({ dashboardCardReport }) => {
                     </PieChart>
                   </ResponsiveContainer>
                   <span className="mt-2 text-gray-500">
-                    $21k Expenses more than last month
+                    {((previousAndCurrentMonth?.expense?.[0]?.total_expense -
+                      previousAndCurrentMonth?.expense?.[1]?.total_expense) /
+                      previousAndCurrentMonth?.expense?.[1]?.total_expense) *
+                      100 || 100}{" "}
+                    % Expenses more than last month
                   </span>
                 </div>
               </div>
@@ -241,7 +358,7 @@ const ReportAnalysis = ({ dashboardCardReport }) => {
                   <ResponsiveContainer width="100%" height={100}>
                     <PieChart>
                       <Pie
-                        data={data}
+                        data={profit}
                         cx="50%"
                         cy="50%"
                         innerRadius={30}
@@ -249,7 +366,7 @@ const ReportAnalysis = ({ dashboardCardReport }) => {
                         fill="#00bcd4"
                         label
                       >
-                        {data.map((entry, index) => (
+                        {profit.map((entry, index) => (
                           <Cell
                             key={`cell-${index}`}
                             fill={COLORS[index % COLORS.length]}
@@ -259,8 +376,16 @@ const ReportAnalysis = ({ dashboardCardReport }) => {
                     </PieChart>
                   </ResponsiveContainer>
                   <span className="flex items-center justify-between">
-                    <span>624k </span>
-                    <span> +8.24%</span>
+                    <span>
+                      {previousAndCurrentMonth?.profit?.[0]?.total_profit}
+                    </span>
+                    <span>
+                      {((previousAndCurrentMonth?.profit?.[0]?.total_profit -
+                        previousAndCurrentMonth?.profit?.[1]?.total_profit) /
+                        previousAndCurrentMonth?.profit?.[1]?.total_profit ||
+                        1) * 100 || 100}
+                      %
+                    </span>
                   </span>
                 </div>
               </div>
@@ -287,18 +412,26 @@ const ReportAnalysis = ({ dashboardCardReport }) => {
                     <div className="flex flex-col">
                       <h2 className="card-title">Generated Revenue</h2>
                       <p>Monthly Report</p>
-                      <span>4,350</span>
-                      <span>15.8%</span>
+                      <span>
+                        {previousAndCurrentMonth?.expenses?.[0]?.total_expense}
+                      </span>
+                      <span>
+                        {" "}
+                        {((previousAndCurrentMonth?.expenses?.[0]
+                          ?.total_expense -
+                          previousAndCurrentMonth?.expenses?.[1]
+                            ?.total_expense) /
+                          previousAndCurrentMonth?.expenses?.[1]
+                            ?.total_expense || 1) * 100 || 100}{" "}
+                        %
+                      </span>
                     </div>
                     <div className="">
                       <ResponsiveContainer width="100%" height={100}>
                         <PieChart>
                           <Pie
                             dataKey="value"
-                            data={[
-                              { name: "Profit", value: 624 },
-                              { name: "Remaining", value: 1000 - 624 },
-                            ]}
+                            data={revenue}
                             cx="50%"
                             cy="50%"
                             outerRadius={50}
@@ -322,22 +455,7 @@ const ReportAnalysis = ({ dashboardCardReport }) => {
               <p>Yearly revenue report</p>
               <div>
                 <ResponsiveContainer width="100%" height={333}>
-                  <BarChart
-                    data={[
-                      { month: "Jan", earning: 5000, expense: -2000 },
-                      { month: "Feb", earning: 6000, expense: -2500 },
-                      { month: "Mar", earning: 7500, expense: -1800 },
-                      { month: "Apr", earning: 4500, expense: -2300 },
-                      { month: "May", earning: 5800, expense: -2100 },
-                      { month: "Jun", earning: 7000, expense: -2400 },
-                      { month: "Jul", earning: 9000, expense: -2700 },
-                      { month: "Aug", earning: 6200, expense: -1900 },
-                      { month: "Sep", earning: 7500, expense: -2000 },
-                      { month: "Oct", earning: 8000, expense: -2200 },
-                      { month: "Nov", earning: 6700, expense: -2500 },
-                      { month: "Dec", earning: 7200, expense: -1800 },
-                    ]}
-                  >
+                  <BarChart data={yearlyRevenueAndProfitData}>
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="month" />
                     <YAxis />
@@ -474,12 +592,12 @@ const ReportAnalysis = ({ dashboardCardReport }) => {
         <div className="">
           <div className="card bg-base-100 shadow-sm border">
             <div className="card-body">
-              <h2 className="card-title">Popular Products</h2>
+              <h2 className="card-title">Profitability</h2>
               <p>Top sold Products</p>
               <div className="col-span-3 p-2 rounded shadow bg-white">
-                <h2 className=" font-semibold pb-2 flex items-center justify-center">
+                {/* <h2 className=" font-semibold pb-2 flex items-center justify-center">
                   Profitability
-                </h2>
+                </h2> */}
                 <div className="flex items-center justify-center my-2">
                   <select className="select select-sm max-w-xs">
                     <option disabled selected>

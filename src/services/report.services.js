@@ -6,28 +6,66 @@ import { NODE_API } from "../utils/API";
 //   ).then((response) => response.data);
 // };
 
-const getAllDashboardCardDetail = async (startTimestamp, endTimestamp) => {
-  const apiUrl = `/reporting/calculate/merchantReport`;
+const getAllDashboardCardDetail = async (fromDate, toDate) => {
+  const apiUrl = new URL(
+    "/reporting/calculate/merchantReport",
+    window.location.origin
+  ); // Assuming you are running this in a browser
 
-  // Check if startTimestamp is provided, and append it to the API URL if it exists
-  if (startTimestamp) {
-    apiUrl += `?startTimestamp=${startTimestamp}`;
+  if (fromDate) {
+    apiUrl.searchParams.append("startTimestamp", fromDate);
   }
 
-  // Check if endTimestamp is provided, and append it to the API URL if it exists
-  if (endTimestamp) {
-    // Use "&" if startTimestamp is also provided
-    apiUrl += startTimestamp
-      ? `&endTimestamp=${endTimestamp}`
-      : `?endTimestamp=${endTimestamp}`;
+  if (toDate) {
+    apiUrl.searchParams.append("endTimestamp", toDate);
   }
 
-  // Make the API call using the constructed URL
-  return await NODE_API.get(apiUrl).then((response) => response.data);
+  console.log(apiUrl.pathname + apiUrl.search);
+  return await NODE_API.get(apiUrl.pathname + apiUrl.search).then(
+    (response) => response.data
+  );
+};
+
+const getAllYearlyRevenueandProfit = async (year, merchant_id) => {
+  const apiUrl = new URL(
+    "/reporting/calculate/yearlyMerchantReport",
+    window.location.origin
+  ); // Assuming you are running this in a browser
+
+  if (year) {
+    apiUrl.searchParams.append("year", year);
+  }
+
+  if (merchant_id) {
+    apiUrl.searchParams.append("merchant_id", merchant_id);
+  }
+
+  console.log(apiUrl.pathname + apiUrl.search);
+  return await NODE_API.get(apiUrl.pathname + apiUrl.search).then(
+    (response) => response.data
+  );
+};
+
+const getAllCurrentAndPreviousMonthReport = async (merchant_id) => {
+  const apiUrl = new URL(
+    "/reporting/calculate/monthlyReport",
+    window.location.origin
+  ); // Assuming you are running this in a browser
+
+  if (merchant_id) {
+    apiUrl.searchParams.append("merchant_id", merchant_id);
+  }
+
+  console.log(apiUrl.pathname + apiUrl.search);
+  return await NODE_API.get(apiUrl.pathname + apiUrl.search).then(
+    (response) => response.data
+  );
 };
 
 const ReportService = {
   getAllDashboardCardDetail,
+  getAllYearlyRevenueandProfit,
+  getAllCurrentAndPreviousMonthReport,
 };
 
 export default ReportService;

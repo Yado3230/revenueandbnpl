@@ -3,11 +3,11 @@ import store from "./../store/store";
 
 // Create a new instance of axios with the token in the header
 export const LOGIN_NODE_API = axios.create({
-  baseURL: "http://10.1.177.130:8040/api",
+  baseURL: "https://10.1.177.130:8040/api",
 });
 
 export const NODE_API = axios.create({
-  baseURL: "http://10.1.177.130:8040/api",
+  baseURL: "https://10.1.177.130:8040/api",
 });
 
 // export const LOGIN_NODE_API = axios.create({

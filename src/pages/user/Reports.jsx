@@ -14,7 +14,11 @@ import {
 } from "recharts";
 import ReportAnalysis from "./ReportsAnalysis";
 import { useDispatch, useSelector } from "react-redux";
-import { getDashboardCardDetail } from "../../store/actions/reportActions";
+import {
+  getCurrentAndPreviousMonthReport,
+  getDashboardCardDetail,
+  getYearlyRevenueandProfit,
+} from "../../store/actions/reportActions";
 
 const Tab = ({ label, onClick, isActive }) => (
   <button
@@ -28,15 +32,31 @@ const Tab = ({ label, onClick, isActive }) => (
 );
 
 const InventoryReport = () => {
+  const currentDate = new Date().toISOString().split("T")[0];
   const dispatch = useDispatch();
   const [activeTab, setActiveTab] = useState("analysis");
-
-  useEffect(() => {
-    dispatch(getDashboardCardDetail("2023-01-01", "2023-02-02"));
-  }, []);
+  const [fromDate, setFromDate] = useState();
+  const [toDate, setToDate] = useState(currentDate);
+  const [year, setYear] = useState(2023);
+  const [filtered, setFiltered] = useState(true);
 
   const reportData = useSelector((state) => state.reportInfo);
-  const { dashboardCardReport } = reportData;
+  console.log(reportData);
+  const {
+    dashboardCardReport,
+    yearlyRevenueandprofit,
+    previousAndCurrentMonth,
+  } = reportData;
+
+  const userData = useSelector((state) => state.userProfile);
+  const { userID } = userData;
+
+  useEffect(() => {
+    console.log("inside useeffect");
+    dispatch(getDashboardCardDetail(fromDate, toDate));
+    dispatch(getYearlyRevenueandProfit(year, userID));
+    dispatch(getCurrentAndPreviousMonthReport(userID));
+  }, [filtered, userID]);
 
   // Dummy data for demonstration purposes
   const itemsWithCategory = [
@@ -143,7 +163,13 @@ const InventoryReport = () => {
   const renderChart = () => {
     switch (activeTab) {
       case "analysis":
-        return <ReportAnalysis dashboardCardReport={dashboardCardReport} />;
+        return (
+          <ReportAnalysis
+            yearlyRevenueandprofit={yearlyRevenueandprofit}
+            dashboardCardReport={dashboardCardReport}
+            previousAndCurrentMonth={previousAndCurrentMonth}
+          />
+        );
       case "itemsWithCategory":
         return (
           <BarChart
@@ -277,13 +303,16 @@ const InventoryReport = () => {
             isActive={activeTab === "revenueDetails"}
           />
         </div>
-        <div className="flex space-x-2">
+        <div className="flex space-x-2 items-center">
           <div>
             <div>
               <label htmlFor="from">From:</label>
               <input
                 type="date"
                 id="from"
+                max={toDate}
+                value={fromDate}
+                onChange={(e) => setFromDate(e.target.value)}
                 placeholder="Type here"
                 className="input input-bordered input-sm w-full max-w-xs"
               />
@@ -295,33 +324,23 @@ const InventoryReport = () => {
               <input
                 type="date"
                 id="to"
+                value={toDate}
+                min={fromDate}
+                max={currentDate}
+                onChange={(e) => setToDate(e.target.value)}
                 placeholder="Type here"
                 className="input input-bordered input-sm w-full max-w-xs"
               />
             </div>
           </div>
+          <button
+            onClick={() => setFiltered(!filtered)}
+            className="self-end btn btn-outline btn-accent btn-sm"
+          >
+            Filter
+          </button>
         </div>
       </div>
-      {/* <div className="flex justify-between">
-        <div>
-          <p className="text-gray-700">Total Cost of Goods:</p>
-          <p className="text-2xl font-bold text-gray-800">
-            ${costExpenseRevenueReport.totalCost}
-          </p>
-        </div>
-        <div>
-          <p className="text-gray-700">Total Revenue:</p>
-          <p className="text-2xl font-bold text-green-600">
-            ${costExpenseRevenueReport.totalRevenue}
-          </p>
-        </div>
-        <div>
-          <p className="text-gray-700">Total Expense:</p>
-          <p className="text-2xl font-bold text-red-600">
-            ${costExpenseRevenueReport.totalExpense}
-          </p>
-        </div>
-      </div> */}
     </div>
   );
 
