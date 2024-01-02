@@ -40,7 +40,7 @@ const ReportAnalysis = ({ dashboardCardReport }) => {
     <div>
       <div className="grid grid-cols-6 gap-4">
         <div>
-          <div className="card bg-base-100 shadow-sm border h-full">
+          <div className="card bg-base-100 shadow-sm border">
             <div className="card-body">
               <h2 className="card-title text-cyan-500 font-bold whitespace-nowrap">
                 Congra Amir!
