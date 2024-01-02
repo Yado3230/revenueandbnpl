@@ -23,7 +23,10 @@ function RBFStats({ items }) {
             </div>
             <div className="stat-title">Net Profit</div>
             <div className="stat-value text-primary">
-              {items?.totalProfit?.toLocaleString()}
+              {(
+                items?.revenue -
+                (items?.totalexpence + items?.totalBuy)
+              ).toLocaleString()}
             </div>
           </div>
 
@@ -45,7 +48,7 @@ function RBFStats({ items }) {
             </div>
             <div className="stat-title">Revenue</div>
             <div className="stat-value text-secondary">
-              {items?.totalrevenue?.toLocaleString()}
+              {items?.revenue?.toLocaleString()}
             </div>
             {/* <div className="stat-desc">11% less than yesterday</div> */}
           </div>
@@ -68,7 +71,7 @@ function RBFStats({ items }) {
             </div>
             <div className="stat-title">Expense</div>
             <div className="stat-value text-primary">
-              {items?.totalExpense?.toLocaleString()}
+              {(items?.totalexpence + items?.totalBuy).toLocaleString()}
             </div>
           </div>
 
@@ -92,7 +95,7 @@ function RBFStats({ items }) {
             </div>
             <div className="stat-title">Cost of Goods $ Services</div>
             <div className="stat-value text-accent">
-              {items?.totalItemPrice?.toLocaleString()}
+              {items?.totalBuy?.toLocaleString()}
             </div>
           </div>
         </div>
