@@ -3,7 +3,7 @@ function Features() {
     <section className="bg-white md:px-36 dark:bg-gray-900">
       <div className="px-4 py-8 mx-auto sm:py-16 lg:px-6">
         <div className="space-y-8 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-12 md:space-y-0">
-          <div>
+          <div className="p-4 border-2 border-[#fc7b03] rounded-md">
             <div className="flex items-center justify-center w-10 h-10 mx-auto mb-4 rounded-full md:mx-0 bg-primary lg:h-12 lg:w-12 dark:bg-primary">
               <svg
                 className="w-5 h-5 text-base-100 lg:w-6 lg:h-6 dark:text-white"
@@ -27,7 +27,8 @@ function Features() {
               single click.
             </p>
           </div>
-          <div>
+          <div className="p-4 border-2 border-[#fc7b03] rounded-md">
+            {" "}
             <div className="flex items-center justify-center w-10 h-10 mx-auto mb-4 rounded-full md:mx-0 bg-primary lg:h-12 lg:w-12 dark:bg-primary">
               <svg
                 className="w-5 h-5 text-base-100 lg:w-6 lg:h-6 dark:text-white"
@@ -47,7 +48,8 @@ function Features() {
               needs to facilitate and streamline online payments.
             </p>
           </div>
-          <div>
+          <div className="p-4 border-2 border-[#fc7b03] rounded-md">
+            {" "}
             <div className="flex items-center justify-center w-10 h-10 mx-auto mb-4 rounded-full md:mx-0 bg-primary lg:h-12 lg:w-12 dark:bg-primary">
               <svg
                 className="w-5 h-5 text-base-100 lg:w-6 lg:h-6 dark:text-white"
@@ -69,7 +71,8 @@ function Features() {
               real time. Your customers can buy anything from your ecommerce.
             </p>
           </div>
-          <div>
+          <div className="p-4 border-2 border-[#fc7b03] rounded-md">
+            {" "}
             <div className="flex items-center justify-center w-10 h-10 mx-auto mb-4 rounded-full md:mx-0 bg-primary lg:h-12 lg:w-12 dark:bg-primary">
               <svg
                 className="w-5 h-5 text-base-100 lg:w-6 lg:h-6 dark:text-white"
@@ -94,7 +97,8 @@ function Features() {
               sales and reduce customer service costs at the same time.
             </p>
           </div>
-          <div>
+          <div className="p-4 border-2 border-[#fc7b03] rounded-md">
+            {" "}
             <div className="flex items-center justify-center w-10 h-10 mx-auto mb-4 rounded-full md:mx-0 bg-primary lg:h-12 lg:w-12 dark:bg-primary">
               <svg
                 className="w-5 h-5 text-base-100 lg:w-6 lg:h-6 dark:text-white"
@@ -113,7 +117,8 @@ function Features() {
               business practices are legally compliant.
             </p>
           </div>
-          <div>
+          <div className="p-4 border-2 border-[#fc7b03] rounded-md">
+            {" "}
             <div className="flex items-center justify-center w-10 h-10 mx-auto mb-4 rounded-full md:mx-0 bg-primary lg:h-12 lg:w-12 dark:bg-primary">
               <svg
                 className="w-5 h-5 text-base-100 lg:w-6 lg:h-6 dark:text-white"
