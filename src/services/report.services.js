@@ -6,9 +6,9 @@ import { NODE_API } from "../utils/API";
 //   ).then((response) => response.data);
 // };
 
-const getAllDashboardCardDetail = async (fromDate, toDate) => {
+const getAllDashboardCardDetail = async (fromDate, toDate, merchant_id) => {
   const apiUrl = new URL(
-    "/reporting/calculate/merchantReport",
+    "/reporting/calculate/merchantReportByAdmin",
     window.location.origin
   ); // Assuming you are running this in a browser
 
@@ -18,6 +18,10 @@ const getAllDashboardCardDetail = async (fromDate, toDate) => {
 
   if (toDate) {
     apiUrl.searchParams.append("endTimestamp", toDate);
+  }
+
+  if (merchant_id) {
+    apiUrl.searchParams.append("merchantId", merchant_id);
   }
 
   console.log(apiUrl.pathname + apiUrl.search);

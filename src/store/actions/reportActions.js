@@ -7,10 +7,10 @@ import {
 
 import ReportService from "../../services/report.services";
 export const getDashboardCardDetail =
-  (fromDate, toDate) => async (dispatch) => {
+  (fromDate, toDate, userID) => async (dispatch) => {
     try {
       const dashboardCardDetails =
-        await ReportService.getAllDashboardCardDetail(fromDate, toDate);
+        await ReportService.getAllDashboardCardDetail(fromDate, toDate, userID);
       dispatch({
         type: SET_DASHBOARD_CARD_REPORT,
         payload: dashboardCardDetails,

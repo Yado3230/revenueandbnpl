@@ -15,7 +15,7 @@ function AddInventory({ onSubmit, values, onCancel, kyc, categories }) {
     "image/png",
   ];
 
-  const item_option = categories.map((item) => ({
+  const item_option = categories?.map((item) => ({
     value: item?.item_category_id,
     label: item?.type,
   }));

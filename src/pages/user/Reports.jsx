@@ -53,7 +53,7 @@ const InventoryReport = () => {
 
   useEffect(() => {
     console.log("inside useeffect");
-    dispatch(getDashboardCardDetail(fromDate, toDate));
+    dispatch(getDashboardCardDetail(fromDate, toDate, userID));
     dispatch(getYearlyRevenueandProfit(year, userID));
     dispatch(getCurrentAndPreviousMonthReport(userID));
   }, [filtered, userID]);

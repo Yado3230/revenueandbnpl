@@ -72,10 +72,11 @@ const columns = [
     sortable: true,
   },
   {
-    name: "Primary",
+    name: "Account Level",
     selector: (row) => row.account_level,
     sortable: true,
   },
+
   // {
   //   name: "Status",
   //   selector: (row) => (row.status === "1" ? "activated" : "pending"),

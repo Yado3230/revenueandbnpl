@@ -8,10 +8,10 @@ import { getDashboardCardDetail } from "../../store/actions/reportActions";
 function RBFHome() {
   const dispatch = useDispatch();
   const userData = useSelector((state) => state.userProfile);
-  const { kyc } = userData;
+  const { kyc, userID } = userData;
 
   useEffect(() => {
-    dispatch(getDashboardCardDetail());
+    dispatch(getDashboardCardDetail("", "", userID));
   }, []);
 
   const reportData = useSelector((state) => state.reportInfo);
@@ -66,32 +66,25 @@ function RBFHome() {
             <div className="flex items-center py-2 justify-between border-b mx-1">
               <span className="text-gray-600">Cost of goods and services</span>
               <span className="font-semibold">
-                {dashboardCardReport?.totalBuy?.toLocaleString()}
+                {dashboardCardReport?.totalBuyPrice || 0}
               </span>
             </div>
             <div className="flex items-center py-2 justify-between border-b mx-1">
               <span className="text-gray-600">Expense</span>
               <span className="font-semibold">
-                {(
-                  dashboardCardReport?.totalexpence +
-                  dashboardCardReport?.totalBuy
-                ).toLocaleString()}
+                {dashboardCardReport?.totalExpense || 0}
               </span>
             </div>
             <div className="flex items-center py-2 justify-between border-b mx-1">
               <span className="text-gray-600">Revenue</span>
               <span className="font-semibold">
-                {dashboardCardReport?.revenue?.toLocaleString()}
+                {dashboardCardReport?.totalrevenue || 0}
               </span>
             </div>
             <div className="flex items-center py-2 justify-between border-b mx-1">
               <span className="text-cyan-600 font-bold text-xl">Profit</span>
               <span className="text-cyan-600 font-bold text-xl">
-                {(
-                  dashboardCardReport?.revenue -
-                  (dashboardCardReport?.totalexpence +
-                    dashboardCardReport?.totalBuy)
-                ).toLocaleString()}
+                {dashboardCardReport?.totalProfit || 0}
               </span>
             </div>
           </div>

@@ -3,19 +3,19 @@ import store from "./../store/store";
 
 // Create a new instance of axios with the token in the header
 export const LOGIN_NODE_API = axios.create({
-  baseURL: "https://10.1.177.130:8040/api",
+  baseURL: "/api",
 });
 
 export const NODE_API = axios.create({
-  baseURL: "https://10.1.177.130:8040/api",
+  baseURL: "/api",
 });
 
 // export const LOGIN_NODE_API = axios.create({
-//   baseURL: "http://192.168.14.191:8040/api",
+//   baseURL: "https://backendsouqpass.coopbankoromiasc.com:5000/api",
 // });
 
 // export const NODE_API = axios.create({
-//   baseURL: "http://192.168.14.191:8040/api",
+//   baseURL: "https://backendsouqpass.coopbankoromiasc.com:5000/api",
 // });
 
 // Request interceptor to update Authorization header with the token

@@ -16,7 +16,7 @@ function Selectinput(props) {
         onChange={props.handleChange}
         // onInput={props.selectName}
       >
-        <option value="" disabled>
+        <option value="" selected disabled>
           Select
         </option>
         {props.arr?.map((arr) => (
