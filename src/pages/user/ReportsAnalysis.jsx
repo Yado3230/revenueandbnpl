@@ -99,7 +99,6 @@ const ReportAnalysis = React.memo(
         };
       }
     }, [yearlyRevenueandprofit]);
-    console.log(yearlyRevenueandprofitnew);
     // Extract year and month from the backend response
     const yearMonth = yearlyRevenueandprofitnew?.monthly_revenue[0]?.year_month;
     const [year, month] = yearMonth ? yearMonth.split("-") : [null, null];
@@ -149,8 +148,6 @@ const ReportAnalysis = React.memo(
 
       yearlyRevenueAndProfitData.push(monthData);
     }
-
-    console.log("ds", yearlyRevenueAndProfitData);
 
     return (
       <React.Fragment>

@@ -1,6 +1,7 @@
 import {
   PREVIOUS_AND_CURRENT_MONTH,
   SET_DASHBOARD_CARD_REPORT,
+  SET_SOLD_ITEMS,
   YEARLY_REVENUE_AND_PROFT,
 } from "../types";
 
@@ -8,6 +9,7 @@ const initialState = {
   dashboardCardReport: {},
   yearlyRevenueandprofit: {},
   previousAndCurrentMonth: {},
+  soldItems: [],
   loading: false,
 };
 
@@ -29,6 +31,12 @@ export default function (state = initialState, action) {
       return {
         ...state,
         previousAndCurrentMonth: action.payload,
+        loading: false,
+      };
+    case SET_SOLD_ITEMS:
+      return {
+        ...state,
+        soldItems: action.payload,
         loading: false,
       };
     default:

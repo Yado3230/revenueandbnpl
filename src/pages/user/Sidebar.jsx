@@ -410,7 +410,7 @@ function Sidebar() {
                 </li>
               )}
 
-              {service_name?.includes("BNPL") && (
+              {/* {service_name?.includes("BNPL") && (
                 <li className="mb-1">
                   <Link to="loan">
                     <svg
@@ -433,7 +433,7 @@ function Sidebar() {
                     Loan List
                   </Link>
                 </li>
-              )}
+              )} */}
               {service_name?.includes("BNPL") && kyc.rbf === true && (
                 <li className="mb-1">
                   <Link to="reports">

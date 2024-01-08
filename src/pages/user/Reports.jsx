@@ -15,6 +15,7 @@ import {
 import ReportAnalysis from "./ReportsAnalysis";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  getAllSoldItems,
   getCurrentAndPreviousMonthReport,
   getDashboardCardDetail,
   getYearlyRevenueandProfit,
@@ -37,7 +38,7 @@ const InventoryReport = () => {
   const [activeTab, setActiveTab] = useState("analysis");
   const [fromDate, setFromDate] = useState();
   const [toDate, setToDate] = useState(currentDate);
-  const [year, setYear] = useState(2023);
+  const [year, setYear] = useState(2024);
   const [filtered, setFiltered] = useState(true);
 
   const reportData = useSelector((state) => state.reportInfo);
@@ -46,16 +47,17 @@ const InventoryReport = () => {
     dashboardCardReport,
     yearlyRevenueandprofit,
     previousAndCurrentMonth,
+    soldItems,
   } = reportData;
 
   const userData = useSelector((state) => state.userProfile);
   const { userID } = userData;
 
   useEffect(() => {
-    console.log("inside useeffect");
     dispatch(getDashboardCardDetail(fromDate, toDate, userID));
     dispatch(getYearlyRevenueandProfit(year, userID));
     dispatch(getCurrentAndPreviousMonthReport(userID));
+    dispatch(getAllSoldItems(userID));
   }, [filtered, userID]);
 
   // Dummy data for demonstration purposes

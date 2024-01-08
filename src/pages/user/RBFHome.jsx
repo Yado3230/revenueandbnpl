@@ -1,9 +1,23 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Banner from "./Banner";
 import RBFStats from "./RBFStat";
 import RNFChart from "./RNFChart";
-import { getDashboardCardDetail } from "../../store/actions/reportActions";
+import {
+  getDashboardCardDetail,
+  getYearlyRevenueandProfit,
+} from "../../store/actions/reportActions";
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  Legend,
+  Rectangle,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
 
 function RBFHome() {
   const dispatch = useDispatch();
@@ -12,10 +26,81 @@ function RBFHome() {
 
   useEffect(() => {
     dispatch(getDashboardCardDetail("", "", userID));
+    dispatch(getYearlyRevenueandProfit(2023, userID));
   }, []);
 
   const reportData = useSelector((state) => state.reportInfo);
-  const { dashboardCardReport } = reportData;
+  const { dashboardCardReport, yearlyRevenueandprofit } = reportData;
+
+  const yearlyRevenueandprofitnew = useMemo(() => {
+    if (yearlyRevenueandprofit.monthly_revenue) {
+      return yearlyRevenueandprofit;
+    } else {
+      return {
+        monthly_revenue: [
+          {
+            year_month: "2023-12",
+            total: "0",
+          },
+        ],
+        monthly_profit: [
+          {
+            year_month: "2023-12",
+            total_profit: "0",
+          },
+        ],
+      };
+    }
+  }, [yearlyRevenueandprofit]);
+
+  const yearMonth = yearlyRevenueandprofitnew?.monthly_revenue[0]?.year_month;
+  const [year, month] = yearMonth ? yearMonth.split("-") : [null, null];
+
+  // Create an array to store monthly data
+  const yearlyRevenueAndProfitData = [];
+
+  // Function to pad single-digit months with a leading zero
+  const padMonth = (m) => (m < 10 ? `0${m}` : `${m}`);
+
+  // Function to convert month number to three-letter abbreviation
+  const monthAbbreviation = (m) => {
+    const months = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
+    return months[m - 1];
+  };
+
+  // Generate monthly data for the whole year
+  for (let i = 1; i <= 12; i++) {
+    const monthData = {
+      month: monthAbbreviation(i),
+      earning: 0,
+      expense: 0,
+    };
+
+    // Check if the month matches the backend response month
+    if (i == month) {
+      monthData.earning = parseInt(
+        yearlyRevenueandprofitnew?.monthly_revenue[0].total
+      );
+      monthData.expense =
+        parseInt(yearlyRevenueandprofitnew?.monthly_profit[0].total_profit) *
+        -1;
+    }
+
+    yearlyRevenueAndProfitData.push(monthData);
+  }
 
   return (
     <>
@@ -32,32 +117,61 @@ function RBFHome() {
           <div className="col-span-6 p-2 rounded shadow bg-white">
             <div className="flex items-center justify-between mb-2">
               <h3 className="text-xl font-semibold text-cyan-500 pb-2">
-                Revenue Vs Profit
+                Expense Vs Profit
               </h3>
-              <select className="select select-sm max-w-xs">
+              {/* <select className="select select-sm max-w-xs">
                 <option disabled selected>
                   Filter
                 </option>
                 <option>Today</option>
                 <option>This Week</option>
                 <option>This Month</option>
-              </select>
+              </select> */}
             </div>
-            <RNFChart />
+            {/* <RNFChart data={yearlyRevenueAndProfitData} /> */}
+            <ResponsiveContainer width="100%" height={300}>
+              <BarChart
+                width={500}
+                height={300}
+                data={yearlyRevenueAndProfitData}
+                margin={{
+                  top: 5,
+                  right: 30,
+                  left: 20,
+                  bottom: 5,
+                }}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Bar
+                  dataKey="expense"
+                  fill="#26ABE2"
+                  activeBar={<Rectangle fill="pink" stroke="blue" />}
+                />
+                <Bar
+                  dataKey="earning"
+                  fill="#82ca9d"
+                  activeBar={<Rectangle fill="gold" stroke="purple" />}
+                />
+              </BarChart>
+            </ResponsiveContainer>
           </div>
           <div className="col-span-3 p-2 rounded shadow bg-white">
             <h2 className=" font-semibold pb-2 flex items-center justify-center">
               Profitability
             </h2>
             <div className="flex items-center justify-center my-2">
-              <select className="select select-sm max-w-xs">
+              {/* <select className="select select-sm max-w-xs">
                 <option disabled selected>
                   Time
                 </option>
                 <option>Today</option>
                 <option>This Week</option>
                 <option>This Month</option>
-              </select>
+              </select> */}
             </div>
             <div className="flex items-center justify-between border-b">
               <span className="text-gray-500">Metric</span>
