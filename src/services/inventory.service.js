@@ -29,6 +29,23 @@ const SellItem = async (values, setUpdated, updated) => {
   });
 };
 
+const SellItems = async (values, setUpdated, updated) => {
+  console.log(values);
+  return await NODE_API.post("/items/batchsale", values).then((response) => {
+    setUpdated(!updated);
+    return response;
+  });
+};
+
+const SellProduct = async (values, setUpdated, updated) => {
+  return await NODE_API.post("/rb/product/saleProduct", values).then(
+    (response) => {
+      setUpdated(!updated);
+      return response;
+    }
+  );
+};
+
 const EditInventory = async (formData, setUpdated, updated) => {
   return await NODE_API.put("/items/editItem", formData, headers).then(
     (response) => {
@@ -37,6 +54,7 @@ const EditInventory = async (formData, setUpdated, updated) => {
     }
   );
 };
+
 const EditProduct = async (values, setUpdated, updated) => {
   return await NODE_API.put(
     `/rb/product?product_id=${values.product_id}`,
@@ -88,6 +106,8 @@ const InventoryService = {
   CreateProduct,
   EditProduct,
   SellItem,
+  SellProduct,
+  SellItems,
 };
 
 export default InventoryService;

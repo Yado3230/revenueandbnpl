@@ -14,12 +14,6 @@ const SaleItem = () => {
   const [updated, setUpdated] = useState(false);
   const navigate = useNavigate();
 
-  const [values] = useState({
-    item_id: params.id ? params.id : "",
-    item_sale_price: null,
-    quantity: 1,
-  });
-
   useEffect(() => {
     dispatch(getInventoryDetail());
   }, [dispatch]);
@@ -27,13 +21,27 @@ const SaleItem = () => {
   const inventoryInfo = useSelector((state) => state.inventoryInfo);
   const { inventoryDetail } = inventoryInfo;
 
+  const [values] = useState({
+    item_id: params.id ? params.id : "",
+    item_sale_price:
+      inventoryDetail.filter((item) => item?.item_id == params.id * 1)?.[0]
+        ?.item_price || 0,
+    quantity: 1,
+  });
+
   const item_option = inventoryDetail.map((item) => ({
     value: item?.item_id,
     label: item?.item_name,
   }));
 
+  const item_option2 = [
+    {
+      value: "Cash",
+      label: "Cash",
+    },
+  ];
+
   const ValidationSchema = Yup.object().shape({
-    item_id: Yup.string().required("Item Id is required"),
     item_sale_price: Yup.number().required("price is required"),
     quantity: Yup.number().required("quantity is required").default(1),
   });
@@ -77,7 +85,8 @@ const SaleItem = () => {
                     error &&
                     Swal.fire({
                       icon: "error",
-                      title: `Something went wrong`,
+                      title:
+                        error.response.data.error || "Something went wrong",
                       showConfirmButton: false,
                       timer: 3000,
                     })
@@ -120,23 +129,13 @@ const SaleItem = () => {
                 </div> */}
 
                 <div className="w-full">
-                  <label
-                    htmlFor="paymentMethod"
-                    className="mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >
-                    Payment Method
-                  </label>
-                  <span className="text-sm link-error">
-                    <ErrorMessage name="paymentMethod"></ErrorMessage>
-                  </span>
-                  <input
-                    type="text"
-                    name="paymentMethod"
+                  <Selectinput
+                    arr={item_option2}
                     id="paymentMethod"
-                    placeholder="payment-method"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    name="paymentMethod"
                     value={formik.values.paymentMethod}
-                    onChange={formik.handleChange}
+                    handleChange={formik.handleChange}
+                    title="Select Item"
                   />
                 </div>
                 <div className="w-full">
@@ -150,13 +149,19 @@ const SaleItem = () => {
                     <ErrorMessage name="item_sale_price"></ErrorMessage>
                   </span>
                   <input
-                    type="text"
+                    min={
+                      inventoryDetail.filter(
+                        (item) => item?.item_id == formik.values.item_id * 1
+                      )?.[0]?.item_price
+                    }
+                    type="number"
                     name="item_sale_price"
                     id="item_sale_price"
                     placeholder="1025.63"
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     value={formik.values.item_sale_price}
                     onChange={formik.handleChange}
+                    required
                   />
                 </div>
                 <div className="w-full">
@@ -170,9 +175,15 @@ const SaleItem = () => {
                     <ErrorMessage name="quantity"></ErrorMessage>
                   </span>
                   <input
-                    type="text"
+                    type="number"
                     name="quantity"
                     id="quantity"
+                    min={0}
+                    max={
+                      inventoryDetail.filter(
+                        (item) => item?.item_id == formik.values.item_id * 1
+                      )?.[0]?.onStock
+                    }
                     placeholder="quantity"
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     value={formik.values.quantity}
@@ -190,7 +201,7 @@ const SaleItem = () => {
                     <ErrorMessage name="quantity"></ErrorMessage>
                   </span>
                   <input
-                    type="text"
+                    type="number"
                     name="quantity"
                     id="quantity"
                     placeholder="quantity"

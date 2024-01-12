@@ -63,6 +63,7 @@ export default function CustomizedMenus({
   showAssignLoan,
   showEditModal,
   showAddExpense,
+  expense,
 }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -129,16 +130,18 @@ export default function CustomizedMenus({
             Assign Loan
           </MenuItem>
         ) : (
-          <MenuItem
-            onClick={() => {
-              showAddExpense(data);
-              handleClose();
-            }}
-            disableRipple
-          >
-            <CreditScoreIcon />
-            Add Expense
-          </MenuItem>
+          !expense && (
+            <MenuItem
+              onClick={() => {
+                showAddExpense(data);
+                handleClose();
+              }}
+              disableRipple
+            >
+              <CreditScoreIcon />
+              Add Expense
+            </MenuItem>
+          )
         )}
         {/* <MenuItem onClick={handleClose} disableRipple>
           <MoreHorizIcon />

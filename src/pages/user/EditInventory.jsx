@@ -83,21 +83,21 @@ function EditInventory({ onSubmit, values, onCancel, data, kyc, categories }) {
               </div>
               <div className="w-full">
                 <label
-                  htmlFor="item_price"
+                  htmlFor="totalBuyPrice"
                   className="mb-2 text-sm font-medium text-gray-900"
                 >
-                  Item Price <span className="text-red-500">*</span>
+                  Buy Price <span className="text-red-500">*</span>
                 </label>
                 <span className="text-sm link-error">
-                  <ErrorMessage name="item_price"></ErrorMessage>
+                  <ErrorMessage name="totalBuyPrice"></ErrorMessage>
                 </span>
                 <input
                   type="number"
-                  name="item_price"
-                  id="item_price"
-                  placeholder="Price"
+                  name="totalBuyPrice"
+                  id="totalBuyPrice"
+                  placeholder="Total Buy Price"
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  value={formik.values.item_price}
+                  value={formik.values.totalBuyPrice}
                   onChange={formik.handleChange}
                 />
               </div>
@@ -189,11 +189,9 @@ function EditInventory({ onSubmit, values, onCancel, data, kyc, categories }) {
                   <ErrorMessage name="totalQuantity"></ErrorMessage>
                 </span>
                 <input
-                  type="text"
+                  type="number"
                   name="totalQuantity"
                   id="totalQuantity"
-                  min={0}
-                  max={100}
                   placeholder="Total Quantity"
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   value={formik.values.totalQuantity}
@@ -202,23 +200,21 @@ function EditInventory({ onSubmit, values, onCancel, data, kyc, categories }) {
               </div>
               <div className="w-full">
                 <label
-                  htmlFor="totalBuyPrice"
+                  htmlFor="item_price"
                   className="mb-2 text-sm font-medium text-gray-900"
                 >
-                  Total Buy Price <span className="text-red-500">*</span>
+                  Sell Price <span className="text-red-500">*</span>
                 </label>
                 <span className="text-sm link-error">
-                  <ErrorMessage name="totalBuyPrice"></ErrorMessage>
+                  <ErrorMessage name="item_price"></ErrorMessage>
                 </span>
                 <input
-                  type="text"
-                  name="totalBuyPrice"
-                  id="totalBuyPrice"
-                  min={0}
-                  max={100}
-                  placeholder="Total Buy Price"
+                  type="number"
+                  name="item_price"
+                  id="item_price"
+                  placeholder="Price"
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  value={formik.values.totalBuyPrice}
+                  value={formik.values.item_price}
                   onChange={formik.handleChange}
                 />
               </div>
@@ -236,8 +232,7 @@ function EditInventory({ onSubmit, values, onCancel, data, kyc, categories }) {
                   type="text"
                   name="onStock"
                   id="onStock"
-                  min={0}
-                  max={100}
+
                   placeholder="On Stock"
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   value={formik.values.onStock}
@@ -258,8 +253,7 @@ function EditInventory({ onSubmit, values, onCancel, data, kyc, categories }) {
                   type="text"
                   name="unitPrice"
                   id="unitPrice"
-                  min={0}
-                  max={100}
+
                   placeholder="Unit Price"
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   value={formik.values.unitPrice}
@@ -277,11 +271,9 @@ function EditInventory({ onSubmit, values, onCancel, data, kyc, categories }) {
                   <ErrorMessage name="reorderPointUnit"></ErrorMessage>
                 </span>
                 <input
-                  type="text"
+                  type="number"
                   name="reorderPointUnit"
                   id="reorderPointUnit"
-                  min={0}
-                  max={100}
                   placeholder="Reorder Quantity"
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   value={formik.values.reorderPointUnit}

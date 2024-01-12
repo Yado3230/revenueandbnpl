@@ -18,6 +18,7 @@ const AddExpense = ({
   onCancel,
   general,
   product,
+  isUpdate,
 }) => {
   const FILE_SIZE = 1600 * 1024;
   const SUPPORTED_FORMATS = [
@@ -35,18 +36,18 @@ const AddExpense = ({
   const ValidationSchema = Yup.object().shape({
     item_id: Yup.string().optional(),
     product_id: Yup.string().optional(),
-    picture: Yup.mixed()
-      .required("A file is required")
-      .test(
-        "fileSize",
-        "File too large",
-        (value) => value && value.size <= FILE_SIZE
-      )
-      .test(
-        "fileFormat",
-        "Unsupported Format",
-        (value) => value && SUPPORTED_FORMATS.includes(value.type)
-      ),
+    // picture: Yup.mixed()
+    //   .required("A file is required")
+    //   .test(
+    //     "fileSize",
+    //     "File too large",
+    //     (value) => value && value.size <= FILE_SIZE
+    //   )
+    //   .test(
+    //     "fileFormat",
+    //     "Unsupported Format",
+    //     (value) => value && SUPPORTED_FORMATS.includes(value.type)
+    //   ),
     expense_name: Yup.string().required("Name is required"),
     expense_amount: Yup.string().required("Amount is required"),
     expense_date: Yup.string().required("Date is required"),
@@ -229,7 +230,7 @@ const AddExpense = ({
               style={{ backgroundColor: "#01AFEF" }}
               className="swal2-confirm swal2-styled"
             >
-              Register
+              {isUpdate ? "Update" : "Register"}
             </button>
           </form>
         )}

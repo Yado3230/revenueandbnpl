@@ -23,10 +23,12 @@ const compliance_aml = [
 
 function Profile() {
   const dispatch = useDispatch();
-  const [updated, setUpdated] = useState(true);
+  const [updated, setUpdated] = useState(false);
+  const [loading2, setLoading] = useState(false);
 
   const userData = useSelector((state) => state.userProfile);
   const { userID } = userData;
+
   useEffect(() => {
     if (userID) {
       dispatch(getEkyInfo(userID));
@@ -91,6 +93,7 @@ function Profile() {
               }}
               // validationSchema={validationSchema}
               onSubmit={(values) => {
+                setLoading(true);
                 formData.append("first_name", values.first_name);
                 formData.append("last_name", values.last_name);
                 formData.append("business_name", values.business_name);
@@ -130,6 +133,10 @@ function Profile() {
                           timer: 3000,
                         })
                     )
+                    .finally(() => {
+                      setLoading(false);
+                      window.location.reload();
+                    })
                 );
               }}
             >
@@ -500,10 +507,11 @@ function Profile() {
                       ) : (
                         <button
                           type="submit"
+                          disabled={loading2}
                           onClick={props.handleSubmit}
                           className="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary rounded-lg focus:ring-4 focus:ring-primary dark:focus:ring-primary hover:bg-primary"
                         >
-                          Submit
+                          {loading2 ? "Loading ..." : "Submit"}
                         </button>
                       )}
                     </>

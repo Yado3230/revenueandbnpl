@@ -30,7 +30,7 @@ function Inventory() {
           <div className="p-2">
             <img
               crossorigin="anonymous"
-              src={`${row.item_pic?.replace("/uploads/", "/")}`}
+              src={`${row.item_pic}`}
               style={{ width: "40px", height: "40px" }}
               alt=""
             />
@@ -91,10 +91,10 @@ function Inventory() {
   ];
   let formData = new FormData();
   const dispatch = useDispatch();
-  const userData = useSelector((state) => state.userProfile);
   const [toggeled, setToggeled] = useState(false);
   const [updated, setUpdated] = useState(true);
   const [toggleInput, setToggleInput] = useState(true);
+  const userData = useSelector((state) => state.userProfile);
   const { userID, kyc } = userData;
 
   useEffect(() => {
@@ -245,61 +245,86 @@ function Inventory() {
             kyc={kyc}
             categories={categories}
             onSubmit={(values, { resetForm }) => {
-              formData.append("item_id", values.item_id ? values.item_id : "");
-              formData.append(
-                "item_name",
-                values.item_name ? values.item_name : ""
-              );
-              formData.append(
-                "item_type",
-                values.item_type ? values.item_type : ""
-              );
-              formData.append(
-                "item_price",
-                values.item_price ? values.item_price : ""
-              );
-              formData.append(
-                "item_code",
-                values.item_code ? values.item_code : ""
-              );
-              formData.append("picture", values.picture ? values.picture : "");
-              formData.append(
-                "location",
-                values.location ? values.location : ""
-              );
-              formData.append(
-                "description",
-                values.description ? values.description : ""
-              );
-              formData.append(
-                "supplier",
-                values.supplier ? values.supplier : ""
-              );
-              formData.append(
-                "purchaseDate",
-                values.purchaseDate ? values.purchaseDate : ""
-              );
-              formData.append(
-                "reorderPointUnit",
-                values.reorderPointUnit ? values.reorderPointUnit : ""
-              );
-              formData.append(
-                "unitPrice",
-                values.unitPrice ? values.unitPrice : ""
-              );
-              formData.append("onStock", values.onStock ? values.onStock : "");
-              formData.append(
-                "totalBuyPrice",
-                values.totalBuyPrice ? values.totalBuyPrice : ""
-              );
-              formData.append(
-                "totalQuantity",
-                values.totalQuantity ? values.totalQuantity : ""
-              );
-              formData.append(
-                "item_category_id",
-                values.item_category_id ? values.item_category_id : ""
-              );
+              values.item_id &&
+                formData.append(
+                  "item_id",
+                  values.item_id ? values.item_id : ""
+                );
+              values.item_name &&
+                formData.append(
+                  "item_name",
+                  values.item_name ? values.item_name : ""
+                );
+              values.item_type &&
+                formData.append(
+                  "item_type",
+                  values.item_type ? values.item_type : ""
+                );
+              values.item_price &&
+                formData.append(
+                  "item_price",
+                  values.item_price ? values.item_price : ""
+                );
+              values.item_code &&
+                formData.append(
+                  "item_code",
+                  values.item_code ? values.item_code : ""
+                );
+              values.picture &&
+                formData.append(
+                  "picture",
+                  values.picture ? values.picture : ""
+                );
+              values.location &&
+                formData.append(
+                  "location",
+                  values.location ? values.location : ""
+                );
+              values.description &&
+                formData.append(
+                  "description",
+                  values.description ? values.description : ""
+                );
+              values.supplier &&
+                formData.append(
+                  "supplier",
+                  values.supplier ? values.supplier : ""
+                );
+              values.purchaseDate &&
+                formData.append(
+                  "purchaseDate",
+                  values.purchaseDate ? values.purchaseDate : ""
+                );
+              values.reorderPointUnit &&
+                formData.append(
+                  "reorderPointUnit",
+                  values.reorderPointUnit ? values.reorderPointUnit : ""
+                );
+              values.unitPrice &&
+                formData.append(
+                  "unitPrice",
+                  values.unitPrice ? values.unitPrice : ""
+                );
+              values.onStock &&
+                formData.append(
+                  "onStock",
+                  values.onStock ? values.onStock : ""
+                );
+              values.totalBuyPrice &&
+                formData.append(
+                  "totalBuyPrice",
+                  values.totalBuyPrice ? values.totalBuyPrice : ""
+                );
+              values.totalQuantity &&
+                formData.append(
+                  "totalQuantity",
+                  values.totalQuantity ? values.totalQuantity : ""
+                );
+              values.item_category_id &&
+                formData.append(
+                  "item_category_id",
+                  values.item_category_id ? values.item_category_id : ""
+                );
               resetForm({ values: "" });
 
               dispatch(
@@ -538,7 +563,7 @@ function Inventory() {
         location: data.location,
         description: data.description,
         item_category_id: data.item_category_id,
-        picture: data.picture,
+        picture: data.item_pic,
         merchant_id: userID,
       },
       data
