@@ -44,6 +44,9 @@ function Products() {
   ];
   return (
     <div className="">
+      <span className="ml-2 py-1 text-3xl text-cyan-500 my2 font-semibold">
+        Products
+      </span>
       <div>
         <DataTable
           title="Product Lists"

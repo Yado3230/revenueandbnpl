@@ -22,6 +22,7 @@ function Inventory() {
         return (
           <div className="p-2">
             <img
+              crossorigin="anonymous"
               src={`${row.item_pic}`}
               style={{ width: "40px", height: "40px" }}
               alt=""
@@ -71,6 +72,9 @@ function Inventory() {
 
   return (
     <div className="">
+      <span className="ml-2 py-1 text-3xl text-cyan-500 my2 font-semibold">
+        Items
+      </span>
       <div>
         {selectedRows.length ? (
           <div className="float-right border px-3 py-1 rounded mb-2 bg-cyan-500 text-lg text-white">
@@ -84,7 +88,9 @@ function Inventory() {
           columns={columns}
           data={inventoryDetail}
           pagination
-          onRowClicked={(row) => navigate(`/sales/item-request/${row.item_id}`)}
+          onRowClicked={(row) =>
+            navigate(`/sales/item-requests/${row.item_id}`)
+          }
           onSelectedRowsChange={handleRowClick}
           persistTableHeadstriped
           highlightOnHover

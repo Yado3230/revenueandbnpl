@@ -168,7 +168,9 @@ function Sales() {
                       error &&
                       Swal.fire({
                         icon: "error",
-                        title: `Something went wrong`,
+                        title:
+                          error?.response?.data?.error ||
+                          `Something went wrong`,
                         showConfirmButton: false,
                         timer: 3000,
                       })

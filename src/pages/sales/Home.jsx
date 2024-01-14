@@ -3,8 +3,9 @@ import Stat from "./Stat";
 import DataTable from "react-data-table-component";
 import { useDispatch, useSelector } from "react-redux";
 import { getInventoryDetail } from "../../store/actions/getInventoryAction";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { getLoanRequestDetail } from "../../store/actions/getLoanConfigAction";
+import { getSalesReports } from "../../store/actions/getSalesAction";
 const columns = [
   {
     name: "Image",
@@ -12,6 +13,7 @@ const columns = [
       return (
         <div className="p-2">
           <img
+            crossorigin="anonymous"
             src={`${row.item_pic}`}
             style={{ width: "40px", height: "40px" }}
             alt=""
@@ -47,48 +49,6 @@ const columns = [
   },
 ];
 
-// const data = [
-//   {
-//     national_id: "1002",
-//     first_name: "Muhidin",
-//     middle_name: "Jemal",
-//     last_name: "Misbah",
-//     customer_account: "100024822",
-//     customer_phone_number: "0935252353",
-//     item_id: 2,
-//     loan_amount: 5000,
-//     repayment_term: 3,
-//     interest_rate: 5.0,
-//     createdAt: "10/02/2023",
-//   },
-//   {
-//     national_id: "1004",
-//     first_name: "Abdi",
-//     middle_name: "Jemal",
-//     last_name: "Tiruneh",
-//     customer_account: "1000251252",
-//     customer_phone_number: "0912512352",
-//     item_id: 1,
-//     loan_amount: 5000,
-//     repayment_term: 3,
-//     interest_rate: 5.0,
-//     createdAt: "10/02/2023",
-//   },
-//   {
-//     national_id: "1005",
-//     first_name: "Yared",
-//     middle_name: "Jemal",
-//     last_name: "Mesele",
-//     customer_account: "1000254252",
-//     customer_phone_number: "09852525225",
-//     item_id: 6,
-//     loan_amount: 5000,
-//     repayment_term: 3,
-//     interest_rate: 5.0,
-//     createdAt: "10/02/2023",
-//   },
-// ];
-
 function Home() {
   const dispatch = useDispatch();
   const userData = useSelector((state) => state.userProfile);
@@ -97,13 +57,15 @@ function Home() {
 
   useEffect(() => {
     if (userID) {
-      dispatch(getLoanRequestDetail(userID));
+      dispatch(getSalesReports());
       dispatch(getInventoryDetail(userID));
     }
   }, [userID, dispatch]);
 
   const invertoryData = useSelector((state) => state.inventoryInfo);
   const { inventoryDetail } = invertoryData;
+  const salesData = useSelector((state) => state.salesInfo);
+  const { sales_reports } = salesData;
 
   const filteredItem = inventoryDetail?.filter(
     (item) =>
@@ -125,7 +87,7 @@ function Home() {
   return (
     <>
       <div className="">
-        <Stat items={inventoryDetail} />
+        <Stat sales_reports={sales_reports} items={inventoryDetail} />
         <div className="grid gap-4 mt-4 md:grid-cols-12 justify-self-auto">
           <div className="col-span-12">
             <div className="">

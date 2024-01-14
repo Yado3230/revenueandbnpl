@@ -31,7 +31,14 @@ const SellItem = async (values, setUpdated, updated) => {
 
 const SellItems = async (values, setUpdated, updated) => {
   console.log(values);
-  return await NODE_API.post("/items/batchsale", values).then((response) => {
+  return await NODE_API.post("/items/batchsale", {
+    paymentDetail: {
+      tipAmount: values.tipAmount,
+      discount: values.discount,
+      paymentMethod: values.paymentMethod,
+    },
+    items: values.items,
+  }).then((response) => {
     setUpdated(!updated);
     return response;
   });

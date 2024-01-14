@@ -117,7 +117,7 @@ function Sidebar() {
               Product Lists
             </Link>
           </li>
-          <li className="mb-1">
+          {/* <li className="mb-1">
             <Link to="item-request">
               <svg
                 class="h-6 w-6 text-primary"
@@ -137,7 +137,7 @@ function Sidebar() {
               </svg>
               Sell Item
             </Link>
-          </li>
+          </li> */}
           <li className="mb-1">
             <Link to="product-request">
               <svg
@@ -182,8 +182,8 @@ function Sidebar() {
             </Link>
           </li> */}
 
-          {/* <li>
-            <Link to={"/sales/loan"}>
+          <li>
+            <Link to={"/sales/payments"}>
               <svg
                 className="h-6 w-6 text-primary"
                 width="24"
@@ -204,9 +204,9 @@ function Sidebar() {
                 <line x1="9" y1="16" x2="9.01" y2="16" />{" "}
                 <line x1="13" y1="16" x2="15" y2="16" />
               </svg>
-              Loan List
+              Payments
             </Link>
-          </li> */}
+          </li>
         </ul>
       </div>
     </>

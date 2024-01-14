@@ -112,6 +112,14 @@ const getSalesKycDetail = async (merchant_id) => {
     (response) => response.data
   );
 };
+const getAllSalesReports = async () => {
+  return await NODE_API.get(`/sales/reports`).then((response) => response.data);
+};
+const getAllSalesPayments = async () => {
+  return await NODE_API.get(`/sales/payments`).then(
+    (response) => response.data
+  );
+};
 
 const approveSales = async (sales_kyc_id, merchant_id, setUpdated, updated) => {
   return await NODE_API.put(`/sales/approveKyc`, {
@@ -148,6 +156,8 @@ const UserService = {
   getSalesKycDetail,
   approveSales,
   rejectSales,
+  getAllSalesReports,
+  getAllSalesPayments,
 };
 
 export default UserService;

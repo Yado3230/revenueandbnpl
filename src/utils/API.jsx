@@ -2,21 +2,21 @@ import axios from "axios";
 import store from "./../store/store";
 
 // Create a new instance of axios with the token in the header
-// export const LOGIN_NODE_API = axios.create({
-//   baseURL: "/api",
-// });
-
-// export const NODE_API = axios.create({
-//   baseURL: "/api",
-// });
-
 export const LOGIN_NODE_API = axios.create({
-  baseURL: "https://192.168.2.87:8040/api",
+  baseURL: "/api",
 });
 
 export const NODE_API = axios.create({
-  baseURL: "https://192.168.2.87:8040/api",
+  baseURL: "/api",
 });
+
+// export const LOGIN_NODE_API = axios.create({
+//   baseURL: "https://192.168.2.87:8040/api",
+// });
+
+// export const NODE_API = axios.create({
+//   baseURL: "https://192.168.2.87:8040/api",
+// });
 
 // Request interceptor to update Authorization header with the token
 NODE_API.interceptors.request.use((config) => {

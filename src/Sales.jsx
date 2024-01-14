@@ -29,14 +29,17 @@ function Sales() {
               <Route path="/itemlists" element={<Inventory />}></Route>
               <Route path="/products" element={<Products />}></Route>
               <Route path="/item-request/:id" element={<SaleItem />}></Route>
-              <Route path="/item-requests/:id" element={<SaleBulkItem />}></Route>
+              <Route
+                path="/item-requests/:id"
+                element={<SaleBulkItem />}
+              ></Route>
               <Route path="/item-request" element={<SaleItem />}></Route>
               <Route
                 path="/product-request/:id"
                 element={<SaleProduct />}
               ></Route>
               <Route path="/product-request" element={<SaleProduct />}></Route>
-              <Route path="/loan" element={<LoanList />}></Route>
+              <Route path="/payments" element={<LoanList />}></Route>
               <Route path="*" element={<E404 />}></Route>
             </Routes>
           </div>

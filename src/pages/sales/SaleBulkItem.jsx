@@ -14,6 +14,7 @@ const SaleBulkItem = () => {
   const navigate = useNavigate();
 
   const [updated, setUpdated] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     dispatch(getInventoryDetail());
@@ -54,6 +55,7 @@ const SaleBulkItem = () => {
       <Formik
         initialValues={{
           discount: 0,
+          tipAmount: 0,
           paymentMethod: "Cash",
           items: inventoryDetail
             .filter((item) => numericIds.includes(item.item_id))
@@ -69,6 +71,7 @@ const SaleBulkItem = () => {
         }}
         // validationSchema={ValidationSchema}
         onSubmit={(values) => {
+          setLoading(true);
           dispatch(
             InventoryService.SellItems(values, setUpdated, updated)
               .then((response) => {
@@ -92,42 +95,66 @@ const SaleBulkItem = () => {
                   timer: 3000,
                 });
               })
+              .finally(() => setLoading(false))
           );
         }}
       >
         {(formik) => (
           <form onSubmit={formik.handleSubmit}>
             <div className="grid gap-4 mb-4 grid-cols-2 sm:gap-6 sm:mb-5">
-              <div className="w-full">
-                <Selectinput
-                  arr={item_option2}
-                  id="paymentMethod"
-                  name="paymentMethod"
-                  value={formik.values.paymentMethod}
-                  handleChange={formik.handleChange}
-                  title="Payment Method"
-                />
-              </div>
-              <div className="w-full">
-                <label
-                  htmlFor="discount"
-                  className="mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >
-                  Discount
-                </label>
-                <span className="text-sm link-error">
-                  <ErrorMessage name="discount" />
-                </span>
-                <input
-                  type="number"
-                  name="discount"
-                  id="discount"
-                  min={0}
-                  placeholder="discount"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  value={formik.values.discount}
-                  onChange={formik.handleChange}
-                />
+              <div className="md:col-span-2 grid md:grid-cols-3 gap-2 items-center">
+                <div className="w-full">
+                  <Selectinput
+                    arr={item_option2}
+                    id="paymentMethod"
+                    name="paymentMethod"
+                    value={formik.values.paymentMethod}
+                    handleChange={formik.handleChange}
+                    title="Payment Method"
+                  />
+                </div>
+                <div className="w-full">
+                  <label
+                    htmlFor="discount"
+                    className="mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >
+                    Discount
+                  </label>
+                  <span className="text-sm link-error">
+                    <ErrorMessage name="discount" />
+                  </span>
+                  <input
+                    type="number"
+                    name="discount"
+                    id="discount"
+                    min={0}
+                    placeholder="discount"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    value={formik.values.discount}
+                    onChange={formik.handleChange}
+                  />
+                </div>
+                <div className="w-full">
+                  <label
+                    htmlFor="tipAmount"
+                    className="mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >
+                    Tip
+                  </label>
+                  <span className="text-sm link-error">
+                    <ErrorMessage name="tipAmount" />
+                  </span>
+                  <input
+                    type="number"
+                    name="tipAmount"
+                    id="tipAmount"
+                    min={0}
+                    placeholder="tipAmount"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    value={formik.values.tipAmount}
+                    onChange={formik.handleChange}
+                  />
+                </div>
               </div>
               {formik.values.items.map((item, index) => (
                 <div key={index} className="border bg-gray-100 p-5 rounded-xl">
@@ -155,7 +182,7 @@ const SaleBulkItem = () => {
                       min={
                         inventoryDetail.find(
                           (invItem) => invItem?.item_id === item.item_id
-                        )?.item_price
+                        )?.item_price * 1
                       }
                       type="number"
                       name={`items[${index}].item_sale_price`}
@@ -185,7 +212,7 @@ const SaleBulkItem = () => {
                       max={
                         inventoryDetail.find(
                           (invItem) => invItem?.item_id === item.item_id
-                        )?.onStock
+                        )?.onStock * 1
                       }
                       placeholder="quantity"
                       className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -218,10 +245,11 @@ const SaleBulkItem = () => {
             </div>
             <button
               type="submit"
+              disabled={loading}
               style={{ backgroundColor: "#01AFEF" }}
               className="swal2-confirm swal2-styled"
             >
-              Submit
+              {loading ? "Loading..." : "Submit"}
             </button>
           </form>
         )}
