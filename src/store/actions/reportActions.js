@@ -3,6 +3,7 @@ import {
   YEARLY_REVENUE_AND_PROFT,
   PREVIOUS_AND_CURRENT_MONTH,
   SET_SOLD_ITEMS,
+  SET_ON_STOCK_ITEMS,
 } from "../types";
 // import AuthService from "../../services/auth.service";
 
@@ -55,6 +56,19 @@ export const getAllSoldItems = (merchant_id) => async (dispatch) => {
     const dashboardCardDetails = await ReportService.getSoldItems(merchant_id);
     dispatch({
       type: SET_SOLD_ITEMS,
+      payload: dashboardCardDetails,
+    });
+  } catch (error) {
+    return error;
+  }
+};
+export const getOnStockItems = (merchant_id) => async (dispatch) => {
+  try {
+    const dashboardCardDetails = await ReportService.getAllOnStockItems(
+      merchant_id
+    );
+    dispatch({
+      type: SET_ON_STOCK_ITEMS,
       payload: dashboardCardDetails,
     });
   } catch (error) {

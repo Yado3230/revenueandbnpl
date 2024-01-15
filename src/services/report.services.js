@@ -68,9 +68,25 @@ const getAllCurrentAndPreviousMonthReport = async (merchant_id) => {
 
 const getSoldItems = async (merchant_id) => {
   const apiUrl = new URL(
-    "/reporting/calculate/soldItemReport",
+    `/reporting/calculate/soldItemReport`,
     window.location.origin
-  ); // Assuming you are running this in a browser
+  );
+
+  if (merchant_id) {
+    apiUrl.searchParams.append("merchant_id", merchant_id);
+  }
+
+  console.log(apiUrl.pathname + apiUrl.search);
+  return await NODE_API.get(apiUrl.pathname + apiUrl.search).then(
+    (response) => response.data
+  );
+};
+
+const getAllOnStockItems = async (merchant_id) => {
+  const apiUrl = new URL(
+    `/reporting/calculate/itemReport`,
+    window.location.origin
+  );
 
   if (merchant_id) {
     apiUrl.searchParams.append("merchant_id", merchant_id);
@@ -87,6 +103,7 @@ const ReportService = {
   getAllYearlyRevenueandProfit,
   getAllCurrentAndPreviousMonthReport,
   getSoldItems,
+  getAllOnStockItems,
 };
 
 export default ReportService;

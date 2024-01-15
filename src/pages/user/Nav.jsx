@@ -68,6 +68,7 @@ function Nav() {
               <span className="label-text mx-2 font-bold">BNPL</span>
               <input
                 type="checkbox"
+                disabled
                 className="toggle toggle-accent"
                 checked={kyc?.rbf}
                 onClick={() => handleToggleEdit()}

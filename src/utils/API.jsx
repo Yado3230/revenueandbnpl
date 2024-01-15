@@ -11,11 +11,11 @@ export const NODE_API = axios.create({
 });
 
 // export const LOGIN_NODE_API = axios.create({
-//   baseURL: "https://192.168.2.87:8040/api",
+//   baseURL: "https://192.168.2.60:8040/api",
 // });
 
 // export const NODE_API = axios.create({
-//   baseURL: "https://192.168.2.87:8040/api",
+//   baseURL: "https://192.168.2.60:8040/api",
 // });
 
 // Request interceptor to update Authorization header with the token

@@ -2,7 +2,7 @@ import { ErrorMessage, Formik } from "formik";
 import React, { useEffect, useState } from "react";
 import * as Yup from "yup";
 import Selectinput from "../../components/Selectinput";
-import { redirect, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import InventoryService from "../../services/inventory.service";
@@ -33,6 +33,7 @@ const SaleProduct = () => {
     value: item?.product_id,
     label: item?.product_name,
   }));
+
   const item_option2 = [
     {
       value: "Cash",

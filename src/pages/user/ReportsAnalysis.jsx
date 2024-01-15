@@ -13,6 +13,7 @@ import {
   ReferenceLine,
   ResponsiveContainer,
 } from "recharts";
+import SoldItem from "./SoltItem";
 
 const COLORS1 = ["#F082DD", "#e0e0e0"];
 const COLORS = ["#00bcd4", "#e0e0e0"];
@@ -22,6 +23,7 @@ const ReportAnalysis = React.memo(
     dashboardCardReport,
     yearlyRevenueandprofit,
     previousAndCurrentMonth,
+    soldItems,
   }) => {
     const items = useMemo(
       () => ({
@@ -153,18 +155,7 @@ const ReportAnalysis = React.memo(
       <React.Fragment>
         <div className="container mx-auto p-4">
           <div className="grid grid-cols-1 h-full md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <div className="md:col-span-2 lg:col-span-1 h-full">
-              <div className="card bg-base-100 shadow-sm border">
-                <div className="card-body">
-                  <h2 className="card-title text-cyan-500 font-bold whitespace-nowrap">
-                    Congra Amir!
-                  </h2>
-                  <p>Best seller of the month</p>
-                  <p>$48.9k</p>
-                </div>
-              </div>
-            </div>
-            <div className="md:col-span-2 lg:col-span-2 h-full">
+            <div className="md:col-span-2 lg:col-span-3 h-full">
               <div className="card bg-base-100 shadow-sm border">
                 <div className="card-body">
                   <h2 className="card-title">Statistics</h2>
@@ -436,111 +427,7 @@ const ReportAnalysis = React.memo(
                   <p>Top sold Products</p>
                   <div>
                     <div className="flex flex-col">
-                      <div className="flex items-center justify-between p-1 rounded w-full border-y pt-2 my-1">
-                        <div className="flex items-center">
-                          <div className="avatar mr-2">
-                            <div className="w-7 h-7 rounded">
-                              <img
-                                src="https://pictures-ethiopia.jijistatic.com/504477_NjIwLTcyNi01ZjY2MWIwMjk2LTE.webp"
-                                alt="galaxy"
-                              />
-                            </div>
-                          </div>
-                          <div className="flex flex-col item-start justify-center">
-                            <h3 className="font-semibold text-sm whitespace-nowrap">
-                              Galaxy A32
-                            </h3>
-                            <div className="text-xs text-gray-500">
-                              8 Items are sold
-                            </div>
-                          </div>
-                        </div>
-                        <span className="font-semibold">180000$</span>
-                      </div>
-                      <div className="flex items-center justify-between p-1 rounded w-full border-b my-1">
-                        <div className="flex items-center">
-                          <div className="avatar mr-2">
-                            <div className="w-7 h-7 rounded">
-                              <img
-                                src="https://m.media-amazon.com/images/I/41sT-ej9Q-L.jpg"
-                                alt="galaxy"
-                              />
-                            </div>
-                          </div>
-                          <div className="flex flex-col item-start justify-center">
-                            <h3 className="font-semibold text-sm whitespace-nowrap">
-                              HP Laptop
-                            </h3>
-                            <div className="text-xs text-gray-500">
-                              8 Items are sold
-                            </div>
-                          </div>
-                        </div>
-                        <span className="font-semibold">173000$</span>
-                      </div>
-                      <div className="flex items-center justify-between p-1 rounded w-full border-b my-1">
-                        <div className="flex items-center">
-                          <div className="avatar mr-2">
-                            <div className="w-7 h-7 rounded">
-                              <img
-                                src="https://images.macrumors.com/t/Xli73M4hhPje3C5CeyhH1Z_c2Ro=/800x0/smart/article-new/2018/02/airpods-3.jpg?lossy"
-                                alt="galaxy"
-                              />
-                            </div>
-                          </div>
-                          <div className="flex flex-col item-start justify-center">
-                            <h3 className="font-semibold text-sm whitespace-nowrap">
-                              Airpod Pro 3
-                            </h3>
-                            <div className="text-xs text-gray-500">
-                              12 Items are sold
-                            </div>
-                          </div>
-                        </div>
-                        <span className="font-semibold">102000$</span>
-                      </div>
-                      <div className="flex items-center justify-between p-1 rounded w-full border-b my-1">
-                        <div className="flex items-center">
-                          <div className="avatar mr-2">
-                            <div className="w-7 h-7 rounded">
-                              <img
-                                src="https://shop.yourdoor.co.za/wp-content/uploads/2019/12/airphone-1.jpg"
-                                alt="galaxy"
-                              />
-                            </div>
-                          </div>
-                          <div className="flex flex-col item-start justify-center">
-                            <h3 className="font-semibold text-sm whitespace-nowrap">
-                              Headset
-                            </h3>
-                            <div className="text-xs text-gray-500">
-                              4 Items are sold
-                            </div>
-                          </div>
-                        </div>
-                        <span className="font-semibold">100$</span>
-                      </div>
-                      <div className="flex items-center justify-between p-1 rounded w-full border-b my-1">
-                        <div className="flex items-center">
-                          <div className="avatar mr-2">
-                            <div className="w-7 h-7 rounded">
-                              <img
-                                src="https://pictures-ethiopia.jijistatic.com/504477_NjIwLTcyNi01ZjY2MWIwMjk2LTE.webp"
-                                alt="galaxy"
-                              />
-                            </div>
-                          </div>
-                          <div className="flex flex-col item-start justify-center">
-                            <h3 className="font-semibold text-sm whitespace-nowrap">
-                              Galaxy A32
-                            </h3>
-                            <div className="text-xs text-gray-500">
-                              10 Items are sold
-                            </div>
-                          </div>
-                        </div>
-                        <span className="font-semibold">100$</span>
-                      </div>
+                      <SoldItem items={soldItems} />
                     </div>
                   </div>
                 </div>

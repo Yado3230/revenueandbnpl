@@ -1,6 +1,7 @@
 import {
   PREVIOUS_AND_CURRENT_MONTH,
   SET_DASHBOARD_CARD_REPORT,
+  SET_ON_STOCK_ITEMS,
   SET_SOLD_ITEMS,
   YEARLY_REVENUE_AND_PROFT,
 } from "../types";
@@ -10,6 +11,7 @@ const initialState = {
   yearlyRevenueandprofit: {},
   previousAndCurrentMonth: {},
   soldItems: [],
+  onStockItems: [],
   loading: false,
 };
 
@@ -37,6 +39,12 @@ export default function (state = initialState, action) {
       return {
         ...state,
         soldItems: action.payload,
+        loading: false,
+      };
+    case SET_ON_STOCK_ITEMS:
+      return {
+        ...state,
+        onStockItems: action.payload,
         loading: false,
       };
     default:
