@@ -2,10 +2,9 @@ import React, { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Banner from "./Banner";
 import RBFStats from "./RBFStat";
-import RNFChart from "./RNFChart";
 import {
   getAllSoldItems,
-  getDashboardCardDetail,
+  getModifiedReports,
   getYearlyRevenueandProfit,
 } from "../../store/actions/reportActions";
 import {
@@ -20,26 +19,21 @@ import {
   YAxis,
 } from "recharts";
 import SoldItem from "./SoltItem";
-import { getInventoryDetail } from "../../store/actions/getInventoryAction";
 
 function RBFHome() {
+  const currentDate = new Date().toISOString().split("T")[0];
   const dispatch = useDispatch();
   const userData = useSelector((state) => state.userProfile);
   const { kyc, userID } = userData;
 
   useEffect(() => {
-    dispatch(getDashboardCardDetail("", "", userID));
-    dispatch(getYearlyRevenueandProfit(2023, userID));
+    dispatch(getYearlyRevenueandProfit(2024, userID));
     dispatch(getAllSoldItems(userID));
-
+    dispatch(getModifiedReports(userID, "", "", currentDate, true, true, true));
   }, []);
 
-
-
   const reportData = useSelector((state) => state.reportInfo);
-  const { dashboardCardReport, yearlyRevenueandprofit, soldItems } = reportData;
-
-
+  const { yearlyRevenueandprofit, soldItems, modifiedReports } = reportData;
 
   const yearlyRevenueandprofitnew = useMemo(() => {
     if (yearlyRevenueandprofit.monthly_revenue) {
@@ -121,7 +115,7 @@ function RBFHome() {
             Request For Loan
           </button>
         </div>
-        <RBFStats items={dashboardCardReport} />
+        <RBFStats items={modifiedReports} />
         <div className="grid gap-2 mt-2 md:grid-cols-12 justify-self-auto">
           <div className="col-span-6 p-2 rounded shadow bg-white">
             <div className="flex items-center justify-between mb-2">

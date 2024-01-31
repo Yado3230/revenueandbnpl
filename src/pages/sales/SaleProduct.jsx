@@ -46,24 +46,11 @@ const SaleProduct = () => {
     quantity: Yup.number().required("quantity is required").default(1),
   });
 
-  // const item_option = [
-  //   {
-  //     value: "1",
-  //     label: "A32",
-  //   },
-  //   {
-  //     value: "2",
-  //     label: "Galaxy A33",
-  //   },
-  // ];
-
   return (
     <div className="border p-7 rounded bg-white">
       <>
         <Formik
           initialValues={values}
-          // validationSchema={ValidationSchema}
-          // isInitialValid={ValidationSchema.isValidSync(values)}
           onSubmit={(values) => {
             dispatch(
               InventoryService.SellProduct(values, setUpdated, updated)
@@ -104,29 +91,9 @@ const SaleProduct = () => {
                     name="product_id"
                     value={formik.values.product_id}
                     handleChange={formik.handleChange}
-                    title="Select Item"
+                    title="Select Product"
                   />
                 </div>
-                {/* <div className="w-full">
-                  <label
-                    htmlFor="suk"
-                    className="mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >
-                    Suk
-                  </label>
-                  <span className="text-sm link-error">
-                    <ErrorMessage name="suk"></ErrorMessage>
-                  </span>
-                  <input
-                    type="text"
-                    name="suk"
-                    id="suk"
-                    placeholder="suk"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    value={formik.values.suk}
-                    onChange={formik.handleChange}
-                  />
-                </div> */}
                 <div className="w-full">
                   <Selectinput
                     arr={item_option2}
@@ -134,30 +101,10 @@ const SaleProduct = () => {
                     name="paymentMethod"
                     value={formik.values.paymentMethod}
                     handleChange={formik.handleChange}
-                    title="Select Item"
+                    title="Payment Method"
                   />
                 </div>
 
-                {/* <div className="w-full">
-                  <label
-                    htmlFor="paymentMethod"
-                    className="mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >
-                    Payment Method
-                  </label>
-                  <span className="text-sm link-error">
-                    <ErrorMessage name="paymentMethod"></ErrorMessage>
-                  </span>
-                  <input
-                    type="text"
-                    name="paymentMethod"
-                    id="paymentMethod"
-                    placeholder="payment-method"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    value={formik.values.paymentMethod}
-                    onChange={formik.handleChange}
-                  />
-                </div> */}
                 <div className="w-full">
                   <label
                     htmlFor="item_sale_price"

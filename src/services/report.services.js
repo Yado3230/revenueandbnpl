@@ -98,12 +98,55 @@ const getAllOnStockItems = async (merchant_id) => {
   );
 };
 
+const getAllModifiedReports = async (
+  merchant_id,
+  startTimestamp,
+  endTimestamp,
+  timestamp,
+  total,
+  expense,
+  cost
+) => {
+  const apiUrl = new URL(
+    `/reporting/calculate/modified`,
+    window.location.origin
+  );
+
+  if (merchant_id) {
+    apiUrl.searchParams.append("merchantId", merchant_id);
+  }
+  if (startTimestamp) {
+    apiUrl.searchParams.append("startTimestamp", startTimestamp);
+  }
+  if (endTimestamp) {
+    apiUrl.searchParams.append("endTimestamp", endTimestamp);
+  }
+  if (timestamp) {
+    apiUrl.searchParams.append("timestamp", timestamp);
+  }
+  if (total) {
+    apiUrl.searchParams.append("total", total);
+  }
+  if (expense) {
+    apiUrl.searchParams.append("expense", expense);
+  }
+  if (cost) {
+    apiUrl.searchParams.append("cost", cost);
+  }
+
+  console.log(apiUrl.pathname + apiUrl.search);
+  return await NODE_API.get(apiUrl.pathname + apiUrl.search).then(
+    (response) => response.data
+  );
+};
+
 const ReportService = {
   getAllDashboardCardDetail,
   getAllYearlyRevenueandProfit,
   getAllCurrentAndPreviousMonthReport,
   getSoldItems,
   getAllOnStockItems,
+  getAllModifiedReports,
 };
 
 export default ReportService;

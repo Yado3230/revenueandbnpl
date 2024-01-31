@@ -21,9 +21,12 @@ function RBFStats({ items }) {
                 />
               </svg>
             </div>
-            <div className="stat-title">Net Profit</div>
+            <div className="stat-title">Daily Revenue</div>
             <div className="stat-value text-primary">
-              {items?.totalProfit || 0}
+              {(
+                items?.daily_revenue?.find((item) => item.sales_id === 0)
+                  .total || 0
+              ).toLocaleString()}
             </div>
           </div>
 
@@ -43,9 +46,9 @@ function RBFStats({ items }) {
                 <polyline points="17 6 23 6 23 12" />
               </svg>
             </div>
-            <div className="stat-title">Revenue</div>
+            <div className="stat-title">Total Revenue</div>
             <div className="stat-value text-secondary">
-              {items?.totalrevenue || 0}
+              {items?.total_revenue?.total?.toLocaleString() || 0}
             </div>
             {/* <div className="stat-desc">11% less than yesterday</div> */}
           </div>
@@ -66,9 +69,9 @@ function RBFStats({ items }) {
                 ></path>
               </svg>
             </div>
-            <div className="stat-title">Expense</div>
+            <div className="stat-title">Total Expense</div>
             <div className="stat-value text-primary">
-              {items?.totalExpense || 0}
+              {items?.expense?.total?.toLocaleString() || 0}
             </div>
           </div>
 
@@ -92,7 +95,7 @@ function RBFStats({ items }) {
             </div>
             <div className="stat-title">Cost of Goods & Services</div>
             <div className="stat-value text-accent">
-              {items?.totalBuyPrice || 0}
+              {items?.total_buy_price?.total?.toLocaleString() || 0}
             </div>
           </div>
         </div>

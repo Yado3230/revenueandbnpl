@@ -18,6 +18,7 @@ import {
   getAllSoldItems,
   getCurrentAndPreviousMonthReport,
   getDashboardCardDetail,
+  getModifiedReports,
   getOnStockItems,
   getYearlyRevenueandProfit,
 } from "../../store/actions/reportActions";
@@ -51,6 +52,7 @@ const InventoryReport = () => {
     previousAndCurrentMonth,
     soldItems,
     onStockItems,
+    modifiedReports,
   } = reportData;
 
   const userData = useSelector((state) => state.userProfile);
@@ -63,6 +65,17 @@ const InventoryReport = () => {
     dispatch(getAllSoldItems(userID));
     dispatch(getOnStockItems(userID));
     dispatch(getInventoryDetail(userID));
+    dispatch(
+      getModifiedReports(
+        userID,
+        fromDate,
+        toDate,
+        currentDate,
+        true,
+        true,
+        true
+      )
+    );
   }, [filtered, userID]);
 
   const inventoryInfo = useSelector((state) => state.inventoryInfo);
@@ -128,6 +141,7 @@ const InventoryReport = () => {
           <ReportAnalysis
             yearlyRevenueandprofit={yearlyRevenueandprofit}
             dashboardCardReport={dashboardCardReport}
+            modifiedReports={modifiedReports}
             previousAndCurrentMonth={previousAndCurrentMonth}
             soldItems={soldItems}
           />

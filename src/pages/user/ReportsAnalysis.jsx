@@ -24,6 +24,7 @@ const ReportAnalysis = React.memo(
     yearlyRevenueandprofit,
     previousAndCurrentMonth,
     soldItems,
+    modifiedReports,
   }) => {
     const items = useMemo(
       () => ({
@@ -177,9 +178,13 @@ const ReportAnalysis = React.memo(
                             />
                           </svg>
                         </div>
-                        <div className="stat-title">Net Profit</div>
+                        <div className="stat-title">Daily Revenue</div>
                         <div className="stat-value text-primary">
-                          {dashboardCardReport?.totalProfit || 0}
+                          {(
+                            modifiedReports?.daily_revenue?.find(
+                              (item) => item.sales_id === 0
+                            ).total || 0
+                          ).toLocaleString()}
                         </div>
                       </div>
 
@@ -199,9 +204,10 @@ const ReportAnalysis = React.memo(
                             <polyline points="17 6 23 6 23 12" />
                           </svg>
                         </div>
-                        <div className="stat-title">Revenue</div>
+                        <div className="stat-title">Total Revenue</div>
                         <div className="stat-value text-secondary">
-                          {dashboardCardReport?.totalrevenue || 0}
+                          {modifiedReports?.total_revenue?.total?.toLocaleString() ||
+                            0}
                         </div>
                         {/* <div className="stat-desc">11% less than yesterday</div> */}
                       </div>
@@ -222,9 +228,10 @@ const ReportAnalysis = React.memo(
                             ></path>
                           </svg>
                         </div>
-                        <div className="stat-title">Expense</div>
+                        <div className="stat-title">Total Expense</div>
                         <div className="stat-value text-primary">
-                          {dashboardCardReport?.totalExpense || 0}
+                          {modifiedReports?.expense?.total?.toLocaleString() ||
+                            0}
                         </div>
                       </div>
 
@@ -250,7 +257,8 @@ const ReportAnalysis = React.memo(
                           Cost of Goods & Services
                         </div>
                         <div className="stat-value text-accent">
-                          {dashboardCardReport?.totalBuyPrice || 0}
+                          {modifiedReports?.total_buy_price?.total?.toLocaleString() ||
+                            0}
                         </div>
                       </div>
                     </div>
@@ -265,7 +273,7 @@ const ReportAnalysis = React.memo(
               <div className="grid grid-cols-2 gap-2">
                 <div className="card bg-base-100 col-span-2 md:col-span-1 shadow-sm border">
                   <div className="card-body">
-                    <h2 className="card-title">82.5k</h2>
+                    <h2 className="card-title"></h2>
                     <p>Expenses</p>
                     <div className="flex flex-col items-center -mt-12">
                       <ResponsiveContainer width="100%" height={100}>
@@ -459,27 +467,22 @@ const ReportAnalysis = React.memo(
                           Cost of goods and services
                         </span>
                         <span className="font-semibold">
-                          {dashboardCardReport?.totalBuyPrice}
+                          {modifiedReports?.total_buy_price?.total?.toLocaleString() ||
+                            0}
                         </span>
                       </div>
                       <div className="flex items-center py-2 justify-between border-b mx-1">
                         <span className="text-gray-600">Expense</span>
                         <span className="font-semibold">
-                          {dashboardCardReport?.totalexpence}
+                          {modifiedReports?.expense?.total?.toLocaleString() ||
+                            0}
                         </span>
                       </div>
                       <div className="flex items-center py-2 justify-between border-b mx-1">
                         <span className="text-gray-600">Revenue</span>
                         <span className="font-semibold">
-                          {dashboardCardReport?.totalrevenue}
-                        </span>
-                      </div>
-                      <div className="flex items-center py-2 justify-between border-b mx-1">
-                        <span className="text-cyan-600 font-bold text-xl">
-                          Profit
-                        </span>
-                        <span className="text-cyan-600 font-bold text-xl">
-                          {dashboardCardReport?.totalProfit}
+                          {modifiedReports?.total_revenue?.total?.toLocaleString() ||
+                            0}
                         </span>
                       </div>
                     </div>

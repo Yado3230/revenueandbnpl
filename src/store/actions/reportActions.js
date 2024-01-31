@@ -4,6 +4,7 @@ import {
   PREVIOUS_AND_CURRENT_MONTH,
   SET_SOLD_ITEMS,
   SET_ON_STOCK_ITEMS,
+  SET_MODIFIED_REPORT,
 } from "../types";
 // import AuthService from "../../services/auth.service";
 
@@ -75,3 +76,33 @@ export const getOnStockItems = (merchant_id) => async (dispatch) => {
     return error;
   }
 };
+
+export const getModifiedReports =
+  (
+    merchant_id,
+    startTimestamp,
+    endTimestamp,
+    timestamp,
+    total,
+    expense,
+    cost
+  ) =>
+  async (dispatch) => {
+    try {
+      const dashboardCardDetails = await ReportService.getAllModifiedReports(
+        merchant_id,
+        startTimestamp,
+        endTimestamp,
+        timestamp,
+        total,
+        expense,
+        cost
+      );
+      dispatch({
+        type: SET_MODIFIED_REPORT,
+        payload: dashboardCardDetails,
+      });
+    } catch (error) {
+      return error;
+    }
+  };
