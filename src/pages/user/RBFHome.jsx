@@ -19,6 +19,7 @@ import {
   YAxis,
 } from "recharts";
 import SoldItem from "./SoltItem";
+import { Link } from "react-router-dom";
 
 function RBFHome() {
   const currentDate = new Date().toISOString().split("T")[0];
@@ -111,9 +112,11 @@ function RBFHome() {
         {!kyc && <Banner />}
         <div className="flex items-center justify-between">
           <div className="font-semibold text-2xl text-gray-600">Dashboard</div>
-          <button className="btn btn-outline btn-info mb-2">
-            Request For Loan
-          </button>
+          <Link to="loanrequest">
+            <button className="btn btn-outline btn-info mb-2">
+              Request For Loan
+            </button>
+          </Link>
         </div>
         <RBFStats items={modifiedReports} />
         <div className="grid gap-2 mt-2 md:grid-cols-12 justify-self-auto">
