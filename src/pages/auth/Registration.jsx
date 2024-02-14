@@ -1,30 +1,71 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Formik } from "formik";
+import { ErrorMessage, Formik } from "formik";
 import * as Yup from "yup";
 import AuthService from "../../services/auth.service";
 import Swal from "sweetalert2";
-// import withReactContent from "sweetalert2-react-content";
 import logo from "./../../assets/images/logo.png";
-// const MySwal = withReactContent(Swal);
-// import { useState } from "react";
-function Registration() {
-  // const form = useRef();
-  // const checkButton = useRef();
 
-  // const [fname, setFname] = useState("");
-  // const [lname, setLname] = useState("");
-  // const [email, setEmail] = useState("");
-  // const [phone, setPhone] = useState("");
-  // const [password, setPassword] = useState("");
+function Registration() {
+  const [validationResult, setValidationResult] = useState({
+    errors: [],
+    requirements: {},
+  });
+
+  const StrongPasswordRegex =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+  const validatePassword = (value) => {
+    let errors = [];
+    const requirements = {
+      length: value.length >= 8 && value.length <= 40,
+      lowercase: /[a-z]/.test(value),
+      uppercase: /[A-Z]/.test(value),
+      digit: /\d/.test(value),
+      specialChar: /[@$!%*?&]/.test(value),
+    };
+
+    if (!requirements.length) {
+      errors.push("Password must be between 8 and 40 characters long.");
+    }
+
+    if (!requirements.lowercase) {
+      errors.push("Password must contain at least one lowercase letter.");
+    }
+
+    if (!requirements.uppercase) {
+      errors.push("Password must contain at least one uppercase letter.");
+    }
+
+    if (!requirements.digit) {
+      errors.push("Password must contain at least one digit.");
+    }
+
+    if (!requirements.specialChar) {
+      errors.push("Password must contain at least one special character.");
+    }
+
+    return { errors, requirements };
+  };
+
+  const handlePasswordChange = (e) => {
+    const newPassword = e.target.value;
+    const validationResult = validatePassword(newPassword);
+    setValidationResult(validationResult);
+  };
+
   const [successful, setSuccessful] = useState(false);
   const [message, setMessage] = useState("");
-  // const [open, setOpen] = useState(false);
+
   const validationSchema = Yup.object().shape({
     username: Yup.string().required("Username is required"),
     password: Yup.string()
       .required("Password is required")
-      .min(6, "Password must be at least 6 characters")
+      .matches(
+        StrongPasswordRegex,
+        "Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one digit, and one special character."
+      )
+      .min(8, "Password must be at least 6 characters")
       .max(40, "Password must not exceed 40 characters"),
     confirmPassword: Yup.string()
       .required("Confirm Password is required")
@@ -123,6 +164,7 @@ function Registration() {
                             required=""
                             maxlength="200"
                           />
+                          {/* <ErrorMessage name="username"></ErrorMessage> */}
                         </div>
                         <div>
                           <label
@@ -141,11 +183,15 @@ function Registration() {
                             name="password"
                             id="password"
                             value={props.values.password}
-                            onChange={props.handleChange}
+                            onChange={(e) => {
+                              props.handleChange(e);
+                              handlePasswordChange(e, setValidationResult);
+                            }}
                             placeholder="••••••••"
                             className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
                             required=""
                           />
+                          {/* <ErrorMessage name="password"></ErrorMessage> */}
                         </div>
                         <div>
                           <label
@@ -164,13 +210,155 @@ function Registration() {
                           <input
                             type="password"
                             name="confirmPassword"
-                            id="confirm-password"
+                            id="confirmPassword"
                             value={props.values.confirmPassword}
                             onChange={props.handleChange}
                             placeholder="••••••••"
                             className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
                             required=""
                           />
+                          {/* <ErrorMessage name="confirmPassword"></ErrorMessage> */}
+                        </div>
+                        <div>
+                          {props.values.password.length > 0 ? (
+                            validationResult.requirements.specialChar &&
+                            validationResult.requirements.digit &&
+                            validationResult.requirements.lowercase &&
+                            validationResult.requirements.uppercase &&
+                            validationResult.requirements.length ? (
+                              <li className="flex items-center justify-between">
+                                <span
+                                  className={`font-semibold text-green-500`}
+                                >
+                                  Password Check{" "}
+                                </span>
+                                <span
+                                  className={`font-semibold text-green-500`}
+                                >
+                                  ✓
+                                </span>
+                              </li>
+                            ) : (
+                              <div className="text-sm">
+                                <ul className="">
+                                  <li className="flex items-center justify-between">
+                                    <span
+                                      className={`font-semibold ${
+                                        validationResult.requirements.length
+                                          ? "text-green-500"
+                                          : "text-red-500"
+                                      }`}
+                                    >
+                                      Password Length:{" "}
+                                    </span>
+                                    <span
+                                      className={`font-semibold ${
+                                        validationResult.requirements.length
+                                          ? "text-green-500"
+                                          : "text-red-500"
+                                      }`}
+                                    >
+                                      {validationResult.requirements.length
+                                        ? "✓"
+                                        : "✗"}
+                                    </span>
+                                  </li>
+                                  <li className="flex items-center justify-between">
+                                    <span
+                                      className={`font-semibold ${
+                                        validationResult.requirements.lowercase
+                                          ? "text-green-500"
+                                          : "text-red-500"
+                                      }`}
+                                    >
+                                      Contains Lowercase Letter:{" "}
+                                    </span>
+                                    <span
+                                      className={`font-semibold ${
+                                        validationResult.requirements.lowercase
+                                          ? "text-green-500"
+                                          : "text-red-500"
+                                      }`}
+                                    >
+                                      {validationResult.requirements.lowercase
+                                        ? "✓"
+                                        : "✗"}
+                                    </span>
+                                  </li>
+                                  <li className="flex items-center justify-between">
+                                    <span
+                                      className={`font-semibold ${
+                                        validationResult.requirements.uppercase
+                                          ? "text-green-500"
+                                          : "text-red-500"
+                                      }`}
+                                    >
+                                      Contains Uppercase Letter:{" "}
+                                    </span>
+                                    <span
+                                      className={`font-semibold ${
+                                        validationResult.requirements.uppercase
+                                          ? "text-green-500"
+                                          : "text-red-500"
+                                      }`}
+                                    >
+                                      {validationResult.requirements.uppercase
+                                        ? "✓"
+                                        : "✗"}
+                                    </span>
+                                  </li>
+                                  <li className="flex items-center justify-between">
+                                    <span
+                                      className={`font-semibold ${
+                                        validationResult.requirements.digit
+                                          ? "text-green-500"
+                                          : "text-red-500"
+                                      }`}
+                                    >
+                                      Contains Digit:{" "}
+                                    </span>
+                                    <span
+                                      className={`font-semibold ${
+                                        validationResult.requirements.digit
+                                          ? "text-green-500"
+                                          : "text-red-500"
+                                      }`}
+                                    >
+                                      {validationResult.requirements.digit
+                                        ? "✓"
+                                        : "✗"}
+                                    </span>
+                                  </li>
+                                  <li className="flex items-center justify-between">
+                                    <span
+                                      className={`font-semibold ${
+                                        validationResult.requirements
+                                          .specialChar
+                                          ? "text-green-500"
+                                          : "text-red-500"
+                                      }`}
+                                    >
+                                      Contains Special Character:{" "}
+                                    </span>
+                                    <span
+                                      className={`font-semibold ${
+                                        validationResult.requirements
+                                          .specialChar
+                                          ? "text-green-500"
+                                          : "text-red-500"
+                                      }`}
+                                    >
+                                      {validationResult.requirements.specialChar
+                                        ? "✓"
+                                        : "✗"}
+                                    </span>
+                                  </li>
+                                </ul>
+                              </div>
+                            )
+                          ) : (
+                            ""
+                          )}
                         </div>
                         <div className="flex flex-col items-start">
                           <div className="flex items-center h-5">
@@ -213,6 +401,7 @@ function Registration() {
                         >
                           Create an account
                         </button>
+
                         <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                           Already have an account?{" "}
                           <Link
