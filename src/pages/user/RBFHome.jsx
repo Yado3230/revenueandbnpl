@@ -112,7 +112,7 @@ function RBFHome() {
         {!kyc && <Banner />}
         <div className="flex items-center justify-between">
           <div className="font-semibold text-2xl text-gray-600">Dashboard</div>
-          <Link to="">
+          <Link to="loanrequest">
             <button className="btn btn-outline btn-info mb-2">
               Request For Loan
             </button>

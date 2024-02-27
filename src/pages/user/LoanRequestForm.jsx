@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { getCalculatedCapacity } from "../../store/actions/capacityAction";
 
 const estimatedData = [
   { month: "Month 1", value: 5868.1, Commulative: 5868.1 },
@@ -34,9 +36,12 @@ const LoanRequestForm = () => {
 
     return months.slice(0, numberOfMonths).map((label, index) => ({
       label,
-      value: (currentMonth - index + 12) % 12, // Handle negative values
+      value: (currentMonth - index + 12) % 12,
     }));
   };
+
+  const capacityData = useSelector((state) => state.capacityInfo);
+  const { borrowingCapacity } = capacityData;
 
   const handleSelectChange = (e) => {
     const selectedValue = e.target.value;
@@ -54,6 +59,8 @@ const LoanRequestForm = () => {
       ...prevValues,
       [month]: value,
     }));
+
+    console.log(revenueValues);
   };
 
   const renderMonthInputs = () => {
@@ -81,13 +88,6 @@ const LoanRequestForm = () => {
 
       return (
         <div key={index} className="w-full">
-          {/* <label
-            htmlFor={`monthInput-${index}`}
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >
-            {`${monthName}, ${targetYear}`} Revenue
-            <span className="text-red-500">*</span>
-          </label> */}
           <input
             type="number"
             id={`monthInput-${index}`}
@@ -127,6 +127,7 @@ const LoanRequestForm = () => {
   ];
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   return (
     <div className="p-5 rounded-xl shadow bg-white">
@@ -242,7 +243,12 @@ const LoanRequestForm = () => {
               !revenueProvided.length
             }
             //   type="submit"
-            onClick={() => setCalculated(true)}
+            onClick={() => {
+              dispatch(
+                getCalculatedCapacity(term, 37, revenueValues, revenueShareType)
+              );
+              setCalculated(true);
+            }}
             style={{ backgroundColor: "#01AFEF" }}
             className="swal2-confirm swal2-styled"
           >
@@ -254,7 +260,10 @@ const LoanRequestForm = () => {
             <div className="grid grid-cols-3 items-center gap-4">
               <div className="text-xl text-cyan-500 font-bold flex items-center justify-between">
                 <span>Offer</span>
-                <span>ETB {capacity.toLocaleString()}</span>
+                <span>
+                  ETB{" "}
+                  {(borrowingCapacity.borrowingCapacity * 1).toLocaleString()}
+                </span>
               </div>
               <div></div>
               <div className="w-full items-center">
@@ -266,8 +275,8 @@ const LoanRequestForm = () => {
                 </label>
                 <input
                   type="number"
-                  max={capacity}
-                  value={loanAmount}
+                  max={borrowingCapacity.borrowingCapacity}
+                  value={Math.round(borrowingCapacity.borrowingCapacity)}
                   id={`loanAmount`}
                   placeholder="Enter Loan amount"
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
