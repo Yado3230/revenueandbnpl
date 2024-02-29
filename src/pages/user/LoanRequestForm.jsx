@@ -1,7 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getCalculatedCapacity } from "../../store/actions/capacityAction";
+import CapacityService from "../../services/capacityServices";
+import { error } from "daisyui/src/colors";
+import { getModifiedReports } from "../../store/actions/reportActions";
+import Swal from "sweetalert2";
 
 const estimatedData = [
   { month: "Month 1", value: 5868.1, Commulative: 5868.1 },
@@ -29,6 +33,7 @@ const LoanRequestForm = () => {
   const [capacity] = useState(50000);
   const [loanAmount, setLoanAmount] = useState(capacity);
   const [agreementChecked, setAgreementChecked] = useState(false);
+  const [agrement, setAgreement] = useState();
 
   const generateMonthOptions = (numberOfMonths) => {
     const currentMonth = new Date().getMonth();
@@ -42,6 +47,9 @@ const LoanRequestForm = () => {
 
   const capacityData = useSelector((state) => state.capacityInfo);
   const { borrowingCapacity } = capacityData;
+
+  const userData = useSelector((state) => state.userProfile);
+  const { kyc, userID, username } = userData;
 
   const handleSelectChange = (e) => {
     const selectedValue = e.target.value;
@@ -63,9 +71,45 @@ const LoanRequestForm = () => {
     console.log(revenueValues);
   };
 
+  // export const getModifiedReports =
+  // (
+  //   merchant_id,
+  //   startTimestamp,
+  //   endTimestamp,
+  //   timestamp,
+  //   total,
+  //   expense,
+  //   cost
+  // ) =>
+
+  var currentDate = new Date();
+  var thirtyDaysAgo = new Date(currentDate);
+  thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+
+  // Format the date to match the expected format (YYYY-MM-DD)
+  var formattedDate = thirtyDaysAgo.toISOString().split("T")[0];
+
+  useEffect(() => {
+    dispatch(
+      getModifiedReports(
+        userID,
+        formattedDate,
+        new Date().toISOString().split("T")[0],
+        "",
+        true
+      )
+    );
+  }, [userID]);
+
+  const reportData = useSelector((state) => state.reportInfo);
+  const { modifiedReports } = reportData;
+
+  console.log("modified", modifiedReports?.total_revenue?.total);
   const renderMonthInputs = () => {
-    const currentMonth = new Date().getMonth();
-    const currentYear = new Date().getFullYear();
+    const currentDate = new Date();
+    currentDate.setMonth(currentDate.getMonth() - 1); // Adjust to current month minus one
+    const currentMonth = currentDate.getMonth();
+    const currentYear = currentDate.getFullYear();
     const monthNames = [
       "Jan",
       "Feb",
@@ -81,25 +125,31 @@ const LoanRequestForm = () => {
       "Dec",
     ];
 
-    return Array.from({ length: parseInt(howMuchMonth, 10) }, (_, index) => {
-      const targetMonth = (currentMonth - index + 12) % 12;
-      const targetYear = currentYear + Math.floor((currentMonth - index) / 12);
-      const monthName = monthNames[targetMonth];
+    const reversedArray = Array.from(
+      { length: parseInt(howMuchMonth, 10) },
+      (_, index) => {
+        const targetMonth = (currentMonth - index + 12) % 12;
+        const targetYear =
+          currentYear + Math.floor((currentMonth - index) / 12);
+        const monthName = monthNames[targetMonth];
 
-      return (
-        <div key={index} className="w-full">
-          <input
-            type="number"
-            id={`monthInput-${index}`}
-            value={revenueValues[`${monthName}-${targetYear}`] || ""}
-            placeholder={`${monthName}, ${targetYear} Revenue`}
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
-            required
-            onChange={(e) => handleChange(e, `${monthName}-${targetYear}`)}
-          />
-        </div>
-      );
-    });
+        return (
+          <div key={index} className="w-full">
+            <input
+              type="number"
+              id={`monthInput-${index}`}
+              value={revenueValues[`${monthName}-${targetYear}`] || ""}
+              placeholder={`${monthName}, ${targetYear} Revenue`}
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
+              required
+              onChange={(e) => handleChange(e, `${monthName}-${targetYear}`)}
+            />
+          </div>
+        );
+      }
+    );
+
+    return reversedArray.reverse();
   };
 
   const revenue = [
@@ -120,311 +170,338 @@ const LoanRequestForm = () => {
   ];
 
   const payoffMonth = [
-    { label: "3 Months", value: "3" },
-    { label: "6 Months", value: "6" },
-    { label: "9 Months", value: "9" },
-    { label: "12 Months", value: "12" },
+    { label: "3 Months", value: "3", amount: 20000 },
+    { label: "6 Months", value: "6", amount: 25000 },
   ];
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (borrowingCapacity) {
+      setLoanAmount(Math.round(borrowingCapacity.borrowingCapacity));
+    }
+  }, [borrowingCapacity]);
 
   return (
     <div className="p-5 rounded-xl shadow bg-white">
       <h2 className="mt-2 mb-5 text-2xl text-cyan-500 font-bold">
         REQUEST FOR LOAN
       </h2>
-      <div className="grid grid-cols-2 gap-2">
-        <div className="w-full col-span-2 grid grid-cols-2 items-center">
-          <div className="w-full">
-            {revenue.map((option) => (
-              <div key={option.value} className="flex items-center mb-2">
-                <input
-                  type="radio"
-                  id={`revenueOption-${option.value}`}
-                  value={option.value}
-                  checked={revenueProvided === option.value}
-                  onChange={() => setRevenueProvided(option.value)}
-                  className="mr-2"
-                />
+      {agrement ? (
+        <div>
+          <div
+            className="p-5"
+            dangerouslySetInnerHTML={{ __html: agrement }}
+          ></div>
+          <div className="col-span-2">
+            <div className="flex items-center mb-2">
+              <input
+                type="checkbox"
+                id="agreementCheckbox"
+                checked={agreementChecked}
+                onChange={() => setAgreementChecked(!agreementChecked)}
+                className="mr-2"
+              />
+              <label
+                htmlFor="agreementCheckbox"
+                className="text-sm text-gray-900 dark:text-white"
+              >
+                I agree to the banks loan
                 <label
-                  htmlFor={`revenueOption-${option.value}`}
-                  className="text-sm text-gray-900 dark:text-white"
+                  onClick={() =>
+                    dispatch(
+                      CapacityService.generateAgreementDoc(
+                        kyc.first_name + " " + kyc.last_name,
+                        kyc.business_address,
+                        "",
+                        "",
+                        "",
+                        username,
+                        kyc.tin_number,
+                        kyc.business_name,
+                        loanAmount,
+                        "5%",
+                        borrowingCapacity.payOffMonth
+                      ).then((res) => {
+                        const newWindow = window.open();
+                        newWindow.document.open();
+                        newWindow.document.write(res);
+                        newWindow.document.close();
+                        return (
+                          <div dangerouslySetInnerHTML={{ __html: res }}></div>
+                        );
+                      })
+                    )
+                  }
+                  // htmlFor="my_modal_6"
+                  className="text-cyan-500 font-semibold cursor-pointer"
                 >
-                  {option.label}
+                  {" "}
+                  agreement
                 </label>
-              </div>
-            ))}
-          </div>
-          {revenueProvided === "true" && (
-            <div className="w-full col-span-1">
-              <label className="block mb-2 text-lg font-medium text-gray-900 dark:text-white">
-                Select Duration <span className="text-red-500">*</span>
               </label>
-              <div role="tablist" className="tabs tabs-boxed grid grid-cols-4">
-                {howMuchMonthRevenue.map((arr) => (
-                  <a
-                    role="tab"
-                    onClick={() =>
-                      handleSelectChange({ target: { value: arr.value } })
-                    }
-                    className={`tab ${
-                      howMuchMonth === arr.value ? "tab-active" : ""
-                    }`}
+            </div>
+          </div>
+          <div className="w-full flex items-center justify-end">
+            <button
+              disabled={!agreementChecked}
+              onClick={() =>
+                dispatch(
+                  CapacityService.applyForLoan(
+                    userID,
+                    borrowingCapacity.borrowingCapacity,
+                    borrowingCapacity.totalRepayment,
+                    borrowingCapacity.term
+                  )
+                    .then((res) => {
+                      Swal.fire({
+                        icon: "success",
+                        title: "Request successful, wait for approval",
+                        showConfirmButton: false,
+                        timer: 2000,
+                      });
+                      navigate("/users");
+                    })
+                    .catch((error) =>
+                      Swal.fire({
+                        icon: "error",
+                        title:
+                          error?.response?.data?.message ||
+                          "Something went wrong!",
+                        showConfirmButton: false,
+                        timer: 2000,
+                      })
+                    )
+                )
+              }
+              style={{ backgroundColor: "#01AFEF" }}
+              className="swal2-confirm swal2-styled items-center
+                justify-end flex "
+            >
+              {!agreementChecked ? (
+                "Apply"
+              ) : (
+                <label
+                  //   type="submit"
+                  className="w-full cursor-pointer"
+                >
+                  Apply
+                </label>
+              )}
+            </button>
+          </div>
+        </div>
+      ) : (
+        <div className="grid grid-cols-2 gap-2">
+          <div className="w-full col-span-2 grid grid-cols-2 items-center">
+            <div className="w-full">
+              {revenue.map((option) => (
+                <div key={option.value} className="flex items-center mb-2">
+                  <input
+                    type="radio"
+                    id={`revenueOption-${option.value}`}
+                    value={option.value}
+                    checked={revenueProvided === option.value}
+                    onChange={() => setRevenueProvided(option.value)}
+                    className="mr-2"
+                  />
+                  <label
+                    htmlFor={`revenueOption-${option.value}`}
+                    className="text-sm text-gray-900 dark:text-white"
                   >
-                    {arr.label}
-                  </a>
-                ))}
+                    {option.label}
+                  </label>
+                </div>
+              ))}
+            </div>
+            {revenueProvided === "true" && (
+              <div className="w-full col-span-1">
+                <label className="block mb-2 text-lg font-medium text-gray-900 dark:text-white">
+                  Select Duration <span className="text-red-500">*</span>
+                </label>
+                <div
+                  role="tablist"
+                  className="tabs tabs-boxed grid grid-cols-4"
+                >
+                  {howMuchMonthRevenue.map((arr) => (
+                    <a
+                      role="tab"
+                      onClick={() =>
+                        handleSelectChange({ target: { value: arr.value } })
+                      }
+                      className={`tab ${
+                        howMuchMonth === arr.value ? "tab-active" : ""
+                      }`}
+                    >
+                      {arr.label}
+                    </a>
+                  ))}
+                </div>
+                {/* ))} */}
+                {/* </div> */}
               </div>
-              {/* ))} */}
-              {/* </div> */}
+            )}
+          </div>
+          <div className="border-b-4 col-span-2 mb-4"></div>
+          {revenueProvided === "true" && (
+            <div className="col-span-2">
+              <div className="grid grid-cols-3 gap-4">
+                {renderMonthInputs()}
+              </div>
+              <div className="w-full my-2 font-semibold text-xl">
+                <span>This Month Revenue:</span>{" "}
+                {(modifiedReports?.total_revenue?.total * 1).toLocaleString()}{" "}
+                Birr
+              </div>
             </div>
           )}
-        </div>
-        <div className="border-b-4 col-span-2 mb-4"></div>
-        {revenueProvided === "true" && (
-          <div className="col-span-2">
-            <div className="grid grid-cols-3 gap-4">{renderMonthInputs()}</div>
+          <div className="border-b-4 col-span-2 mt-4"></div>
+          <div className="w-full">
+            <label
+              htmlFor="revenues"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Loan Term <span className="text-red-500">*</span>
+            </label>
+            <select
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
+              value={term}
+              required
+              onChange={(e) => setTerm(e.target.value)}
+            >
+              <option value="" disabled>
+                Select
+              </option>
+              {payoffMonth
+                // .filter((item) => item.amount <= 25000)
+                .map((arr) => (
+                  <option key={arr.value} value={arr.value}>
+                    {arr.label}
+                  </option>
+                ))}
+            </select>
           </div>
-        )}
-        <div className="border-b-4 col-span-2 mt-4"></div>
-        <div className="w-full">
-          <label
-            htmlFor="revenues"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >
-            Loan Term <span className="text-red-500">*</span>
-          </label>
-          <select
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
-            value={term}
-            required
-            onChange={(e) => setTerm(e.target.value)}
-          >
-            <option value="" disabled>
-              Select
-            </option>
-            {payoffMonth.map((arr) => (
-              <option key={arr.value} value={arr.value}>
-                {arr.label}
+          <div className="w-full hidden">
+            <label
+              htmlFor="revenues"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Revenue Share Type <span className="text-red-500">*</span>
+            </label>
+            <select
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
+              value={revenueShareType}
+              required
+              onChange={(e) => setRevenueShareType(e.target.value)}
+            >
+              <option value="" disabled>
+                Select
               </option>
-            ))}
-          </select>
-        </div>
-        <div className="w-full">
-          <label
-            htmlFor="revenues"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >
-            Revenue Share Type <span className="text-red-500">*</span>
-          </label>
-          <select
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
-            value={revenueShareType}
-            required
-            onChange={(e) => setRevenueShareType(e.target.value)}
-          >
-            <option value="" disabled>
-              Select
-            </option>
-            {shareType.map((arr) => (
-              <option key={arr.value} value={arr.value}>
-                {arr.label}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div></div>
-        {!calculated && (
+              {shareType.map((arr) => (
+                <option key={arr.value} value={arr.value}>
+                  {arr.label}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div></div>
           <button
-            disabled={
-              !term.length ||
-              !revenueShareType.length ||
-              !revenueProvided.length
-            }
-            //   type="submit"
+            disabled={!term.length || !revenueProvided.length}
             onClick={() => {
               dispatch(
-                getCalculatedCapacity(term, 37, revenueValues, revenueShareType)
+                getCalculatedCapacity(
+                  term,
+                  37,
+                  revenueValues,
+                  "variable",
+                  modifiedReports?.total_revenue?.total
+                )
               );
+              setLoanAmount(borrowingCapacity.borrowingCapacity);
               setCalculated(true);
             }}
             style={{ backgroundColor: "#01AFEF" }}
             className="swal2-confirm swal2-styled"
           >
-            Calculate
+            {!calculated ? "Calculate" : "Re-Calculate"}
           </button>
-        )}
-        {calculated && (
-          <div className="col-span-2">
-            <div className="grid grid-cols-3 items-center gap-4">
-              <div className="text-xl text-cyan-500 font-bold flex items-center justify-between">
-                <span>Offer</span>
-                <span>
-                  ETB{" "}
-                  {(borrowingCapacity.borrowingCapacity * 1).toLocaleString()}
-                </span>
-              </div>
-              <div></div>
-              <div className="w-full items-center">
-                <label
-                  htmlFor="revenues"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >
-                  Loan Request Amount
-                </label>
-                <input
-                  type="number"
-                  max={borrowingCapacity.borrowingCapacity}
-                  value={Math.round(borrowingCapacity.borrowingCapacity)}
-                  id={`loanAmount`}
-                  placeholder="Enter Loan amount"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
-                  required
-                  onChange={(e) => setLoanAmount(e.target.value)}
-                />
-              </div>
-              <div className="col-span-2">
-                <div className="flex items-center mb-2">
-                  <input
-                    type="checkbox"
-                    id="agreementCheckbox"
-                    checked={agreementChecked}
-                    onChange={() => setAgreementChecked(!agreementChecked)}
-                    className="mr-2"
-                  />
-                  <label
-                    htmlFor="agreementCheckbox"
-                    className="text-sm text-gray-900 dark:text-white"
-                  >
-                    I agree to the banks loan
-                    <label
-                      htmlFor="my_modal_6"
-                      className="text-cyan-500 font-semibold cursor-pointer"
-                    >
-                      {" "}
-                      terms and conditions
-                    </label>
-                    {/* Put this part before </body> tag */}
-                    <input
-                      type="checkbox"
-                      id="my_modal_6"
-                      className="modal-toggle"
-                    />
-                    <div className="modal" role="dialog">
-                      <div className="modal-box">
-                        <h3 className="font-bold text-lg">
-                          Banks Term and Conditions!
-                        </h3>
-                        <div class="max-w-2xl mx-auto bg-white p-6 rounded-md shadow-md">
-                          <h1 class="text-2xl font-bold mb-4">
-                            Loan Terms and Conditions - Cooperative Bank of
-                            Oromia
-                          </h1>
-
-                          <div class="mb-4">
-                            <h2 class="text-xl font-bold mb-2">
-                              1. Eligibility Criteria:
-                            </h2>
-                            <ul class="list-disc pl-6">
-                              <li>
-                                Must be a member of the Cooperative Bank of
-                                Oromia.
-                              </li>
-                              <li>Age must be between 18 and 65 years.</li>
-                              <li>Proof of a stable source of income.</li>
-                            </ul>
-                          </div>
-
-                          <div class="mt-8">
-                            <p class="text-sm text-gray-600">
-                              Applicants are advised to carefully read and
-                              understand these terms before applying for a loan
-                              from the Cooperative Bank of Oromia.
-                            </p>
-                          </div>
-                        </div>
-
-                        <div className="modal-action">
-                          <label htmlFor="my_modal_6" className="btn">
-                            Close!
-                          </label>
-                        </div>
-                      </div>
-                    </div>
-                  </label>
+          {calculated && (
+            <div className="col-span-2">
+              <div className="grid grid-cols-3 items-center gap-4">
+                <div className="text-xl text-cyan-500 font-bold flex items-center justify-between">
+                  <span>Offer</span>
+                  <span>
+                    ETB{" "}
+                    {(borrowingCapacity.borrowingCapacity * 1).toLocaleString()}
+                  </span>
                 </div>
-              </div>
-              <button
-                disabled={!agreementChecked}
-                style={{ backgroundColor: "#01AFEF" }}
-                className="swal2-confirm swal2-styled items-center
-                justify-center flex"
-              >
-                {!agreementChecked ? (
-                  "Apply"
-                ) : (
+                <div></div>
+                <div className="w-full items-center">
                   <label
-                    //   type="submit"
-                    className="w-full"
-                    htmlFor="my_modal_4"
+                    htmlFor="revenues"
+                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
-                    Apply
+                    Loan Request Amount
                   </label>
-                )}
-              </button>
-              <input type="checkbox" id="my_modal_4" className="modal-toggle" />
-              <div className="modal" role="dialog">
-                <div className="modal-box">
-                  <h3 className="font-bold text-cyan-500 text-xl">
-                    Estimated Re-Payments!
-                  </h3>
-
-                  <div className="w-full p-5">
-                    <table className="table">
-                      {/* head */}
-                      <thead>
-                        <tr>
-                          <th>Month</th>
-                          <th>Monthly Payment</th>
-                          <th>Commulative</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {estimatedData.slice(0, term * 1).map((item, index) => (
-                          <tr key={index}>
-                            <td>{item.month}</td>
-                            <td>{item.value}</td>
-                            <td>{item.Commulative}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-
-                  <div className="modal-action flex items-center">
-                    <label htmlFor="my_modal_4" className="btn btn-autline">
-                      Close!
-                    </label>
-                    <button
-                      disabled={!agreementChecked}
-                      style={{ backgroundColor: "#01AFEF" }}
-                      onClick={() => {
-                        alert("Your request is successfully submitted");
-                        navigate("/users");
-                      }}
-                      className="swal2-confirm swal2-styled items-center
-                justify-center flex"
-                    >
-                      Confirm
-                    </button>
-                  </div>
+                  <input
+                    type="number"
+                    name="loanAmount"
+                    max={Math.round(borrowingCapacity.borrowingCapacity)}
+                    value={loanAmount}
+                    id={`loanAmount`}
+                    placeholder="Enter Loan amount"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
+                    required
+                    onChange={(e) => setLoanAmount(e.target.value)}
+                  />
+                  {loanAmount >
+                    Math.round(borrowingCapacity.borrowingCapacity) && (
+                    <span className="text-red-500">
+                      {"value cannot be greater than" +
+                        " " +
+                        (
+                          Math.round(borrowingCapacity.borrowingCapacity) * 1
+                        )?.toFixed(0)}
+                    </span>
+                  )}
+                </div>
+                <div className="col-span-2"></div>
+                <div>
+                  <button
+                    disabled={
+                      loanAmount >
+                      Math.round(borrowingCapacity.borrowingCapacity)
+                    }
+                    style={{ backgroundColor: "#01AFEF" }}
+                    className="swal2-confirm swal2-styled items-center
+                justify-center w-full"
+                    onClick={() =>
+                      dispatch(
+                        CapacityService.generateAgreementDoc(
+                          kyc.first_name + " " + kyc.last_name,
+                          kyc.business_address,
+                          "",
+                          "",
+                          "",
+                          username,
+                          kyc.tin_number,
+                          kyc.business_name,
+                          loanAmount,
+                          "5%",
+                          borrowingCapacity.payOffMonth
+                        ).then((res) => setAgreement(res))
+                      )
+                    }
+                  >
+                    Next
+                  </button>
                 </div>
               </div>
             </div>
-          </div>
-        )}
-      </div>
+          )}
+        </div>
+      )}
     </div>
   );
 };
