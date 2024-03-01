@@ -20,6 +20,7 @@ import {
 } from "recharts";
 import SoldItem from "./SoltItem";
 import { Link } from "react-router-dom";
+import { getLoanRequests } from "../../store/actions/capacityAction";
 
 function RBFHome() {
   const currentDate = new Date().toISOString().split("T")[0];
@@ -31,7 +32,11 @@ function RBFHome() {
     dispatch(getYearlyRevenueandProfit(2024, userID));
     dispatch(getAllSoldItems(userID));
     dispatch(getModifiedReports(userID, "", "", currentDate, true, true, true));
-  }, []);
+    dispatch(getLoanRequests(userID));
+  }, [userID]);
+
+  const capacityData = useSelector((state) => state.capacityInfo);
+  const { merchantLoan } = capacityData;
 
   const reportData = useSelector((state) => state.reportInfo);
   const { yearlyRevenueandprofit, soldItems, modifiedReports } = reportData;
@@ -110,14 +115,20 @@ function RBFHome() {
     <>
       <div className="">
         {!kyc && <Banner />}
-        <div className="flex items-center justify-between">
-          <div className="font-semibold text-2xl text-gray-600">Dashboard</div>
-          <Link to="loanrequest">
-            <button className="btn btn-outline btn-info mb-2">
-              Request For Loan
-            </button>
-          </Link>
-        </div>
+        {Array.isArray(merchantLoan) && merchantLoan?.length > 0 ? (
+          ""
+        ) : (
+          <div className="flex items-center justify-between">
+            <div className="font-semibold text-2xl text-gray-600">
+              Dashboard
+            </div>
+            <Link to="loanrequest">
+              <button className="btn btn-outline btn-info mb-2">
+                Request For Loan
+              </button>
+            </Link>
+          </div>
+        )}
         <RBFStats items={modifiedReports} />
         <div className="grid gap-2 mt-2 md:grid-cols-12 justify-self-auto">
           <div className="col-span-6 p-2 rounded shadow bg-white">

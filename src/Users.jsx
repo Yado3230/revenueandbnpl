@@ -27,6 +27,7 @@ import Product from "./pages/user/Product";
 import Reports from "./pages/user/ReportsAnalysis";
 import InventoryReport from "./pages/user/Reports";
 import LoanRequestForm from "./pages/user/LoanRequestForm";
+import MerchantLoanList from "./pages/user/MerchantLoanList";
 function Users() {
   const tokenInfo = useSelector((state) => state.userProfile);
   const { token, kyc } = tokenInfo;
@@ -79,6 +80,7 @@ function Users() {
               <Route path="profile" element={<Profile />}></Route>
               <Route path="setting" element={<Settings />}></Route>
               <Route path="loanrequest" element={<LoanRequestForm />}></Route>
+              <Route path="merchantloanlist" element={<MerchantLoanList />}></Route>
               <Route path="reports" element={<InventoryReport />}></Route>
               <Route path="*" element={<E404 />}></Route>
             </Routes>

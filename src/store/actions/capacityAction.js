@@ -1,8 +1,19 @@
 import CapacityService from "../../services/capacityServices";
-import { FORCASTED_CAPACITY } from "../types";
+import {
+  FORCASTED_CAPACITY,
+  SET_MERCHANT_LOAN,
+  SET_RETURNCAP_TABLE,
+} from "../types";
 
 export const getCalculatedCapacity =
-  (payoffMonth, cohortId, data, revenueShareType, currentMonth) =>
+  (
+    payoffMonth,
+    cohortId,
+    data,
+    revenueShareType,
+    currentMonth,
+    setLoadingCalculatedData
+  ) =>
   async (dispatch) => {
     const months = {
       Jan: "01",
@@ -42,7 +53,8 @@ export const getCalculatedCapacity =
         payoffMonth,
         cohortId,
         formattedData,
-        revenueShareType
+        revenueShareType,
+        setLoadingCalculatedData
       );
       dispatch({
         type: FORCASTED_CAPACITY,
@@ -52,3 +64,29 @@ export const getCalculatedCapacity =
       return error;
     }
   };
+
+export const getLoanRequests = (merchant_id) => async (dispatch) => {
+  try {
+    const dashboardCardDetails = await CapacityService.getCustomerLoanRequest(
+      merchant_id
+    );
+    dispatch({
+      type: SET_MERCHANT_LOAN,
+      payload: dashboardCardDetails,
+    });
+  } catch (error) {
+    return error;
+  }
+};
+
+export const getReturnCapTables = () => async (dispatch) => {
+  try {
+    const dashboardCardDetails = await CapacityService.getCapTable();
+    dispatch({
+      type: SET_RETURNCAP_TABLE,
+      payload: dashboardCardDetails,
+    });
+  } catch (error) {
+    return error;
+  }
+};

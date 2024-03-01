@@ -4,16 +4,20 @@ const getCalculatedBorrowingCapacity = async (
   payoffMonth,
   cohortId,
   data,
-  revenueShareType
+  revenueShareType,
+  setLoadingCalculatedData
 ) => {
   return await axios
-    .post("http://10.1.177.121:9181/api/v1/loans/calculate-borrow-capacity", {
+    .post("http://10.1.130.15:9010/api/v1/loans/calculate-borrow-capacity", {
       payOffMonth: payoffMonth,
       cohortId,
       data,
       revenueShareType,
     })
-    .then((response) => response.data);
+    .then((response) => {
+      setLoadingCalculatedData(false);
+      return response.data;
+    });
 };
 
 const generateAgreementDoc = async (
@@ -30,7 +34,7 @@ const generateAgreementDoc = async (
   repaymentMonth
 ) => {
   return await axios
-    .post("http://10.1.177.121:9181/api/v1/loans/contract", {
+    .post("http://10.1.130.15:9010/api/v1/loans/contract", {
       name,
       address,
       woreda,
@@ -53,7 +57,7 @@ const applyForLoan = async (
   payOffMonth
 ) => {
   return await axios
-    .post("http://10.1.177.121:9181/api/v1/loans/apply", {
+    .post("http://10.1.130.15:9010/api/v1/loans/apply", {
       merchantId,
       appliedAmount,
       totalRepayment,
@@ -62,10 +66,23 @@ const applyForLoan = async (
     .then((response) => response.data);
 };
 
+const getCustomerLoanRequest = async (merchant_id) => {
+  return await axios
+    .get(`http://10.1.130.15:9010/api/v1/loans/merchant/${merchant_id}`)
+    .then((response) => response.data);
+};
+const getCapTable = async () => {
+  return await axios
+    .get(`http://10.1.130.15:9010/api/v1/payoff-months/cohort/37`)
+    .then((response) => response.data);
+};
+
 const CapacityService = {
   getCalculatedBorrowingCapacity,
   generateAgreementDoc,
   applyForLoan,
+  getCustomerLoanRequest,
+  getCapTable,
 };
 
 export default CapacityService;

@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { getCalculatedCapacity } from "../../store/actions/capacityAction";
+import {
+  getCalculatedCapacity,
+  getLoanRequests,
+  getReturnCapTables,
+} from "../../store/actions/capacityAction";
 import CapacityService from "../../services/capacityServices";
 import { error } from "daisyui/src/colors";
 import { getModifiedReports } from "../../store/actions/reportActions";
@@ -35,6 +39,9 @@ const LoanRequestForm = () => {
   const [agreementChecked, setAgreementChecked] = useState(false);
   const [agrement, setAgreement] = useState();
 
+  const [loadingCalculatedData, setLoadingCalculatedData] = useState(false);
+  const [applyLoading, setApplyLoading] = useState(false);
+
   const generateMonthOptions = (numberOfMonths) => {
     const currentMonth = new Date().getMonth();
     const months = ["Current Month", "Previous Month", "Two Months Ago"];
@@ -45,11 +52,16 @@ const LoanRequestForm = () => {
     }));
   };
 
-  const capacityData = useSelector((state) => state.capacityInfo);
-  const { borrowingCapacity } = capacityData;
-
   const userData = useSelector((state) => state.userProfile);
   const { kyc, userID, username } = userData;
+
+  useEffect(() => {
+    dispatch(getLoanRequests(userID));
+    dispatch(getReturnCapTables());
+  }, [userID]);
+
+  const capacityData = useSelector((state) => state.capacityInfo);
+  const { borrowingCapacity, capTable } = capacityData;
 
   const handleSelectChange = (e) => {
     const selectedValue = e.target.value;
@@ -70,17 +82,6 @@ const LoanRequestForm = () => {
 
     console.log(revenueValues);
   };
-
-  // export const getModifiedReports =
-  // (
-  //   merchant_id,
-  //   startTimestamp,
-  //   endTimestamp,
-  //   timestamp,
-  //   total,
-  //   expense,
-  //   cost
-  // ) =>
 
   var currentDate = new Date();
   var thirtyDaysAgo = new Date(currentDate);
@@ -174,6 +175,13 @@ const LoanRequestForm = () => {
     { label: "6 Months", value: "6", amount: 25000 },
   ];
 
+  const payoffMonths = capTable
+    ?.filter((item) => item.month <= 6)
+    ?.map((item) => ({
+      label: item.month + " Months",
+      value: item.month,
+    }));
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -212,8 +220,8 @@ const LoanRequestForm = () => {
                   onClick={() =>
                     dispatch(
                       CapacityService.generateAgreementDoc(
-                        kyc.first_name + " " + kyc.last_name,
-                        kyc.business_address,
+                        kyc?.first_name + " " + kyc?.last_name,
+                        kyc?.business_address,
                         "",
                         "",
                         "",
@@ -222,12 +230,12 @@ const LoanRequestForm = () => {
                         kyc.business_name,
                         loanAmount,
                         "5%",
-                        borrowingCapacity.payOffMonth
+                        borrowingCapacity?.payOffMonth
                       ).then((res) => {
                         const newWindow = window.open();
-                        newWindow.document.open();
-                        newWindow.document.write(res);
-                        newWindow.document.close();
+                        newWindow.document?.open();
+                        newWindow.document?.write(res);
+                        newWindow.document?.close();
                         return (
                           <div dangerouslySetInnerHTML={{ __html: res }}></div>
                         );
@@ -245,9 +253,10 @@ const LoanRequestForm = () => {
           </div>
           <div className="w-full flex items-center justify-end">
             <button
-              disabled={!agreementChecked}
-              onClick={() =>
-                dispatch(
+              disabled={!agreementChecked || applyLoading}
+              onClick={() => {
+                setApplyLoading(true);
+                return dispatch(
                   CapacityService.applyForLoan(
                     userID,
                     borrowingCapacity.borrowingCapacity,
@@ -273,8 +282,9 @@ const LoanRequestForm = () => {
                         timer: 2000,
                       })
                     )
-                )
-              }
+                    .finally(() => setApplyLoading(false))
+                );
+              }}
               style={{ backgroundColor: "#01AFEF" }}
               className="swal2-confirm swal2-styled items-center
                 justify-end flex "
@@ -286,7 +296,7 @@ const LoanRequestForm = () => {
                   //   type="submit"
                   className="w-full cursor-pointer"
                 >
-                  Apply
+                  {applyLoading ? "Loading..." : "Apply"}
                 </label>
               )}
             </button>
@@ -373,7 +383,7 @@ const LoanRequestForm = () => {
               <option value="" disabled>
                 Select
               </option>
-              {payoffMonth
+              {payoffMonths
                 // .filter((item) => item.amount <= 25000)
                 .map((arr) => (
                   <option key={arr.value} value={arr.value}>
@@ -409,13 +419,15 @@ const LoanRequestForm = () => {
           <button
             disabled={!term.length || !revenueProvided.length}
             onClick={() => {
+              setLoadingCalculatedData(true);
               dispatch(
                 getCalculatedCapacity(
                   term,
                   37,
                   revenueValues,
                   "variable",
-                  modifiedReports?.total_revenue?.total
+                  modifiedReports?.total_revenue?.total,
+                  setLoadingCalculatedData
                 )
               );
               setLoanAmount(borrowingCapacity.borrowingCapacity);
@@ -426,80 +438,85 @@ const LoanRequestForm = () => {
           >
             {!calculated ? "Calculate" : "Re-Calculate"}
           </button>
-          {calculated && (
-            <div className="col-span-2">
-              <div className="grid grid-cols-3 items-center gap-4">
-                <div className="text-xl text-cyan-500 font-bold flex items-center justify-between">
-                  <span>Offer</span>
-                  <span>
-                    ETB{" "}
-                    {(borrowingCapacity.borrowingCapacity * 1).toLocaleString()}
-                  </span>
-                </div>
-                <div></div>
-                <div className="w-full items-center">
-                  <label
-                    htmlFor="revenues"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >
-                    Loan Request Amount
-                  </label>
-                  <input
-                    type="number"
-                    name="loanAmount"
-                    max={Math.round(borrowingCapacity.borrowingCapacity)}
-                    value={loanAmount}
-                    id={`loanAmount`}
-                    placeholder="Enter Loan amount"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
-                    required
-                    onChange={(e) => setLoanAmount(e.target.value)}
-                  />
-                  {loanAmount >
-                    Math.round(borrowingCapacity.borrowingCapacity) && (
-                    <span className="text-red-500">
-                      {"value cannot be greater than" +
-                        " " +
-                        (
-                          Math.round(borrowingCapacity.borrowingCapacity) * 1
-                        )?.toFixed(0)}
+          {calculated &&
+            (loadingCalculatedData ? (
+              <div>calculating...</div>
+            ) : (
+              <div className="col-span-2">
+                <div className="grid grid-cols-3 items-center gap-4">
+                  <div className="text-xl text-cyan-500 font-bold flex items-center justify-between">
+                    <span>Offer</span>
+                    <span>
+                      ETB{" "}
+                      {(
+                        borrowingCapacity.borrowingCapacity * 1
+                      ).toLocaleString()}
                     </span>
-                  )}
-                </div>
-                <div className="col-span-2"></div>
-                <div>
-                  <button
-                    disabled={
-                      loanAmount >
-                      Math.round(borrowingCapacity.borrowingCapacity)
-                    }
-                    style={{ backgroundColor: "#01AFEF" }}
-                    className="swal2-confirm swal2-styled items-center
+                  </div>
+                  <div></div>
+                  <div className="w-full items-center">
+                    <label
+                      htmlFor="revenues"
+                      className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    >
+                      Loan Request Amount
+                    </label>
+                    <input
+                      type="number"
+                      name="loanAmount"
+                      max={Math.round(borrowingCapacity.borrowingCapacity)}
+                      value={loanAmount}
+                      id={`loanAmount`}
+                      placeholder="Enter Loan amount"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
+                      required
+                      onChange={(e) => setLoanAmount(e.target.value)}
+                    />
+                    {loanAmount >
+                      Math.round(borrowingCapacity.borrowingCapacity) && (
+                      <span className="text-red-500">
+                        {"value cannot be greater than" +
+                          " " +
+                          (
+                            Math.round(borrowingCapacity.borrowingCapacity) * 1
+                          )?.toFixed(0)}
+                      </span>
+                    )}
+                  </div>
+                  <div className="col-span-2"></div>
+                  <div>
+                    <button
+                      disabled={
+                        loanAmount >
+                        Math.round(borrowingCapacity.borrowingCapacity)
+                      }
+                      style={{ backgroundColor: "#01AFEF" }}
+                      className="swal2-confirm swal2-styled items-center
                 justify-center w-full"
-                    onClick={() =>
-                      dispatch(
-                        CapacityService.generateAgreementDoc(
-                          kyc.first_name + " " + kyc.last_name,
-                          kyc.business_address,
-                          "",
-                          "",
-                          "",
-                          username,
-                          kyc.tin_number,
-                          kyc.business_name,
-                          loanAmount,
-                          "5%",
-                          borrowingCapacity.payOffMonth
-                        ).then((res) => setAgreement(res))
-                      )
-                    }
-                  >
-                    Next
-                  </button>
+                      onClick={() =>
+                        dispatch(
+                          CapacityService.generateAgreementDoc(
+                            kyc.first_name + " " + kyc.last_name,
+                            kyc.business_address,
+                            "",
+                            "",
+                            "",
+                            username,
+                            kyc.tin_number,
+                            kyc.business_name,
+                            loanAmount,
+                            "5%",
+                            borrowingCapacity.payOffMonth
+                          ).then((res) => setAgreement(res))
+                        )
+                      }
+                    >
+                      Next
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
+            ))}
         </div>
       )}
     </div>
