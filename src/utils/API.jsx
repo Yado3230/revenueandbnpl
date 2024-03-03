@@ -10,11 +10,19 @@ import store from "./../store/store";
 //   baseURL: "/api",
 // });
 
+// export const SPRING_API = axios.create({
+//   baseURL: "/proxy",
+// });
+
 export const LOGIN_NODE_API = axios.create({
   baseURL: "https://souqpass.coopbankoromiasc.com/api",
 });
 
 export const NODE_API = axios.create({
+  baseURL: "https://souqpass.coopbankoromiasc.com/api",
+});
+
+export const SPRING_API = axios.create({
   baseURL: "https://souqpass.coopbankoromiasc.com/api",
 });
 

@@ -115,20 +115,19 @@ function RBFHome() {
     <>
       <div className="">
         {!kyc && <Banner />}
-        {Array.isArray(merchantLoan) && merchantLoan?.length > 0 ? (
-          ""
-        ) : (
-          <div className="flex items-center justify-between">
-            <div className="font-semibold text-2xl text-gray-600">
-              Dashboard
-            </div>
+
+        <div className="flex items-center justify-between">
+          <div className="font-semibold text-2xl text-gray-600">Dashboard</div>
+          {Array.isArray(merchantLoan) && merchantLoan?.length > 0 ? (
+            ""
+          ) : (
             <Link to="loanrequest">
               <button className="btn btn-outline btn-info mb-2">
                 Request For Loan
               </button>
             </Link>
-          </div>
-        )}
+          )}
+        </div>
         <RBFStats items={modifiedReports} />
         <div className="grid gap-2 mt-2 md:grid-cols-12 justify-self-auto">
           <div className="col-span-6 p-2 rounded shadow bg-white">

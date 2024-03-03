@@ -1,4 +1,4 @@
-import axios from "axios";
+import { SPRING_API } from "../utils/API";
 
 const getCalculatedBorrowingCapacity = async (
   payoffMonth,
@@ -7,17 +7,14 @@ const getCalculatedBorrowingCapacity = async (
   revenueShareType,
   setLoadingCalculatedData
 ) => {
-  return await axios
-    .post("http://10.1.130.15:9010/api/v1/loans/calculate-borrow-capacity", {
-      payOffMonth: payoffMonth,
-      cohortId,
-      data,
-      revenueShareType,
-    })
-    .then((response) => {
-      setLoadingCalculatedData(false);
-      return response.data;
-    });
+  return await SPRING_API.post("/v1/loans/calculate-borrow-capacity", {
+    payOffMonth: payoffMonth,
+    cohortId,
+    data,
+    revenueShareType,
+  })
+    .then((response) => response.data)
+    .finally(() => setLoadingCalculatedData(false));
 };
 
 const generateAgreementDoc = async (
@@ -29,25 +26,23 @@ const generateAgreementDoc = async (
   phoneNumber,
   idNumber,
   business,
-  loanAmount,
-  interestRate,
-  repaymentMonth
+  repaymentMonth,
+  totalRepayment,
+  loanAmount
 ) => {
-  return await axios
-    .post("http://10.1.130.15:9010/api/v1/loans/contract", {
-      name,
-      address,
-      woreda,
-      kebele,
-      houseNumber,
-      phoneNumber,
-      idNumber,
-      business,
-      loanAmount,
-      interestRate,
-      repaymentMonth,
-    })
-    .then((response) => response.data);
+  return await SPRING_API.post("/v1/loans/contract", {
+    name,
+    address,
+    woreda,
+    kebele,
+    houseNumber,
+    phoneNumber,
+    idNumber,
+    business,
+    repaymentMonth,
+    totalRepayment,
+    loanAmount,
+  }).then((response) => response.data);
 };
 
 const applyForLoan = async (
@@ -56,25 +51,23 @@ const applyForLoan = async (
   totalRepayment,
   payOffMonth
 ) => {
-  return await axios
-    .post("http://10.1.130.15:9010/api/v1/loans/apply", {
-      merchantId,
-      appliedAmount,
-      totalRepayment,
-      payOffMonth,
-    })
-    .then((response) => response.data);
+  return await SPRING_API.post("/v1/loans/apply", {
+    merchantId,
+    appliedAmount,
+    totalRepayment,
+    payOffMonth,
+  }).then((response) => response.data);
 };
 
 const getCustomerLoanRequest = async (merchant_id) => {
-  return await axios
-    .get(`http://10.1.130.15:9010/api/v1/loans/merchant/${merchant_id}`)
-    .then((response) => response.data);
+  return await SPRING_API.get(`/v1/loans/merchant/${merchant_id}`).then(
+    (response) => response.data
+  );
 };
 const getCapTable = async () => {
-  return await axios
-    .get(`http://10.1.130.15:9010/api/v1/payoff-months/cohort/37`)
-    .then((response) => response.data);
+  return await SPRING_API.get(`/v1/payoff-months/cohort/1`).then(
+    (response) => response.data
+  );
 };
 
 const CapacityService = {

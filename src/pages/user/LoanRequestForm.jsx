@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
@@ -7,24 +7,13 @@ import {
   getReturnCapTables,
 } from "../../store/actions/capacityAction";
 import CapacityService from "../../services/capacityServices";
-import { error } from "daisyui/src/colors";
 import { getModifiedReports } from "../../store/actions/reportActions";
 import Swal from "sweetalert2";
+import Spinner from "../../components/Spinner/Spinner";
 
-const estimatedData = [
-  { month: "Month 1", value: 5868.1, Commulative: 5868.1 },
-  { month: "Month 2", value: 6044.14, Commulative: 11912.24 },
-  { month: "Month 3", value: 6225.47, Commulative: 18137.71 },
-  { month: "Month 4", value: 6412.23, Commulative: 24549.94 },
-  { month: "Month 5", value: 6604.6, Commulative: 31154.54 },
-  { month: "Month 6", value: 6802.74, Commulative: 37957.28 },
-  { month: "Month 7", value: 7006.82, Commulative: 44964.09 },
-  { month: "Month 8", value: 7217.02, Commulative: 52181.12 },
-  { month: "Month 9", value: 7433.53, Commulative: 59614.65 },
-  { month: "Month 10", value: 7433.53, Commulative: 65868.1 },
-  { month: "Month 11", value: 7433.53, Commulative: 75868.1 },
-  { month: "Month 12", value: 7433.53, Commulative: 85868.1 },
-];
+import PDFGenerator from "./PdfGenerator";
+import { PDFViewer } from "@react-pdf/renderer";
+import PDFDocument from "./PdfGenerator";
 
 const LoanRequestForm = () => {
   const [revenueProvided, setRevenueProvided] = useState("");
@@ -91,15 +80,7 @@ const LoanRequestForm = () => {
   var formattedDate = thirtyDaysAgo.toISOString().split("T")[0];
 
   useEffect(() => {
-    dispatch(
-      getModifiedReports(
-        userID,
-        formattedDate,
-        new Date().toISOString().split("T")[0],
-        "",
-        true
-      )
-    );
+    dispatch(getModifiedReports(userID, "2024-02-01", "2024-03-01", "", true));
   }, [userID]);
 
   const reportData = useSelector((state) => state.reportInfo);
@@ -108,7 +89,7 @@ const LoanRequestForm = () => {
   console.log("modified", modifiedReports?.total_revenue?.total);
   const renderMonthInputs = () => {
     const currentDate = new Date();
-    currentDate.setMonth(currentDate.getMonth() - 1); // Adjust to current month minus one
+    currentDate.setMonth(currentDate.getMonth() - 2); // Adjust to current month minus one
     const currentMonth = currentDate.getMonth();
     const currentYear = currentDate.getFullYear();
     const monthNames = [
@@ -187,19 +168,25 @@ const LoanRequestForm = () => {
 
   useEffect(() => {
     if (borrowingCapacity) {
-      setLoanAmount(Math.round(borrowingCapacity.borrowingCapacity));
+      setLoanAmount(
+        Math.round(
+          borrowingCapacity?.overflowed
+            ? borrowingCapacity.overflowBorrowingCapacity
+            : borrowingCapacity?.borrowingCapacity
+        )
+      );
     }
   }, [borrowingCapacity]);
 
   return (
-    <div className="p-5 rounded-xl shadow bg-white">
+    <div className="p-1 md:p-5 rounded-xl shadow bg-white dark:bg-black">
       <h2 className="mt-2 mb-5 text-2xl text-cyan-500 font-bold">
         REQUEST FOR LOAN
       </h2>
       {agrement ? (
         <div>
           <div
-            className="p-5"
+            className="md:p-5 p-1"
             dangerouslySetInnerHTML={{ __html: agrement }}
           ></div>
           <div className="col-span-2">
@@ -213,7 +200,7 @@ const LoanRequestForm = () => {
               />
               <label
                 htmlFor="agreementCheckbox"
-                className="text-sm text-gray-900 dark:text-white"
+                className="text-sm text-gray-900 dark:text-white whitespace-nowrap"
               >
                 I agree to the banks loan
                 <label
@@ -228,9 +215,9 @@ const LoanRequestForm = () => {
                         username,
                         kyc.tin_number,
                         kyc.business_name,
-                        loanAmount,
-                        "5%",
-                        borrowingCapacity?.payOffMonth
+                        borrowingCapacity?.term,
+                        loanAmount * borrowingCapacity?.returnCarp,
+                        loanAmount
                       ).then((res) => {
                         const newWindow = window.open();
                         newWindow.document?.open();
@@ -250,6 +237,11 @@ const LoanRequestForm = () => {
                 </label>
               </label>
             </div>
+            {/* <div style={{ width: "100%", height: "100vh" }}>
+              <PDFViewer style={{ width: "100%", height: "100%" }}>
+                <PDFDocument agrement={agrement} />
+              </PDFViewer>
+            </div> */}
           </div>
           <div className="w-full flex items-center justify-end">
             <button
@@ -303,11 +295,14 @@ const LoanRequestForm = () => {
           </div>
         </div>
       ) : (
-        <div className="grid grid-cols-2 gap-2">
-          <div className="w-full col-span-2 grid grid-cols-2 items-center">
+        <div className="grid grid-cols-2 gap-2 ">
+          <div className="w-full col-span-2 grid md:grid-cols-2 items-center">
             <div className="w-full">
               {revenue.map((option) => (
-                <div key={option.value} className="flex items-center mb-2">
+                <div
+                  key={option.value}
+                  className="flex items-center mb-2 w-full"
+                >
                   <input
                     type="radio"
                     id={`revenueOption-${option.value}`}
@@ -318,7 +313,7 @@ const LoanRequestForm = () => {
                   />
                   <label
                     htmlFor={`revenueOption-${option.value}`}
-                    className="text-sm text-gray-900 dark:text-white"
+                    className="text-sm text-gray-900 dark:text-white whitespace-nowrap"
                   >
                     {option.label}
                   </label>
@@ -340,7 +335,7 @@ const LoanRequestForm = () => {
                       onClick={() =>
                         handleSelectChange({ target: { value: arr.value } })
                       }
-                      className={`tab ${
+                      className={`tab whitespace-nowrap ${
                         howMuchMonth === arr.value ? "tab-active" : ""
                       }`}
                     >
@@ -353,10 +348,10 @@ const LoanRequestForm = () => {
               </div>
             )}
           </div>
-          <div className="border-b-4 col-span-2 mb-4"></div>
+          <div className="border-b-4 col-span-2 my-4"></div>
           {revenueProvided === "true" && (
             <div className="col-span-2">
-              <div className="grid grid-cols-3 gap-4">
+              <div className="grid md:grid-cols-3 gap-4">
                 {renderMonthInputs()}
               </div>
               <div className="w-full my-2 font-semibold text-xl">
@@ -417,13 +412,15 @@ const LoanRequestForm = () => {
           </div>
           <div></div>
           <button
-            disabled={!term.length || !revenueProvided.length}
+            disabled={
+              !term.length || !revenueProvided.length || loadingCalculatedData
+            }
             onClick={() => {
               setLoadingCalculatedData(true);
               dispatch(
                 getCalculatedCapacity(
                   term,
-                  37,
+                  1,
                   revenueValues,
                   "variable",
                   modifiedReports?.total_revenue?.total,
@@ -436,20 +433,29 @@ const LoanRequestForm = () => {
             style={{ backgroundColor: "#01AFEF" }}
             className="swal2-confirm swal2-styled"
           >
-            {!calculated ? "Calculate" : "Re-Calculate"}
+            {!calculated
+              ? "Calculate"
+              : loadingCalculatedData
+              ? "Calculating..."
+              : "Re-Calculate"}
           </button>
           {calculated &&
             (loadingCalculatedData ? (
-              <div>calculating...</div>
-            ) : (
+              <div>
+                <Spinner />
+              </div>
+            ) : borrowingCapacity.eligible ? (
               <div className="col-span-2">
-                <div className="grid grid-cols-3 items-center gap-4">
-                  <div className="text-xl text-cyan-500 font-bold flex items-center justify-between">
+                <div className="grid md:grid-cols-3 items-center gap-4">
+                  <div className="text-xl whitespace-nowrap text-cyan-500 font-bold flex items-center justify-between">
                     <span>Offer</span>
                     <span>
+                      {" "}
                       ETB{" "}
                       {(
-                        borrowingCapacity.borrowingCapacity * 1
+                        (borrowingCapacity?.overflowed
+                          ? borrowingCapacity?.overflowBorrowingCapacity
+                          : borrowingCapacity.borrowingCapacity) * 1
                       ).toLocaleString()}
                     </span>
                   </div>
@@ -464,7 +470,11 @@ const LoanRequestForm = () => {
                     <input
                       type="number"
                       name="loanAmount"
-                      max={Math.round(borrowingCapacity.borrowingCapacity)}
+                      max={Math.round(
+                        borrowingCapacity?.overflowed
+                          ? borrowingCapacity?.overflowBorrowingCapacity
+                          : borrowingCapacity?.borrowingCapacity
+                      )}
                       value={loanAmount}
                       id={`loanAmount`}
                       placeholder="Enter Loan amount"
@@ -473,12 +483,20 @@ const LoanRequestForm = () => {
                       onChange={(e) => setLoanAmount(e.target.value)}
                     />
                     {loanAmount >
-                      Math.round(borrowingCapacity.borrowingCapacity) && (
+                      Math.round(
+                        borrowingCapacity?.overflowed
+                          ? borrowingCapacity?.overflowBorrowingCapacity
+                          : borrowingCapacity?.borrowingCapacity
+                      ) && (
                       <span className="text-red-500">
                         {"value cannot be greater than" +
                           " " +
                           (
-                            Math.round(borrowingCapacity.borrowingCapacity) * 1
+                            Math.round(
+                              borrowingCapacity?.overflowed
+                                ? borrowingCapacity?.overflowBorrowingCapacity
+                                : borrowingCapacity?.borrowingCapacity
+                            ) * 1
                           )?.toFixed(0)}
                       </span>
                     )}
@@ -488,7 +506,11 @@ const LoanRequestForm = () => {
                     <button
                       disabled={
                         loanAmount >
-                        Math.round(borrowingCapacity.borrowingCapacity)
+                        Math.round(
+                          borrowingCapacity?.overflowed
+                            ? borrowingCapacity?.overflowBorrowingCapacity
+                            : borrowingCapacity?.borrowingCapacity
+                        )
                       }
                       style={{ backgroundColor: "#01AFEF" }}
                       className="swal2-confirm swal2-styled items-center
@@ -496,17 +518,17 @@ const LoanRequestForm = () => {
                       onClick={() =>
                         dispatch(
                           CapacityService.generateAgreementDoc(
-                            kyc.first_name + " " + kyc.last_name,
-                            kyc.business_address,
+                            kyc?.first_name + " " + kyc?.last_name,
+                            kyc?.business_address,
                             "",
                             "",
                             "",
                             username,
                             kyc.tin_number,
                             kyc.business_name,
-                            loanAmount,
-                            "5%",
-                            borrowingCapacity.payOffMonth
+                            borrowingCapacity?.term,
+                            loanAmount * borrowingCapacity?.returnCarp,
+                            loanAmount
                           ).then((res) => setAgreement(res))
                         )
                       }
@@ -515,6 +537,12 @@ const LoanRequestForm = () => {
                     </button>
                   </div>
                 </div>
+              </div>
+            ) : (
+              <div>
+                <span className="text-red-500 italic">
+                  Sorry, You are not eligible with this month
+                </span>
               </div>
             ))}
         </div>

@@ -26,7 +26,40 @@ const columns = [
     name: "Agreement File",
     selector: (row) => row.agreementFile,
     cell: (row) => {
-      return <div>{row.agreementFile}</div>;
+      return (
+        <div className="flex items-center justify-center space-x-2">
+          <span>File</span>
+          <button
+            className=""
+            onClick={() => {
+              const newWindow = window.open();
+              newWindow.document?.open();
+              newWindow.document?.write(row?.agreementFile);
+              newWindow.document?.close();
+            }}
+          >
+            <span>
+              <svg
+                class="h-6 w-6 text-cyan-500"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                stroke-width="2"
+                stroke="currentColor"
+                fill="none"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                {" "}
+                <path stroke="none" d="M0 0h24v24H0z" />{" "}
+                <circle cx="12" cy="12" r="2" />{" "}
+                <path d="M2 12l1.5 2a11 11 0 0 0 17 0l1.5 -2" />{" "}
+                <path d="M2 12l1.5 -2a11 11 0 0 1 17 0l1.5 2" />
+              </svg>
+            </span>
+          </button>
+        </div>
+      );
     },
     sortable: true,
   },
@@ -37,7 +70,7 @@ const columns = [
   },
   {
     name: "Requested At",
-    selector: (row) => new Date(row.createdDate).toISOString().split("T")[0],
+    selector: (row) => new Date(row.appliedDate).toISOString().split("T")[0],
     sortable: true,
   },
 ];
@@ -46,7 +79,6 @@ function MerchantLoanList() {
   const addedDomain = useSelector((state) => state.domain);
   const userData = useSelector((state) => state.userProfile);
   const { userID } = userData;
-  const { loading } = addedDomain;
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -54,7 +86,7 @@ function MerchantLoanList() {
   }, [userID]);
 
   const capacityData = useSelector((state) => state.capacityInfo);
-  const { merchantLoan } = capacityData;
+  const { merchantLoan, loading } = capacityData;
 
   const FilterComponent = ({ filterText, onFilter, onClear }) => (
     <>
@@ -201,9 +233,8 @@ function MerchantLoanList() {
           columns={columns}
           data={merchantLoan}
           pagination
-          paginationResetDefaultPage={resetPaginationToggle} // optionally, a hook to reset pagination to page 1
+          paginationResetDefaultPage={resetPaginationToggle}
           subHeader
-          subHeaderComponent={subHeaderComponentMemo}
           persistTableHeadstriped
           highlightOnHover
           actions={actionsMemo}
