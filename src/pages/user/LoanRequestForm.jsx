@@ -69,7 +69,6 @@ const LoanRequestForm = () => {
       [month]: value,
     }));
 
-    console.log(revenueValues);
   };
 
   var currentDate = new Date();
@@ -86,7 +85,6 @@ const LoanRequestForm = () => {
   const reportData = useSelector((state) => state.reportInfo);
   const { modifiedReports } = reportData;
 
-  console.log("modified", modifiedReports?.total_revenue?.total);
   const renderMonthInputs = () => {
     const currentDate = new Date();
     currentDate.setMonth(currentDate.getMonth() - 2); // Adjust to current month minus one
@@ -237,11 +235,11 @@ const LoanRequestForm = () => {
                 </label>
               </label>
             </div>
-            {/* <div style={{ width: "100%", height: "100vh" }}>
+            <div style={{ width: "100%", height: "100vh" }}>
               <PDFViewer style={{ width: "100%", height: "100%" }}>
                 <PDFDocument agrement={agrement} />
               </PDFViewer>
-            </div> */}
+            </div>
           </div>
           <div className="w-full flex items-center justify-end">
             <button

@@ -7,7 +7,6 @@ import Addressproof from "../../components/Addressproof";
 import Selectinput from "../../components/Selectinput";
 
 function EditInventory({ onSubmit, values, onCancel, data, kyc, categories }) {
-  console.log(values);
   const currentDate = new Date().toISOString().split("T")[0];
   const FILE_SIZE = 160 * 1024;
   const SUPPORTED_FORMATS = [

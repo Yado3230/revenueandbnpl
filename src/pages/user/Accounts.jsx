@@ -162,7 +162,6 @@ function Accounts() {
         confirmButtonText: "Yes!",
       }).then((result) => {
         if (result.isConfirmed === true) {
-          console.log(e.target.options[e.target.selectedIndex]);
           BankAccountServices.sendOtp(
             e.target.options[e.target.selectedIndex].getAttribute(
               "data-phone-number"

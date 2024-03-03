@@ -45,7 +45,6 @@ const InventoryReport = () => {
   const [filtered, setFiltered] = useState(true);
 
   const reportData = useSelector((state) => state.reportInfo);
-  console.log(reportData);
   const {
     dashboardCardReport,
     yearlyRevenueandprofit,
@@ -132,7 +131,6 @@ const InventoryReport = () => {
     return revenueMap[monthName] || { month: monthName, revenue: 0 };
   });
 
-  console.log(revenueTrends);
 
   const renderChart = () => {
     switch (activeTab) {

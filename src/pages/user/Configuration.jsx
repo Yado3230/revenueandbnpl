@@ -113,7 +113,6 @@ function Configuration() {
       sortable: true,
     },
   ];
-  console.log(categories);
 
   const handleChange = (e) => {
     const { name, value } = e.target;

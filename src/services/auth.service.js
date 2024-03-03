@@ -67,7 +67,6 @@ const login = async (
     });
   } catch (error) {
     try {
-      console.log(error);
       setMessage(error?.response?.data?.message);
       setLoading(false);
       error?.response?.data?.message === "In active Account"

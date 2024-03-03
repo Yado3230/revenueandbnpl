@@ -24,7 +24,6 @@ const getAllDashboardCardDetail = async (fromDate, toDate, merchant_id) => {
     apiUrl.searchParams.append("merchantId", merchant_id);
   }
 
-  console.log(apiUrl.pathname + apiUrl.search);
   return await NODE_API.get(apiUrl.pathname + apiUrl.search).then(
     (response) => response.data
   );
@@ -44,7 +43,6 @@ const getAllYearlyRevenueandProfit = async (year, merchant_id) => {
     apiUrl.searchParams.append("merchant_id", merchant_id);
   }
 
-  console.log(apiUrl.pathname + apiUrl.search);
   return await NODE_API.get(apiUrl.pathname + apiUrl.search).then(
     (response) => response.data
   );
@@ -60,7 +58,6 @@ const getAllCurrentAndPreviousMonthReport = async (merchant_id) => {
     apiUrl.searchParams.append("merchant_id", merchant_id);
   }
 
-  console.log(apiUrl.pathname + apiUrl.search);
   return await NODE_API.get(apiUrl.pathname + apiUrl.search).then(
     (response) => response.data
   );
@@ -76,7 +73,6 @@ const getSoldItems = async (merchant_id) => {
     apiUrl.searchParams.append("merchant_id", merchant_id);
   }
 
-  console.log(apiUrl.pathname + apiUrl.search);
   return await NODE_API.get(apiUrl.pathname + apiUrl.search).then(
     (response) => response.data
   );
@@ -92,7 +88,6 @@ const getAllOnStockItems = async (merchant_id) => {
     apiUrl.searchParams.append("merchant_id", merchant_id);
   }
 
-  console.log(apiUrl.pathname + apiUrl.search);
   return await NODE_API.get(apiUrl.pathname + apiUrl.search).then(
     (response) => response.data
   );
@@ -134,7 +129,6 @@ const getAllModifiedReports = async (
     apiUrl.searchParams.append("cost", cost);
   }
 
-  console.log(apiUrl.pathname + apiUrl.search);
   return await NODE_API.get(apiUrl.pathname + apiUrl.search).then(
     (response) => response.data
   );

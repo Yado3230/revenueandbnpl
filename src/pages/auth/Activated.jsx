@@ -12,7 +12,6 @@ const Activated = () => {
     const fetchData = async () => {
       try {
         const res = await NODE_API.get(`/activate/${params.token}`);
-        console.log(res);
         setActivationStatus("Your account is activated successfully");
         setIsActivationSuccessful(true);
       } catch (error) {

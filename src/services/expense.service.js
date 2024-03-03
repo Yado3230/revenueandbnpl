@@ -7,7 +7,6 @@ const registerExpense = async (data, setUpdated, updated) => {
   });
 };
 const editExpense = async (data, setUpdated, updated) => {
-  console.log(data);
   return await NODE_API.put(
     `/rb/expense/update?expense_id=${data?.expense_id}`,
     data

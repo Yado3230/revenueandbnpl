@@ -25,7 +25,6 @@ export const getDashboardCardDetail =
 
 export const getYearlyRevenueandProfit =
   (year, merchant_id) => async (dispatch) => {
-    console.log(year, merchant_id);
     try {
       const dashboardCardDetails =
         await ReportService.getAllYearlyRevenueandProfit(year, merchant_id);

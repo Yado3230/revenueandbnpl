@@ -111,7 +111,6 @@ const Loans = () => {
   ];
 
   const ExpandableTableComponent = ({ data }) => {
-    console.log(data);
 
     const loanColumns = [
       {
