@@ -46,7 +46,7 @@ export const getCalculatedCapacity =
         formattedData.push({ Date: formattedDate, Revenue: revenue });
       }
     }
-    formattedData.push({ Date: formattedDates, Revenue: currentMonth });
+    formattedData.push({ Date: "2024-02-01", Revenue: currentMonth });
 
     try {
       const expenseData = await CapacityService.getCalculatedBorrowingCapacity(

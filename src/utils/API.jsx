@@ -23,7 +23,7 @@ export const NODE_API = axios.create({
 });
 
 export const SPRING_API = axios.create({
-  baseURL: "https://souqpass.coopbankoromiasc.com/api",
+  baseURL: "https://souqpass.coopbankoromiasc.com/proxy",
 });
 
 // Request interceptor to update Authorization header with the token

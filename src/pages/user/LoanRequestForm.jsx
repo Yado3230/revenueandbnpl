@@ -11,10 +11,6 @@ import { getModifiedReports } from "../../store/actions/reportActions";
 import Swal from "sweetalert2";
 import Spinner from "../../components/Spinner/Spinner";
 
-import PDFGenerator from "./PdfGenerator";
-import { PDFViewer } from "@react-pdf/renderer";
-import PDFDocument from "./PdfGenerator";
-
 const LoanRequestForm = () => {
   const [revenueProvided, setRevenueProvided] = useState("");
   const [howMuchMonth, setHowMuchMonth] = useState("");
@@ -68,7 +64,6 @@ const LoanRequestForm = () => {
       ...prevValues,
       [month]: value,
     }));
-
   };
 
   var currentDate = new Date();
@@ -176,13 +171,27 @@ const LoanRequestForm = () => {
     }
   }, [borrowingCapacity]);
 
+  const [isGeneratingPDF, setIsGeneratingPDF] = useState(false);
+
+  // const handleDownload = () => {
+  //   if (pdfBlob) {
+  //     const url = URL.createObjectURL(pdfBlob);
+  //     const a = document.createElement("a");
+  //     a.href = url;
+  //     a.download = "contract.pdf";
+  //     document.body.appendChild(a);
+  //     a.click();
+  //     document.body.removeChild(a);
+  //   }
+  // };
+
   return (
-    <div className="p-1 md:p-5 rounded-xl shadow bg-white dark:bg-black">
+    <div className="p-2 md:p-5 rounded shadow bg-white dark:bg-black">
       <h2 className="mt-2 mb-5 text-2xl text-cyan-500 font-bold">
         REQUEST FOR LOAN
       </h2>
       {agrement ? (
-        <div>
+        <div className="w-full">
           <div
             className="md:p-5 p-1"
             dangerouslySetInnerHTML={{ __html: agrement }}
@@ -202,31 +211,7 @@ const LoanRequestForm = () => {
               >
                 I agree to the banks loan
                 <label
-                  onClick={() =>
-                    dispatch(
-                      CapacityService.generateAgreementDoc(
-                        kyc?.first_name + " " + kyc?.last_name,
-                        kyc?.business_address,
-                        "",
-                        "",
-                        "",
-                        username,
-                        kyc.tin_number,
-                        kyc.business_name,
-                        borrowingCapacity?.term,
-                        loanAmount * borrowingCapacity?.returnCarp,
-                        loanAmount
-                      ).then((res) => {
-                        const newWindow = window.open();
-                        newWindow.document?.open();
-                        newWindow.document?.write(res);
-                        newWindow.document?.close();
-                        return (
-                          <div dangerouslySetInnerHTML={{ __html: res }}></div>
-                        );
-                      })
-                    )
-                  }
+                  // onClick={handleDownload}
                   // htmlFor="my_modal_6"
                   className="text-cyan-500 font-semibold cursor-pointer"
                 >
@@ -234,11 +219,6 @@ const LoanRequestForm = () => {
                   agreement
                 </label>
               </label>
-            </div>
-            <div style={{ width: "100%", height: "100vh" }}>
-              <PDFViewer style={{ width: "100%", height: "100%" }}>
-                <PDFDocument agrement={agrement} />
-              </PDFViewer>
             </div>
           </div>
           <div className="w-full flex items-center justify-end">
@@ -249,9 +229,10 @@ const LoanRequestForm = () => {
                 return dispatch(
                   CapacityService.applyForLoan(
                     userID,
-                    borrowingCapacity.borrowingCapacity,
+                    loanAmount * 1,
                     borrowingCapacity.totalRepayment,
-                    borrowingCapacity.term
+                    borrowingCapacity.term,
+                    agrement
                   )
                     .then((res) => {
                       Swal.fire({
@@ -418,7 +399,7 @@ const LoanRequestForm = () => {
               dispatch(
                 getCalculatedCapacity(
                   term,
-                  1,
+                  2,
                   revenueValues,
                   "variable",
                   modifiedReports?.total_revenue?.total,
@@ -513,14 +494,14 @@ const LoanRequestForm = () => {
                       style={{ backgroundColor: "#01AFEF" }}
                       className="swal2-confirm swal2-styled items-center
                 justify-center w-full"
-                      onClick={() =>
+                      onClick={() => {
                         dispatch(
                           CapacityService.generateAgreementDoc(
                             kyc?.first_name + " " + kyc?.last_name,
                             kyc?.business_address,
-                            "",
-                            "",
-                            "",
+                            " ",
+                            " ",
+                            " ",
                             username,
                             kyc.tin_number,
                             kyc.business_name,
@@ -528,10 +509,10 @@ const LoanRequestForm = () => {
                             loanAmount * borrowingCapacity?.returnCarp,
                             loanAmount
                           ).then((res) => setAgreement(res))
-                        )
-                      }
+                        );
+                      }}
                     >
-                      Next
+                      {isGeneratingPDF ? "Generating PDF..." : "Next"}
                     </button>
                   </div>
                 </div>

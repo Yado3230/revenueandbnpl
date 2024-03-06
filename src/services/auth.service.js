@@ -43,16 +43,22 @@ const login = async (
         const decoded = jwtDecode(res.data.token);
         const user = jwt(res.data.token);
         if (decoded?.role === "sales") {
-          dispatch(setUsername(decoded?.email_address));
+          dispatch(
+            setUsername(decoded?.email_address || decoded?.phone_number)
+          );
           dispatch(setUserID(decoded?.sales_id));
           dispatch(setRole(decoded?.role));
           setLoading(false);
+          console.log(decoded);
           navigate("/admin");
           window.location.reload();
         } else if (decoded?.role === "merchant") {
-          dispatch(setUsername(decoded?.email_address));
+          dispatch(
+            setUsername(decoded?.email_address || decoded?.phone_number)
+          );
           dispatch(setUserID(decoded?.merchant_id));
           dispatch(setRole(decoded?.role));
+          console.log(decoded);
           setLoading(false);
           navigate("/users");
           // window.location.reload();

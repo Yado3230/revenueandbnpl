@@ -49,13 +49,15 @@ const applyForLoan = async (
   merchantId,
   appliedAmount,
   totalRepayment,
-  payOffMonth
+  payOffMonth,
+  agrement
 ) => {
   return await SPRING_API.post("/v1/loans/apply", {
     merchantId,
     appliedAmount,
     totalRepayment,
     payOffMonth,
+    agreementFile: agrement,
   }).then((response) => response.data);
 };
 
@@ -65,7 +67,7 @@ const getCustomerLoanRequest = async (merchant_id) => {
   );
 };
 const getCapTable = async () => {
-  return await SPRING_API.get(`/v1/payoff-months/cohort/1`).then(
+  return await SPRING_API.get(`/v1/payoff-months/cohort/2`).then(
     (response) => response.data
   );
 };
