@@ -112,30 +112,6 @@ const login = async (
   }
 };
 
-const getLoggedInUser = async (token) => {
-  const response = await axios.post(
-    process.env.REACT_APP_API_NODE_URLS + "api/user/verifyToken",
-    {},
-    { headers: { "Content-Type": "application/json" }, "Bearer Token": token }
-    // { withCredentials: true }
-  );
-  return response.data.user;
-};
-
-const logout = () => {
-  localStorage.removeItem("user");
-};
-
-const resetPasswordRequest = async (email) => {
-  const response = await axios.post(
-    process.env.REACT_APP_API_NODE_URLS + "api/auth/resetpasswordRequest",
-    {
-      email,
-    }
-  );
-  return response.data;
-};
-
 const generateApiKey = async (merchant_id, expiryDate) => {
   try {
     const response = await NODE_API.post("/apiKey/generate", {
@@ -157,26 +133,6 @@ const getGeneratedApiKey = async (merchant_id) => {
   return response.data;
 };
 
-const resetPassword = async (password, token, id) => {
-  const response = await axios.post(
-    process.env.REACT_APP_API_NODE_URLS + `api/auth/resetpassword`,
-    {
-      password,
-    },
-    {
-      params: {
-        token,
-        id,
-      },
-    }
-  );
-  return response.data;
-};
-
-// const checkToken = () => {
-//   return localStorage.getItem(user.token);
-// };
-
 const getCurrentUser = () => {
   return JSON.parse(localStorage.getItem("user"));
 };
@@ -184,10 +140,6 @@ const getCurrentUser = () => {
 const AuthService = {
   register,
   login,
-  logout,
-  getLoggedInUser,
-  resetPasswordRequest,
-  resetPassword,
   getCurrentUser,
   generateApiKey,
   getGeneratedApiKey,

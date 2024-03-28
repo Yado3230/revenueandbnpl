@@ -1,8 +1,6 @@
 import React from "react";
 import { Formik, ErrorMessage } from "formik";
 import * as Yup from "yup";
-// import Input from "../../components/Input";
-// import Fileinput from "../../components/Fileinput";
 import Addressproof from "../../components/Addressproof";
 import Selectinput from "../../components/Selectinput";
 
@@ -35,18 +33,18 @@ function EditInventory({ onSubmit, values, onCancel, data, kyc, categories }) {
     //     "Unsupported Format",
     //     (value) => value && SUPPORTED_FORMATS.includes(value.type)
     //   ),
-    item_code: Yup.string().optional(),
+    item_code: Yup.string().nullable().optional(),
     item_price: Yup.string().required("Price is required"),
     item_name: Yup.string().required("Name is required"),
-    item_type: Yup.string().optional(),
+    item_type: Yup.string().nullable().optional(),
     // loan_limit: Yup.string().optional(),
     totalQuantity: Yup.string().required("Total Quantity is required"),
     totalBuyPrice: Yup.string().required("Total Buy Price is required"),
     reorderPointUnit: Yup.string().required("Reorder Point Unit is required"),
-    purchaseDate: Yup.string().optional(),
-    supplier: Yup.string().optional(),
-    location: Yup.string().optional(),
-    description: Yup.string().optional(),
+    purchaseDate: Yup.string().nullable().optional(),
+    supplier: Yup.string().nullable().optional(),
+    location: Yup.string().nullable().optional(),
+    description: Yup.string().nullable().optional(),
     // item_category_id: Yup.string().optional(),
   });
   return (

@@ -1,24 +1,6 @@
 import axios from "axios";
-import AuthHeader from "./auth-header";
 import { NODE_API } from "../utils/API";
-
-const API_URL = process.env.REACT_APP_API_NODE_URLS;
-
-const getPublicContent = () => {
-  return axios.get(API_URL + "api/test/all");
-};
-
-const getUserBoard = () => {
-  return axios.get(API_URL + "api/test/user", { headers: AuthHeader() });
-};
-
-const getModeratorBoard = () => {
-  return axios.get(API_URL + "api/test/mod", { headers: AuthHeader() });
-};
-
-const getAdminBoard = () => {
-  return axios.get(API_URL + "api/test/admin", { headers: AuthHeader() });
-};
+const API_URL = "";
 
 const getAllPendingBussiness = async () => {
   return await axios
@@ -141,10 +123,6 @@ const rejectSales = async (sales_kyc_id, merchant_id, setUpdated, updated) => {
 };
 
 const UserService = {
-  getPublicContent,
-  getUserBoard,
-  getModeratorBoard,
-  getAdminBoard,
   BussinessInfoRequest,
   getAllPendingBussiness,
   approvePendingBussinessById,

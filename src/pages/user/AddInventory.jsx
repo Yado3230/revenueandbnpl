@@ -33,20 +33,20 @@ function AddInventory({ onSubmit, values, onCancel, kyc, categories }) {
     //     "Unsupported Format",
     //     (value) => value && SUPPORTED_FORMATS.includes(value.type)
     //   ),
-    item_code: Yup.string().optional(),
+    item_code: Yup.string().nullable().optional(),
     item_price: Yup.string().required("Price is required"),
     item_name: Yup.string().required("Name is required"),
     // item_type: Yup.string().required("Type is required"),
-    loan_limit: Yup.string().optional(),
+    loan_limit: Yup.string().nullable().optional(),
     totalQuantity: Yup.string().required("Total Quantity is required"),
     totalBuyPrice: Yup.string().required("Total Buy Price is required"),
-    unitPrice: Yup.string().optional(),
+    unitPrice: Yup.string().nullable().optional(),
     reorderPointUnit: Yup.string().required("Reorder Point Unit is required"),
-    purchaseDate: Yup.string().optional(),
-    supplier: Yup.string().optional(),
-    location: Yup.string().optional(),
-    description: Yup.string().optional(),
-    item_category_id: Yup.string().optional(),
+    purchaseDate: Yup.string().nullable().optional(),
+    supplier: Yup.string().nullable().optional(),
+    location: Yup.string().nullable().optional(),
+    description: Yup.string().nullable().optional(),
+    item_category_id: Yup.string().nullable().optional(),
   });
   return (
     <>

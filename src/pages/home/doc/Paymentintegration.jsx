@@ -5,7 +5,7 @@ import ApiTable from "./components/ApiTable";
 
 const Paymentintegration = () => {
   const response = `{
-    "link": "http://10.100.51.53/gateway/VTJGc2RHVmtYMStBR0hkOGlaNGZJb2pLZSt3YklEa0xKYmkvQ0tRNzVuMD0="
+    "link": "http://souqpass.coopbankoromiasc.com/gateway/VTJGc2RHVmtYMStBR0hkOGlaNGZJb2pLZSt3YklEa0xKYmkvQ0tRNzVuMD0="
 }`;
   const codeData = [
     {
@@ -32,7 +32,7 @@ const Paymentintegration = () => {
         "clientId": "ee4423a1-3955-49a8-8aeb-5c34ea744988",
         "secrateKey": "ee4423a1-3955-49a8-8aeb-5c34ea744988",
         "apiKey": "e903bb10-cbe3-4285-a30e-2ebb948e5f55",
-        "callBackUrl": "http://10.1.177.121:5000/dashboard/products",
+        "callBackUrl": "http://souqpass.coopbankoromiasc.com/dashboard/products",
         "returnUrl": "http://localhost:3000",
         "authToken":"CHASECK_TEST-MozGIHYgzprWQQMVMbtg3zbr2XiyMwky",
         "email": "coop.ihub@gmail.com",
@@ -53,7 +53,7 @@ const Paymentintegration = () => {
         "clientId": "ee4423a1-3955-49a8-8aeb-5c34ea744988",
         "secrateKey": "ee4423a1-3955-49a8-8aeb-5c34ea744988",
         "apiKey": "e903bb10-cbe3-4285-a30e-2ebb948e5f55",
-        "callBackUrl": "http://10.1.177.121:5000/dashboard/products",
+        "callBackUrl": "http://souqpass.coopbankoromiasc.com/dashboard/products",
         "returnUrl":"http://localhost:3000",
         "orderId":"49tKFggKu9khg5KHu4",
         "currency":"USD",

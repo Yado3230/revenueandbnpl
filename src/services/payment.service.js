@@ -1,10 +1,6 @@
 import axios from "axios";
 import { NODE_API } from "../utils/API";
-const API_URL = process.env.REACT_APP_API_NODE_URLS;
-const SpringUrl = process.env.REACT_APP_API_SPRING_URLS;
-// const LOCAL_URL = "http://10.1.177.130:6000/api/"
-const CoopasEndPoint =
-  "http://10.1.177.125:9000/api/accounts/getPrimaryAccount";
+
 const pay = async (accountNumber, paymentId) => {
   return await NODE_API.post("/payment", {
     accountNumber,
@@ -29,32 +25,7 @@ const verifyStripePayment = async ({ paymentId, data }) => {
   });
 };
 
-const checkCredentials = async (clientId, secretKey, key) => {
-  return await axios
-    .post(
-      process.env.REACT_APP_API_NODE_URLS + "api/checkCredential",
-      {},
-      {
-        params: {
-          clientid: clientId,
-          secratekey: secretKey,
-          key: key,
-        },
-      }
-    )
-    .then((response) => {
-      return [response.status, response.data];
-    });
-};
 
-const verifyPin = async (phoneNumber, passcode) => {
-  return await axios
-    .post(CoopasEndPoint, { phoneNumber: phoneNumber * 1, pinCode: passcode })
-    .then((response) => {
-      return [response.status, response.data];
-    })
-    .catch((error) => error?.response?.data?.message);
-};
 const getPendingPaymentInfo = async (data) => {
   return await NODE_API.get(`/getPaymentStatus`, {
     params: {
@@ -129,9 +100,9 @@ const sendPaymentResponse = async (endpoint, paymentData) => {
 
 const PaymentServices = {
   pay,
-  verifyPin,
+  // verifyPin,
   logPayPalResponse,
-  checkCredentials,
+  // checkCredentials,
   getPendingPaymentInfo,
   StripePayment,
   verifyStripePayment,

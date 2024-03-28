@@ -581,6 +581,7 @@ function Inventory() {
       .then((values) => values)
       .catch(() => console.log("Modal closed"));
   };
+  
   const showAssignLoan = (data) => {
     showAssignLoanForm({
       item_id: data.item_id ? data?.item_id : "",
@@ -616,6 +617,7 @@ function Inventory() {
   );
 
   const ExpandableTableComponent = ({ data }) => {
+    console.log("data");
     const loanColumns = [
       {
         name: "Interest Rate",
