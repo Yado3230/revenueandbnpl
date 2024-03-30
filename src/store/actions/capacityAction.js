@@ -2,6 +2,7 @@ import CapacityService from "../../services/capacityServices";
 import {
   FORCASTED_CAPACITY,
   SET_MERCHANT_LOAN,
+  SET_REPAYMENT_SCHEDULE,
   SET_RETURNCAP_TABLE,
 } from "../types";
 
@@ -72,6 +73,19 @@ export const getLoanRequests = (merchant_id) => async (dispatch) => {
     );
     dispatch({
       type: SET_MERCHANT_LOAN,
+      payload: dashboardCardDetails,
+    });
+  } catch (error) {
+    return error;
+  }
+};
+
+export const getRepaymentSchedule = (loanId) => async (dispatch) => {
+  try {
+    const dashboardCardDetails =
+      await CapacityService.getMerchantRepaymentSchedule(loanId);
+    dispatch({
+      type: SET_REPAYMENT_SCHEDULE,
       payload: dashboardCardDetails,
     });
   } catch (error) {

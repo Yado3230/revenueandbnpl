@@ -132,6 +132,7 @@ function Accounts() {
   };
 
   const handleOtpSubmit = (e) => {
+    console.log(e)
     BankAccountServices.confirmOtp(
       e.target.options[e.target.selectedIndex].getAttribute(
         "data-phone-number"
@@ -153,7 +154,7 @@ function Accounts() {
     return new Promise((resolve, reject) => {
       MySwal.fire({
         title: "Are you sure?",
-        text: `You want to set ${e.target.value}Your Primary Account?`,
+        text: `You want to set ${e.target.value} Your Primary Account?`,
         icon: "warning",
         // dangerMode: true,
         showCancelButton: true,

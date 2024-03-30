@@ -1,8 +1,14 @@
-import { FORCASTED_CAPACITY, SET_MERCHANT_LOAN, SET_RETURNCAP_TABLE } from "../types";
+import {
+  FORCASTED_CAPACITY,
+  SET_MERCHANT_LOAN,
+  SET_REPAYMENT_SCHEDULE,
+  SET_RETURNCAP_TABLE,
+} from "../types";
 
 const initialState = {
   borrowingCapacity: {},
   merchantLoan: [],
+  repaymentSchedule: [],
   loading: false,
   capTable: [],
 };
@@ -25,6 +31,12 @@ export default function (state = initialState, action) {
       return {
         ...state,
         capTable: action.payload,
+        loading: false,
+      };
+    case SET_REPAYMENT_SCHEDULE:
+      return {
+        ...state,
+        repaymentSchedule: action.payload,
         loading: false,
       };
     default:

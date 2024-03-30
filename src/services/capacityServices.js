@@ -1,3 +1,4 @@
+import axios from "axios";
 import { SPRING_API } from "../utils/API";
 
 const getCalculatedBorrowingCapacity = async (
@@ -50,7 +51,8 @@ const applyForLoan = async (
   appliedAmount,
   totalRepayment,
   payOffMonth,
-  agrement
+  agrement,
+  revenueShareDriver
 ) => {
   return await SPRING_API.post("/v1/loans/apply", {
     merchantId,
@@ -58,6 +60,9 @@ const applyForLoan = async (
     totalRepayment,
     payOffMonth,
     agreementFile: agrement,
+    revenueShareType: "variable",
+    cohortId: "2",
+    revenueShareDriver: revenueShareDriver,
   }).then((response) => response.data);
 };
 
@@ -66,6 +71,15 @@ const getCustomerLoanRequest = async (merchant_id) => {
     (response) => response.data
   );
 };
+
+const getMerchantRepaymentSchedule = async (loanId) => {
+  return await axios
+    .get(
+      `http://10.1.130.15:9010/api/v1/loans/repayment-schedules?loanId=${loanId}`
+    )
+    .then((response) => response.data);
+};
+
 const getCapTable = async () => {
   return await SPRING_API.get(`/v1/payoff-months/cohort/2`).then(
     (response) => response.data
@@ -78,6 +92,7 @@ const CapacityService = {
   applyForLoan,
   getCustomerLoanRequest,
   getCapTable,
+  getMerchantRepaymentSchedule,
 };
 
 export default CapacityService;

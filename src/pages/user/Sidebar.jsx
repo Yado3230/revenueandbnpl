@@ -3,7 +3,10 @@ import { Link } from "react-router-dom";
 import Icon from "../../components/Icon";
 import { useDispatch, useSelector } from "react-redux";
 import jwtDecode from "jwt-decode";
-import { getLoanRequests } from "../../store/actions/capacityAction";
+import {
+  getLoanRequests,
+  getRepaymentSchedule,
+} from "../../store/actions/capacityAction";
 
 function Sidebar() {
   const userData = useSelector((state) => state.userProfile);
@@ -17,7 +20,13 @@ function Sidebar() {
   }, [userID]);
 
   const capacityData = useSelector((state) => state.capacityInfo);
-  const { merchantLoan } = capacityData;
+  const { merchantLoan, repaymentSchedule } = capacityData;
+
+  useEffect(() => {
+    if (merchantLoan[0]?.id) {
+      dispatch(getRepaymentSchedule(merchantLoan[0]?.id));
+    }
+  }, [merchantLoan[0]?.id]);
 
   return (
     <>
@@ -443,6 +452,34 @@ function Sidebar() {
                         <path d="M17 9v-2a2 2 0 0 0 -2 -2h-10a2 2 0 0 0 -2 2v6a2 2 0 0 0 2 2h2" />
                       </svg>
                       Loan List
+                    </Link>
+                  </li>
+                )}
+
+              {service_name?.includes("BNPL") &&
+                kyc.rbf === true &&
+                Array.isArray(repaymentSchedule) &&
+                repaymentSchedule?.length > 0 && (
+                  <li className="mb-1">
+                    <Link to="repaymentschedule">
+                      <svg
+                        className="h-6 w-6 text-primary"
+                        width="24"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        strokeWidth="2"
+                        stroke="currentColor"
+                        fill="none"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        {" "}
+                        <path stroke="none" d="M0 0h24v24H0z" />{" "}
+                        <rect x="7" y="9" width="14" height="10" rx="2" />{" "}
+                        <circle cx="14" cy="14" r="2" />{" "}
+                        <path d="M17 9v-2a2 2 0 0 0 -2 -2h-10a2 2 0 0 0 -2 2v6a2 2 0 0 0 2 2h2" />
+                      </svg>
+                      Repayment Schedule
                     </Link>
                   </li>
                 )}

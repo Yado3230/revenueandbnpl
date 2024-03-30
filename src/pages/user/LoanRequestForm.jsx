@@ -232,7 +232,8 @@ const LoanRequestForm = () => {
                     loanAmount * 1,
                     borrowingCapacity.totalRepayment,
                     borrowingCapacity.term,
-                    agrement
+                    agrement,
+                    borrowingCapacity.revenueShareDriver
                   )
                     .then((res) => {
                       Swal.fire({
