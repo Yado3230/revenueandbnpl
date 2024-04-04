@@ -5,7 +5,7 @@ export const IntroFeature = () => {
     <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
       <div className="mx-auto sm:text-center lg:max-w-2xl">
         <div className="max-w-xl mb-10 md:mx-auto sm:text-center lg:max-w-2xl md:mb-12">
-          <h2 className="max-w-lg mb-6 font-sans text-3xl font-bold leading-none tracking-tight text-gray-900 sm:text-4xl md:mx-auto dark:text-gray-300">
+          <h2 className="max-w-lg mb-6 font-sans text-3xl font-bold leading-none tracking-tight text-gray-900 sm:text-4xl md:mx-auto testdark:text-gray-300">
             <span className="relative inline-block">
               <svg
                 viewBox="0 0 52 24"
@@ -34,7 +34,7 @@ export const IntroFeature = () => {
             Souqpass is the most relaible, easy and fast payment gateway in
             Ethiopia.
           </h2>
-          <p className="text-base text-gray-700 md:text-lg dark:text-gray-400">
+          <p className="text-base text-gray-700 md:text-lg testdark:text-gray-400">
             Souqpass has a wide range of options for merchants to manage their
             transactions. It also provides a variety of Intros that make it easy
             for merchants to accept payments from customers around the world.

@@ -99,13 +99,13 @@ const FilterComponent = ({ filterText, onFilter, onClear }) => (
       aria-label="Search Input"
       value={filterText}
       onChange={onFilter}
-      className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm focus:ring-primary focus:border-primary block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+      className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm focus:ring-primary focus:border-primary block p-2.5 testdark:bg-gray-700 testdark:border-gray-600 testdark:placeholder-gray-400 testdark:text-white testdark:focus:ring-blue-500 testdark:focus:border-blue-500"
     />
 
     <button
       type="button"
       onClick={onClear}
-      className="text-white bg-primary hover:bg-primary focus:ring-4 focus:outline-none focus:ring-primary font-medium text-sm px-5 py-2.5 text-center dark:bg-primary dark:hover:bg-primary dark:focus:ring-primary"
+      className="text-white bg-primary hover:bg-primary focus:ring-4 focus:outline-none focus:ring-primary font-medium text-sm px-5 py-2.5 text-center testdark:bg-primary testdark:hover:bg-primary testdark:focus:ring-primary"
     >
       Clear
     </button>
@@ -115,7 +115,7 @@ const FilterComponent = ({ filterText, onFilter, onClear }) => (
 const Export = ({ onExport }) => (
   <button
     onClick={(e) => onExport(e.target.value)}
-    className="text-white bg-primary hover:bg-primary focus:ring-4 focus:outline-none focus:ring-primary font-medium text-sm px-3.5 py-2.5 mr-2 text-center dark:bg-primary dark:hover:bg-primary dark:focus:ring-primary"
+    className="text-white bg-primary hover:bg-primary focus:ring-4 focus:outline-none focus:ring-primary font-medium text-sm px-3.5 py-2.5 mr-2 text-center testdark:bg-primary testdark:hover:bg-primary testdark:focus:ring-primary"
   >
     Export
   </button>
@@ -265,14 +265,14 @@ function TransactionList() {
   return (
     <div className="">
       <div className="">
-        <ul className="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400">
+        <ul className="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-200 testdark:border-gray-700 testdark:text-gray-400">
           <li className="mr-2">
             <button
               className={
                 "inline-block p-4 rounded-t-lg " +
                 (Bank
-                  ? "text-gray-600 bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300"
-                  : "text-blue-600 bg-gray-100 active dark:bg-gray-800 dark:text-blue-500")
+                  ? "text-gray-600 bg-gray-50 testdark:hover:bg-gray-800 testdark:hover:text-gray-300"
+                  : "text-blue-600 bg-gray-100 active testdark:bg-gray-800 testdark:text-blue-500")
               }
               onClick={bankFunc}
             >
@@ -284,8 +284,8 @@ function TransactionList() {
               className={
                 "inline-block p-4 rounded-t-lg " +
                 (Ebirr
-                  ? "text-gray-600 bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300"
-                  : "text-blue-600 bg-gray-100 active dark:bg-gray-800 dark:text-blue-500")
+                  ? "text-gray-600 bg-gray-50 testdark:hover:bg-gray-800 testdark:hover:text-gray-300"
+                  : "text-blue-600 bg-gray-100 active testdark:bg-gray-800 testdark:text-blue-500")
               }
               onClick={ebirrFunc}
             >
@@ -297,8 +297,8 @@ function TransactionList() {
               className={
                 "inline-block p-4 rounded-t-lg " +
                 (Paypal
-                  ? "text-gray-600 bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300"
-                  : "text-blue-600 bg-gray-100 active dark:bg-gray-800 dark:text-blue-500")
+                  ? "text-gray-600 bg-gray-50 testdark:hover:bg-gray-800 testdark:hover:text-gray-300"
+                  : "text-blue-600 bg-gray-100 active testdark:bg-gray-800 testdark:text-blue-500")
               }
               onClick={paypalFunc}
             >
@@ -310,8 +310,8 @@ function TransactionList() {
               className={
                 "inline-block p-4 rounded-t-lg " +
                 (Stripe
-                  ? "text-gray-600 bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300"
-                  : "text-blue-600 bg-gray-100 active dark:bg-gray-800 dark:text-blue-500")
+                  ? "text-gray-600 bg-gray-50 testdark:hover:bg-gray-800 testdark:hover:text-gray-300"
+                  : "text-blue-600 bg-gray-100 active testdark:bg-gray-800 testdark:text-blue-500")
               }
               onClick={stripeFunc}
             >
@@ -323,8 +323,8 @@ function TransactionList() {
               className={
                 "inline-block p-4 rounded-t-lg " +
                 (chappa
-                  ? "text-gray-600 bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300"
-                  : "text-blue-600 bg-gray-100 active dark:bg-gray-800 dark:text-blue-500")
+                  ? "text-gray-600 bg-gray-50 testdark:hover:bg-gray-800 testdark:hover:text-gray-300"
+                  : "text-blue-600 bg-gray-100 active testdark:bg-gray-800 testdark:text-blue-500")
               }
               onClick={chappaFunc}
             >

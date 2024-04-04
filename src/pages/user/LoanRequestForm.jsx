@@ -115,7 +115,7 @@ const LoanRequestForm = () => {
               id={`monthInput-${index}`}
               value={revenueValues[`${monthName}-${targetYear}`] || ""}
               placeholder={`${monthName}, ${targetYear} Revenue`}
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 testdark:bg-gray-700 testdark:border-gray-600 testdark:placeholder-gray-400 testdark:text-white testdark:focus:ring-primary testdark:focus:border-primary"
               required
               onChange={(e) => handleChange(e, `${monthName}-${targetYear}`)}
             />
@@ -186,7 +186,7 @@ const LoanRequestForm = () => {
   // };
 
   return (
-    <div className="p-2 md:p-5 rounded shadow bg-white dark:bg-black">
+    <div className="p-2 md:p-5 rounded shadow bg-white testdark:bg-black">
       <h2 className="mt-2 mb-5 text-2xl text-cyan-500 font-bold">
         REQUEST FOR LOAN
       </h2>
@@ -207,7 +207,7 @@ const LoanRequestForm = () => {
               />
               <label
                 htmlFor="agreementCheckbox"
-                className="text-sm text-gray-900 dark:text-white whitespace-nowrap"
+                className="text-sm text-gray-900 testdark:text-white whitespace-nowrap"
               >
                 I agree to the banks loan
                 <label
@@ -293,7 +293,7 @@ const LoanRequestForm = () => {
                   />
                   <label
                     htmlFor={`revenueOption-${option.value}`}
-                    className="text-sm text-gray-900 dark:text-white whitespace-nowrap"
+                    className="text-sm text-gray-900 testdark:text-white whitespace-nowrap"
                   >
                     {option.label}
                   </label>
@@ -302,7 +302,7 @@ const LoanRequestForm = () => {
             </div>
             {revenueProvided === "true" && (
               <div className="w-full col-span-1">
-                <label className="block mb-2 text-lg font-medium text-gray-900 dark:text-white">
+                <label className="block mb-2 text-lg font-medium text-gray-900 testdark:text-white">
                   Select Duration <span className="text-red-500">*</span>
                 </label>
                 <div
@@ -345,12 +345,12 @@ const LoanRequestForm = () => {
           <div className="w-full">
             <label
               htmlFor="revenues"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              className="block mb-2 text-sm font-medium text-gray-900 testdark:text-white"
             >
               Loan Term <span className="text-red-500">*</span>
             </label>
             <select
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 testdark:bg-gray-700 testdark:border-gray-600 testdark:placeholder-gray-400 testdark:text-white testdark:focus:ring-primary testdark:focus:border-primary"
               value={term}
               required
               onChange={(e) => setTerm(e.target.value)}
@@ -370,12 +370,12 @@ const LoanRequestForm = () => {
           <div className="w-full hidden">
             <label
               htmlFor="revenues"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              className="block mb-2 text-sm font-medium text-gray-900 testdark:text-white"
             >
               Revenue Share Type <span className="text-red-500">*</span>
             </label>
             <select
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 testdark:bg-gray-700 testdark:border-gray-600 testdark:placeholder-gray-400 testdark:text-white testdark:focus:ring-primary testdark:focus:border-primary"
               value={revenueShareType}
               required
               onChange={(e) => setRevenueShareType(e.target.value)}
@@ -443,7 +443,7 @@ const LoanRequestForm = () => {
                   <div className="w-full items-center">
                     <label
                       htmlFor="revenues"
-                      className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                      className="block mb-2 text-sm font-medium text-gray-900 testdark:text-white"
                     >
                       Loan Request Amount
                     </label>
@@ -458,7 +458,7 @@ const LoanRequestForm = () => {
                       value={loanAmount}
                       id={`loanAmount`}
                       placeholder="Enter Loan amount"
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 testdark:bg-gray-700 testdark:border-gray-600 testdark:placeholder-gray-400 testdark:text-white testdark:focus:ring-primary testdark:focus:border-primary"
                       required
                       onChange={(e) => setLoanAmount(e.target.value)}
                     />

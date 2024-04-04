@@ -25,10 +25,10 @@ function Admin() {
       {/* <Modal2 /> */}
       <div className="drawer drawer-mobile">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-        <div className="flex flex-col drawer-content bg-slate-100 dark:bg-gray-700 dark:text-white">
+        <div className="flex flex-col drawer-content bg-slate-100 testdark:bg-gray-700 testdark:text-white">
           {/* <!-- Page content here --> */}
           <Nav />
-          <div className="m-4 dark:bg-gray-700">
+          <div className="m-4 testdark:bg-gray-700">
             <Routes>
               <Route index element={<Home />}></Route>
               <Route path="users" element={<Users />}></Route>

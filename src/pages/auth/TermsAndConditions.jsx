@@ -6,7 +6,7 @@ function TermsAndConditions() {
     <>
       <div className="text-center mx-80 mt-36 mb-12">
         {/* <div className="flex flex-col w-full mb-12 text-center"> */}
-        <h1 className="max-w-5xl text-2xl m-8 font-bold leading-none tracking-tighter md:text-5xl lg:text-6xl lg:max-w-7xl dark:text-white">
+        <h1 className="max-w-5xl text-2xl m-8 font-bold leading-none tracking-tighter md:text-5xl lg:text-6xl lg:max-w-7xl testdark:text-white">
           Terms and Conditions
         </h1>
         <h1 className="text-2xl m-4 text-black">1. Introduction</h1>

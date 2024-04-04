@@ -6,7 +6,7 @@ export const Input = (props) => {
     <>
       <label
         htmlFor={props.id}
-        className={`block mb-2 text-sm font-medium text-gray-900 dark:text-white ${props.labelClass}`}
+        className={`block mb-2 text-sm font-medium text-gray-900 testdark:text-white ${props.labelClass}`}
       >
         {props.title}
       </label>
@@ -20,7 +20,7 @@ export const Input = (props) => {
         onChange={props.onChange}
         onInput={props.fetchName}
         onBlur={props.onBlur}
-        className={`w-full bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary ${props.inputClass}`}
+        className={`w-full bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block p-2.5 testdark:bg-gray-700 testdark:border-gray-600 testdark:placeholder-gray-400 testdark:text-white testdark:focus:ring-primary testdark:focus:border-primary ${props.inputClass}`}
         placeholder={props.place}
         required={props.required}
         {...props}
@@ -45,7 +45,7 @@ export const Radio = (props) => {
       <div className="ml-3 text-sm">
         <label
           htmlFor={props.name}
-          className="text-gray-500 dark:text-gray-300"
+          className="text-gray-500 testdark:text-gray-300"
         >
           {props.title}
         </label>
@@ -60,14 +60,14 @@ export const TextArea = (props) => {
     <>
       <label
         htmlFor={props.name}
-        className={`block mb-2 text-sm font-medium text-gray-900 dark:text-white ${props.labelClass}`}
+        className={`block mb-2 text-sm font-medium text-gray-900 testdark:text-white ${props.labelClass}`}
       >
         {props.title}
       </label>
       <textarea
         id={props.name}
         rows="6"
-        className={`block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg shadow-sm border border-gray-300 focus:ring-primary focus:border-primary dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary ${props.inputClass}`}
+        className={`block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg shadow-sm border border-gray-300 focus:ring-primary focus:border-primary testdark:bg-gray-700 testdark:border-gray-600 testdark:placeholder-gray-400 testdark:text-white testdark:focus:ring-primary testdark:focus:border-primary ${props.inputClass}`}
         placeholder={props.place}
       ></textarea>
     </>
@@ -80,13 +80,13 @@ export const Select = (props) => {
     <>
       <label
         htmlFor={props.id}
-        className={`block mb-2 text-sm font-medium text-gray-900 dark:text-white ${props.labelClass}`}
+        className={`block mb-2 text-sm font-medium text-gray-900 testdark:text-white ${props.labelClass}`}
       >
         {props.title}
       </label>
       <select
         id={props.id}
-        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
+        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 testdark:bg-gray-700 testdark:border-gray-600 testdark:placeholder-gray-400 testdark:text-white testdark:focus:ring-primary testdark:focus:border-primary"
         onChange={props.onChange}
         value={props.value}
       >
@@ -124,7 +124,7 @@ export const FileInput = (props) => {
     <>
       <label
         htmlFor={props.label}
-        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+        className="block mb-2 text-sm font-medium text-gray-900 testdark:text-white"
       >
         {props.title}
       </label>
@@ -132,7 +132,7 @@ export const FileInput = (props) => {
       <div className="flex items-center justify-center w-full">
         <label
           htmlFor={props.label}
-          className="flex flex-col items-center justify-center w-full border-2 border-gray-300 border-dashed rounded-lg cursor-pointer h-36 bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500"
+          className="flex flex-col items-center justify-center w-full border-2 border-gray-300 border-dashed rounded-lg cursor-pointer h-36 bg-gray-50 testdark:hover:bg-gray-800 testdark:bg-gray-700 hover:bg-gray-100 testdark:border-gray-600 testdark:hover:border-gray-500"
         >
           <input
             type="file"
@@ -160,10 +160,10 @@ export const FileInput = (props) => {
                     d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
                   ></path>
                 </svg>
-                <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                <p className="mb-2 text-sm text-gray-500 testdark:text-gray-400">
                   <span className="font-semibold">Click to upload</span>
                 </p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">
+                <p className="text-xs text-gray-500 testdark:text-gray-400">
                   SVG, PNG, JPG or GIF (MAX. 800x400px)
                 </p>
               </>

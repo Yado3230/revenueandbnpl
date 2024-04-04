@@ -73,11 +73,19 @@ const getCustomerLoanRequest = async (merchant_id) => {
 };
 
 const getMerchantRepaymentSchedule = async (loanId) => {
-  return await axios
-    .get(
-      `http://10.1.130.15:9010/api/v1/loans/repayment-schedules?loanId=${loanId}`
-    )
-    .then((response) => response.data);
+  return await SPRING_API.get(
+    `/v1/loans/repayment-schedules?loanId=${loanId}`
+  ).then((response) => response.data);
+};
+
+const acceptLoan = async (newData, updated, setUpdated) => {
+  return await SPRING_API.post("/v1/loans/merchant-acceptance", newData).then(
+    (response) => {
+      setUpdated(!updated);
+      window.location.reload();
+      return response.data;
+    }
+  );
 };
 
 const getCapTable = async () => {
@@ -93,6 +101,7 @@ const CapacityService = {
   getCustomerLoanRequest,
   getCapTable,
   getMerchantRepaymentSchedule,
+  acceptLoan,
 };
 
 export default CapacityService;

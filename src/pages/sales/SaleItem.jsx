@@ -110,7 +110,7 @@ const SaleItem = () => {
                 {/* <div className="w-full">
                   <label
                     htmlFor="suk"
-                    className="mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    className="mb-2 text-sm font-medium text-gray-900 testdark:text-white"
                   >
                     Suk
                   </label>
@@ -122,7 +122,7 @@ const SaleItem = () => {
                     name="suk"
                     id="suk"
                     placeholder="suk"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 testdark:bg-gray-700 testdark:border-gray-600 testdark:placeholder-gray-400 testdark:text-white testdark:focus:ring-blue-500 testdark:focus:border-blue-500"
                     value={formik.values.suk}
                     onChange={formik.handleChange}
                   />
@@ -141,7 +141,7 @@ const SaleItem = () => {
                 <div className="w-full">
                   <label
                     htmlFor="item_sale_price"
-                    className="mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    className="mb-2 text-sm font-medium text-gray-900 testdark:text-white"
                   >
                     Price
                   </label>
@@ -158,7 +158,7 @@ const SaleItem = () => {
                     name="item_sale_price"
                     id="item_sale_price"
                     placeholder="1025.63"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 testdark:bg-gray-700 testdark:border-gray-600 testdark:placeholder-gray-400 testdark:text-white testdark:focus:ring-blue-500 testdark:focus:border-blue-500"
                     value={formik.values.item_sale_price}
                     onChange={formik.handleChange}
                     required
@@ -167,7 +167,7 @@ const SaleItem = () => {
                 <div className="w-full">
                   <label
                     htmlFor="quantity"
-                    className="mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    className="mb-2 text-sm font-medium text-gray-900 testdark:text-white"
                   >
                     Quantity
                   </label>
@@ -185,7 +185,7 @@ const SaleItem = () => {
                       )?.[0]?.onStock
                     }
                     placeholder="quantity"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 testdark:bg-gray-700 testdark:border-gray-600 testdark:placeholder-gray-400 testdark:text-white testdark:focus:ring-blue-500 testdark:focus:border-blue-500"
                     value={formik.values.quantity}
                     onChange={formik.handleChange}
                   />
@@ -193,7 +193,7 @@ const SaleItem = () => {
                 <div className="w-full">
                   <label
                     htmlFor="quantity"
-                    className="mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    className="mb-2 text-sm font-medium text-gray-900 testdark:text-white"
                   >
                     Total Price
                   </label>
@@ -205,7 +205,7 @@ const SaleItem = () => {
                     name="quantity"
                     id="quantity"
                     placeholder="quantity"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 testdark:bg-gray-700 testdark:border-gray-600 testdark:placeholder-gray-400 testdark:text-white testdark:focus:ring-blue-500 testdark:focus:border-blue-500"
                     value={
                       formik.values.item_sale_price *
                       1 *

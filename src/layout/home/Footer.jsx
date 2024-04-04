@@ -1,18 +1,18 @@
 function Footer() {
   return (
     <>
-      <footer className="bg-white dark:bg-gray-900">
+      <footer className="bg-white testdark:bg-gray-900">
         <div className="w-full max-w-screen-xl p-4 py-6 mx-auto lg:py-8">
-          <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
+          <hr className="my-6 border-gray-200 sm:mx-auto testdark:border-gray-700 lg:my-8" />
           <div className="sm:flex sm:items-center sm:justify-between">
-            <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">
+            <span className="text-sm text-gray-500 sm:text-center testdark:text-gray-400">
               © {new Date().getFullYear()}{" "}
               <a className="hover:underline">CoopBank</a>. All Rights Reserved.
             </span>
             <div className="flex mt-4 space-x-6 sm:justify-center sm:mt-0">
               <a
                 href="#"
-                className="text-gray-500 hover:text-gray-900 dark:hover:text-white"
+                className="text-gray-500 hover:text-gray-900 testdark:hover:text-white"
               >
                 <svg
                   className="w-5 h-5"
@@ -30,7 +30,7 @@ function Footer() {
               </a>
               <a
                 href="#"
-                className="text-gray-500 hover:text-gray-900 dark:hover:text-white"
+                className="text-gray-500 hover:text-gray-900 testdark:hover:text-white"
               >
                 <svg
                   className="w-5 h-5"
@@ -48,7 +48,7 @@ function Footer() {
               </a>
               <a
                 href="#"
-                className="text-gray-500 hover:text-gray-900 dark:hover:text-white"
+                className="text-gray-500 hover:text-gray-900 testdark:hover:text-white"
               >
                 <svg
                   className="w-5 h-5"
@@ -62,7 +62,7 @@ function Footer() {
               </a>
               <a
                 href="#"
-                className="text-gray-500 hover:text-gray-900 dark:hover:text-white"
+                className="text-gray-500 hover:text-gray-900 testdark:hover:text-white"
               >
                 <svg
                   className="w-5 h-5"

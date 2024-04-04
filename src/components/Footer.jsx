@@ -4,7 +4,7 @@ function Footer() {
   return (
     <>
       <div className="divider"></div>
-      <footer className="p-4 footer footer-center text-base-content dark:text-white">
+      <footer className="p-4 footer footer-center text-base-content testdark:text-white">
         <div>
           <p>Copyright © {thisyear} - All right reserved by CoopBank</p>
         </div>

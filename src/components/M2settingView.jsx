@@ -14,13 +14,11 @@ function M2settingView(props) {
     // );
     // };
 
-
-
     return (
       <>
         <h3 className="font-sans text-lg">{props.title}</h3>
         <div className="">
-          <section className="bg-white dark:bg-gray-900">
+          <section className="bg-white testdark:bg-gray-900">
             <div className="grid gap-4 pt-8 sm:grid-cols-4 sm:gap-6">
               <div className="sm:col-span-4">Business Information</div>
               <div className="sm:col-span-2">
@@ -114,7 +112,7 @@ function M2settingView(props) {
             <button
               type="submit"
               onClick={() => props.onSubmit(m2SettingData.bussiness_id)}
-              className="inline-flex items-center px-5 py-3.5 mt-4 text-sm font-medium text-center text-white rounded-lg sm:mt-6 bg-primary focus:ring-4 focus:ring-primary dark:focus:ring-primary hover:bg-primary"
+              className="inline-flex items-center px-5 py-3.5 mt-4 text-sm font-medium text-center text-white rounded-lg sm:mt-6 bg-primary focus:ring-4 focus:ring-primary testdark:focus:ring-primary hover:bg-primary"
             >
               Activate
             </button>

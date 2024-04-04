@@ -259,7 +259,7 @@ function Configuration() {
                     <div className="w-full col-span-2">
                       <label
                         htmlFor="interest_rate"
-                        className="mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                        className="mb-2 text-sm font-medium text-gray-900 testdark:text-white"
                       >
                         Interest Rate (%):
                       </label>
@@ -271,7 +271,7 @@ function Configuration() {
                         name="interest_rate"
                         id="interest_rate"
                         placeholder="Percent"
-                        className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 testdark:bg-gray-700 testdark:border-gray-600 testdark:placeholder-gray-400 testdark:text-white testdark:focus:ring-blue-500 testdark:focus:border-blue-500"
                         value={data.interest_rate}
                         onChange={handleChange}
                         required
@@ -280,7 +280,7 @@ function Configuration() {
                     <div className="w-full col-span-2">
                       <label
                         htmlFor="duration"
-                        className="mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                        className="mb-2 text-sm font-medium text-gray-900 testdark:text-white"
                       >
                         Duration (months):
                       </label>
@@ -292,7 +292,7 @@ function Configuration() {
                         name="duration"
                         id="duration"
                         placeholder="Month"
-                        className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 testdark:bg-gray-700 testdark:border-gray-600 testdark:placeholder-gray-400 testdark:text-white testdark:focus:ring-blue-500 testdark:focus:border-blue-500"
                         value={data.duration}
                         onChange={handleChange}
                         required
@@ -329,7 +329,7 @@ function Configuration() {
                     <div className="w-full col-span-4">
                       <label
                         htmlFor="interest_rate"
-                        className="mb-3 text-sm font-medium text-gray-900 dark:text-white"
+                        className="mb-3 text-sm font-medium text-gray-900 testdark:text-white"
                       >
                         Category Name:
                       </label>
@@ -341,7 +341,7 @@ function Configuration() {
                         name="type"
                         id="type"
                         placeholder="Category Name"
-                        className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 testdark:bg-gray-700 testdark:border-gray-600 testdark:placeholder-gray-400 testdark:text-white testdark:focus:ring-blue-500 testdark:focus:border-blue-500"
                         value={categorydata.type}
                         onChange={handleCategoryChange}
                         required

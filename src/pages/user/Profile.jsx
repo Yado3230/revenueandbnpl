@@ -62,7 +62,7 @@ function Profile() {
       {loading ? (
         <span>Loading...</span>
       ) : (
-        <section className="m-8 bg-white dark:bg-gray-900">
+        <section className="m-8 bg-white testdark:bg-gray-900">
           <div className="max-w-2xl px-4 py-8 mx-auto lg:py-16">
             <Formik
               initialValues={{
@@ -145,7 +145,7 @@ function Profile() {
                   {!successful && (
                     <>
                       <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
-                        <h2 className="mb-4 text-xl col-span-2 font-bold text-gray-900 dark:text-white">
+                        <h2 className="mb-4 text-xl col-span-2 font-bold text-gray-900 testdark:text-white">
                           Pesonal Information
                         </h2>
                         {/* <div className="">
@@ -246,7 +246,7 @@ function Profile() {
                           <div className="">
                             <label
                               htmlFor={"date"}
-                              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                              className="block mb-2 text-sm font-medium text-gray-900 testdark:text-white"
                             >
                               Date of Establishment{" "}
                               <span className="text-red-500">*</span>
@@ -255,7 +255,7 @@ function Profile() {
                               type="date"
                               id="datepicker"
                               name="date_of_establishment"
-                              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
+                              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 testdark:bg-gray-700 testdark:border-gray-600 testdark:placeholder-gray-400 testdark:text-white testdark:focus:ring-primary testdark:focus:border-primary"
                               value={props.values.date_of_establishment}
                               onChange={props.handleChange}
                               disabled={activeKYC ? true : false}
@@ -509,7 +509,7 @@ function Profile() {
                           type="submit"
                           disabled={loading2}
                           onClick={props.handleSubmit}
-                          className="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary rounded-lg focus:ring-4 focus:ring-primary dark:focus:ring-primary hover:bg-primary"
+                          className="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary rounded-lg focus:ring-4 focus:ring-primary testdark:focus:ring-primary hover:bg-primary"
                         >
                           {loading2 ? "Loading ..." : "Submit"}
                         </button>

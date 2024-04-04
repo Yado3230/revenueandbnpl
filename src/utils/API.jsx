@@ -14,15 +14,15 @@ import store from "./../store/store";
 // });
 
 export const LOGIN_NODE_API = axios.create({
-  baseURL: "https://souqpass.coopbankoromiasc.com//api",
+  baseURL: "https://souqpass.coopbankoromiasc.com/api",
 });
 
 export const NODE_API = axios.create({
-  baseURL: "https://souqpass.coopbankoromiasc.com//api",
+  baseURL: "https://souqpass.coopbankoromiasc.com/api",
 });
 
 export const SPRING_API = axios.create({
-  baseURL: "https://souqpass.coopbankoromiasc.com//proxy",
+  baseURL: "https://souqpass.coopbankoromiasc.com/proxy",
 });
 
 // Request interceptor to update Authorization header with the token

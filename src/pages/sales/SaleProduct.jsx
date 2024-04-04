@@ -108,7 +108,7 @@ const SaleProduct = () => {
                 <div className="w-full">
                   <label
                     htmlFor="item_sale_price"
-                    className="mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    className="mb-2 text-sm font-medium text-gray-900 testdark:text-white"
                   >
                     Price
                   </label>
@@ -126,7 +126,7 @@ const SaleProduct = () => {
                     name="product_sale_price"
                     id="product_sale_price"
                     placeholder="1025.63"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 testdark:bg-gray-700 testdark:border-gray-600 testdark:placeholder-gray-400 testdark:text-white testdark:focus:ring-blue-500 testdark:focus:border-blue-500"
                     value={formik.values.product_sale_price}
                     onChange={formik.handleChange}
                     required
@@ -135,7 +135,7 @@ const SaleProduct = () => {
                 <div className="w-full">
                   <label
                     htmlFor="quantity"
-                    className="mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    className="mb-2 text-sm font-medium text-gray-900 testdark:text-white"
                   >
                     Quantity
                   </label>
@@ -148,7 +148,7 @@ const SaleProduct = () => {
                     id="quantity"
                     min={0}
                     placeholder="quantity"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 testdark:bg-gray-700 testdark:border-gray-600 testdark:placeholder-gray-400 testdark:text-white testdark:focus:ring-blue-500 testdark:focus:border-blue-500"
                     value={formik.values.quantity}
                     onChange={formik.handleChange}
                   />
@@ -156,7 +156,7 @@ const SaleProduct = () => {
                 <div className="w-full">
                   <label
                     htmlFor="quantity"
-                    className="mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    className="mb-2 text-sm font-medium text-gray-900 testdark:text-white"
                   >
                     Total Price
                   </label>
@@ -168,7 +168,7 @@ const SaleProduct = () => {
                     name="quantity"
                     id="quantity"
                     placeholder="Total price"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 testdark:bg-gray-700 testdark:border-gray-600 testdark:placeholder-gray-400 testdark:text-white testdark:focus:ring-blue-500 testdark:focus:border-blue-500"
                     value={
                       formik.values.product_sale_price *
                       1 *

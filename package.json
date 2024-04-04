@@ -12,6 +12,7 @@
     "@react-pdf/renderer": "^3.3.8",
     "@stripe/react-stripe-js": "^2.1.0",
     "@stripe/stripe-js": "^1.52.0",
+    "@szhsin/react-accordion": "^1.2.3",
     "@tanstack/react-table": "^8.9.3",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",

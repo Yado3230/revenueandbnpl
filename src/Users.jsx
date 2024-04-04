@@ -40,7 +40,7 @@ function Users() {
       {/* <Modal /> */}
       <div className="drawer drawer-mobile">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-        <div className="drawer-content bg-slate-100 dark:bg-gray-700">
+        <div className="drawer-content bg-slate-100 testdark:bg-gray-700">
           {/* <!-- Page content here --> */}
           <Nav />
           <div className="m-4">
@@ -81,8 +81,14 @@ function Users() {
               <Route path="profile" element={<Profile />}></Route>
               <Route path="setting" element={<Settings />}></Route>
               <Route path="loanrequest" element={<LoanRequestForm />}></Route>
-              <Route path="merchantloanlist" element={<MerchantLoanList />}></Route>
-              <Route path="repaymentschedule" element={<RepaymentSchedule />}></Route>
+              <Route
+                path="merchantloanlist"
+                element={<MerchantLoanList />}
+              ></Route>
+              <Route
+                path="repaymentschedule"
+                element={<RepaymentSchedule />}
+              ></Route>
               <Route path="reports" element={<InventoryReport />}></Route>
               <Route path="*" element={<E404 />}></Route>
             </Routes>

@@ -40,7 +40,7 @@ const region = [
 function UserInfo() {
   return (
     <>
-      <h2 className="mb-4 text-xl font-bold text-gray-900 sm:col-span-2 dark:text-white">
+      <h2 className="mb-4 text-xl font-bold text-gray-900 sm:col-span-2 testdark:text-white">
         Pesonal In Formation
       </h2>
       <div className="w-full">
@@ -96,28 +96,28 @@ function UserInfo() {
       <div className="w-full">
         <label
           htmlFor="brand"
-          className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          className="block mb-2 text-sm font-medium text-gray-900 testdark:text-white"
         >
           Birth Date
         </label>
         <div className="grid gap-4 sm:grid-cols-3 sm:gap-6">
           <select
             id="date"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 testdark:bg-gray-700 testdark:border-gray-600 testdark:placeholder-gray-400 testdark:text-white testdark:focus:ring-primary testdark:focus:border-primary"
           >
             <option value="TV">Date</option>
             <option value="TV">01</option>
           </select>
           <select
             id="month"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 testdark:bg-gray-700 testdark:border-gray-600 testdark:placeholder-gray-400 testdark:text-white testdark:focus:ring-primary testdark:focus:border-primary"
           >
             <option value="TV">Month</option>
             <option value="TV">01</option>
           </select>
           <select
             id="year"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 testdark:bg-gray-700 testdark:border-gray-600 testdark:placeholder-gray-400 testdark:text-white testdark:focus:ring-primary testdark:focus:border-primary"
           >
             <option value="TV">Year</option>
             <option value="TV">2023</option>

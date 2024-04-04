@@ -62,7 +62,7 @@ function Nav() {
 
   return (
     <>
-      <div className="shadow-md navbar bg-base-100 dark:bg-gray-900 dark:text-white">
+      <div className="shadow-md navbar bg-base-100 testdark:bg-gray-900 testdark:text-white">
         <div className="flex-1">
           <label htmlFor="my-drawer-2" className="ml-4 drawer-button">
             <svg
@@ -107,7 +107,12 @@ function Nav() {
               >
                 <div className="card-body">
                   <span className="text-cyan-500 font-semibold text-base">
-                    Your Loan Request is Disbursed 🎉
+                    {merchantLoan[0]?.merchantAcceptanceStatus === "ACCEPTED"
+                      ? "Your Loan Request is Disbursed 🎉"
+                      : merchantLoan[0]?.merchantAcceptanceStatus === null
+                      ? "Your Offer is waiting for your acceptance"
+                      : merchantLoan[0]?.merchantAcceptanceStatus ===
+                          "TIME_OUT" && "Sorry, Your Offer is expired"}
                   </span>
                 </div>
               </div>
@@ -138,7 +143,7 @@ function Nav() {
             </div>
             <ul
               tabIndex={0}
-              className="p-2 mt-3 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52 dark:text-black"
+              className="p-2 mt-3 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52 testdark:text-black"
             >
               <span className="pt-2 pl-2">
                 username: {username ? username : ""}

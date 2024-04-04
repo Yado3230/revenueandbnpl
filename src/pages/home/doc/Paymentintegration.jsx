@@ -102,9 +102,9 @@ const Paymentintegration = () => {
           <ApiHero />
           <div className="text-left md:m-4">
             <ApiTable />
-            <div className="mt-4 text-lg text-center md:mt-12 dark:text-gray-300">
+            <div className="mt-4 text-lg text-center md:mt-12 testdark:text-gray-300">
               <h1>Initiate Payment Integration</h1>
-              <p className="mt-4 text-base dark:text-gray-400">
+              <p className="mt-4 text-base testdark:text-gray-400">
                 This section provides code snippets for initiating various
                 payment methods. Use these code examples to integrate payment
                 functionalities into your application.
@@ -113,9 +113,9 @@ const Paymentintegration = () => {
             <div className="mt-4 overflow-auto md:mt-8">
               <PaymentCode codeData={codeData} />
             </div>
-            <div className="mt-4 text-lg text-center md:mt-12 dark:text-gray-300">
+            <div className="mt-4 text-lg text-center md:mt-12 testdark:text-gray-300">
               <h1>Response</h1>
-              <p className="mt-4 text-base dark:text-gray-400">
+              <p className="mt-4 text-base testdark:text-gray-400">
                 Users will be directed to a new webpage for interaction and
                 confirmation of their payment.
               </p>

@@ -30,9 +30,9 @@ function Maccounts(props) {
   return (
     <>
       <div className="">
-        <section className="bg-white dark:bg-gray-900">
+        <section className="bg-white testdark:bg-gray-900">
           <div className="max-w-2xl px-4 py-8 mx-auto lg:py-16">
-            <h2 className="mb-4 text-xl font-bold text-gray-900 dark:text-white">
+            <h2 className="mb-4 text-xl font-bold text-gray-900 testdark:text-white">
               {props.title}
             </h2>
             <Formik
@@ -66,7 +66,7 @@ function Maccounts(props) {
                         <div>
                           <label
                             htmlFor="fname"
-                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                            className="block mb-2 text-sm font-medium text-gray-900 testdark:text-white"
                           >
                             First Name
                           </label>
@@ -81,7 +81,7 @@ function Maccounts(props) {
                             id="fname"
                             value={props.values.firstName}
                             onChange={props.handleChange}
-                            className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
+                            className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 testdark:bg-gray-700 testdark:border-gray-600 testdark:placeholder-gray-400 testdark:text-white testdark:focus:ring-primary testdark:focus:border-primary"
                             placeholder="Lelisa"
                             required=""
                           />
@@ -147,7 +147,7 @@ function Maccounts(props) {
                         <button
                           type="submit"
                           onClick={props.handleSubmit}
-                          className="text-white bg-primary hover:bg-primary focus:ring-4 focus:outline-none focus:ring-primary font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary dark:hover:bg-primary dark:focus:ring-primary"
+                          className="text-white bg-primary hover:bg-primary focus:ring-4 focus:outline-none focus:ring-primary font-medium rounded-lg text-sm px-5 py-2.5 text-center testdark:bg-primary testdark:hover:bg-primary testdark:focus:ring-primary"
                         >
                           Submit
                         </button>

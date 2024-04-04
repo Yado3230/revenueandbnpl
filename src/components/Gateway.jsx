@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
-import queryString from "query-string";
+import { useLocation } from "react-router-dom";
 import Bankpay from "./Bankpay";
 import Cardpay from "./Cardpay";
 import Mobilepay from "./Mobilepay";
 import PayPal from "./PayPal";
 import PaymentServices from "../services/payment.service";
 import Stripe from "./Stripe";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
+import logo from "./../assets/images/logo.png";
+
 function Gateway() {
   const [select, setSelect] = useState("");
   const [currency, setCurrency] = useState("");
@@ -50,24 +51,24 @@ function Gateway() {
   }, [currency, paymentService]);
   return (
     <div>
-      <section className="bg-gray-100 dark:bg-gray-900">
+      <section className="bg-gray-100 testdark:bg-gray-900">
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-          <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+          <div className="w-full bg-white rounded-lg shadow testdark:border md:mt-0 sm:max-w-md xl:p-0 testdark:bg-gray-800 testdark:border-gray-700">
             <div className="flex flex-1 p-2 bg-gray-50 shadow">
               <img
                 width={120}
                 className=""
-                src="../PaymentGateway.png"
+                src={logo}
                 alt="front credit card"
               />
             </div>
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
               <div className="grid grid-cols-2">
-                <h1 className="leading-tight mt-2 text-lg tracking-tight text-gray-900 dark:text-white">
+                <h1 className="leading-tight mt-2 text-lg tracking-tight text-gray-900 testdark:text-white">
                   Choose payment
                 </h1>
                 {/* <div className="w-full col-span-2"> */}
-                <h1 className="mt-2 text-lg font-bold text-center dark:text-white">
+                <h1 className="mt-2 text-lg font-bold text-center testdark:text-white">
                   {amount} {currency}
                 </h1>
                 {/* </div> */}
@@ -78,7 +79,7 @@ function Gateway() {
                   onChange={(e) => {
                     setSelect(e.target.value);
                   }}
-                  className="my-6 select bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  className="my-6 select bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 testdark:bg-gray-700 testdark:border-gray-600 testdark:placeholder-gray-400 testdark:text-white testdark:focus:ring-blue-500 testdark:focus:border-blue-500"
                 >
                   {currency === "ETB" ? (
                     <option
@@ -170,11 +171,6 @@ function Gateway() {
                     returnUrl={returnUrl}
                   />
                 )}
-                {/* {currency === "USD" ? select === "stripe" && <Stripe /> : ""} */}
-                {/* {select === "CBOC" && <Cardpay />}
-                {select === "EB" && <Mobilepay />}
-                {select === "payPal" && <PayPal />} */}
-                {/* {select === "payPal" && <PayPal />} */}
               </htmlForm>
             </div>
           </div>

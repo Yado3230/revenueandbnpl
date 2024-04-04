@@ -36,11 +36,11 @@ function EpassRegistration() {
   let navigate = useNavigate();
   return (
     <>
-      <section className="bg-gray-50 dark:bg-gray-900">
+      <section className="bg-gray-50 testdark:bg-gray-900">
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-          <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+          <div className="w-full bg-white rounded-lg shadow testdark:border md:mt-0 sm:max-w-md xl:p-0 testdark:bg-gray-800 testdark:border-gray-700">
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-              <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+              <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl testdark:text-white">
                 SignUp to Epass
               </h1>
               <Formik
@@ -115,7 +115,7 @@ function EpassRegistration() {
                           <div>
                             <label
                               htmlFor="fname"
-                              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                              className="block mb-2 text-sm font-medium text-gray-900 testdark:text-white"
                             >
                               First Name
                             </label>
@@ -130,7 +130,7 @@ function EpassRegistration() {
                               id="fname"
                               value={props.values.firstName}
                               onChange={props.handleChange}
-                              className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
+                              className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 testdark:bg-gray-700 testdark:border-gray-600 testdark:placeholder-gray-400 testdark:text-white testdark:focus:ring-primary testdark:focus:border-primary"
                               placeholder="Lelisa"
                               required=""
                             />
@@ -138,7 +138,7 @@ function EpassRegistration() {
                           <div>
                             <label
                               htmlFor="mname"
-                              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                              className="block mb-2 text-sm font-medium text-gray-900 testdark:text-white"
                             >
                               Middle Name
                             </label>
@@ -153,7 +153,7 @@ function EpassRegistration() {
                               id="mname"
                               value={props.values.lastName}
                               onChange={props.handleChange}
-                              className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
+                              className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 testdark:bg-gray-700 testdark:border-gray-600 testdark:placeholder-gray-400 testdark:text-white testdark:focus:ring-primary testdark:focus:border-primary"
                               placeholder="Abdusemed"
                               required=""
                             />
@@ -162,7 +162,7 @@ function EpassRegistration() {
                         <div>
                           <label
                             htmlFor="email"
-                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                            className="block mb-2 text-sm font-medium text-gray-900 testdark:text-white"
                           >
                             Business email
                           </label>
@@ -177,7 +177,7 @@ function EpassRegistration() {
                             id="email"
                             value={props.values.email}
                             onChange={props.handleChange}
-                            className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
+                            className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 testdark:bg-gray-700 testdark:border-gray-600 testdark:placeholder-gray-400 testdark:text-white testdark:focus:ring-primary testdark:focus:border-primary"
                             placeholder="name@company.com"
                             required=""
                           />
@@ -185,7 +185,7 @@ function EpassRegistration() {
                         <div>
                           <label
                             htmlFor="phone"
-                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                            className="block mb-2 text-sm font-medium text-gray-900 testdark:text-white"
                           >
                             Business Phone
                           </label>
@@ -200,7 +200,7 @@ function EpassRegistration() {
                             id="phone"
                             value={props.values.phone}
                             onChange={props.handleChange}
-                            className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
+                            className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 testdark:bg-gray-700 testdark:border-gray-600 testdark:placeholder-gray-400 testdark:text-white testdark:focus:ring-primary testdark:focus:border-primary"
                             placeholder="0900000000"
                             required=""
                             maxlength="9"
@@ -209,7 +209,7 @@ function EpassRegistration() {
                         <div>
                           <label
                             htmlFor="password"
-                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                            className="block mb-2 text-sm font-medium text-gray-900 testdark:text-white"
                           >
                             Password
                           </label>
@@ -225,14 +225,14 @@ function EpassRegistration() {
                             value={props.values.password}
                             onChange={props.handleChange}
                             placeholder="••••••••"
-                            className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
+                            className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 testdark:bg-gray-700 testdark:border-gray-600 testdark:placeholder-gray-400 testdark:text-white testdark:focus:ring-primary testdark:focus:border-primary"
                             required=""
                           />
                         </div>
                         <div>
                           <label
                             htmlFor="confirm-password"
-                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                            className="block mb-2 text-sm font-medium text-gray-900 testdark:text-white"
                           >
                             Confirm password
                           </label>
@@ -249,14 +249,14 @@ function EpassRegistration() {
                             value={props.values.confirmPassword}
                             onChange={props.handleChange}
                             placeholder="••••••••"
-                            className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
+                            className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 testdark:bg-gray-700 testdark:border-gray-600 testdark:placeholder-gray-400 testdark:text-white testdark:focus:ring-primary testdark:focus:border-primary"
                             required=""
                           />
                         </div>
                         <div>
                           <label
                             htmlFor="confirm-password"
-                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                            className="block mb-2 text-sm font-medium text-gray-900 testdark:text-white"
                           >
                             SET PIN
                           </label>
@@ -273,14 +273,14 @@ function EpassRegistration() {
                             value={props.values.confirmPassword}
                             onChange={props.handleChange}
                             placeholder="••••••••"
-                            className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
+                            className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 testdark:bg-gray-700 testdark:border-gray-600 testdark:placeholder-gray-400 testdark:text-white testdark:focus:ring-primary testdark:focus:border-primary"
                             required=""
                           />
                         </div>
                         <div>
                           <label
                             htmlFor="confirm-password"
-                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                            className="block mb-2 text-sm font-medium text-gray-900 testdark:text-white"
                           >
                             Confirm PIN
                           </label>
@@ -297,7 +297,7 @@ function EpassRegistration() {
                             value={props.values.confirmPassword}
                             onChange={props.handleChange}
                             placeholder="••••••••"
-                            className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
+                            className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 testdark:bg-gray-700 testdark:border-gray-600 testdark:placeholder-gray-400 testdark:text-white testdark:focus:ring-primary testdark:focus:border-primary"
                             required=""
                           />
                         </div>
@@ -316,17 +316,17 @@ function EpassRegistration() {
                               type="checkbox"
                               value={props.values.acceptTerms}
                               onChange={props.handleChange}
-                              className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary dark:ring-offset-gray-800"
+                              className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary testdark:bg-gray-700 testdark:border-gray-600 testdark:focus:ring-primary testdark:ring-offset-gray-800"
                             />
                           </div>
                           <div className="ml-3 text-sm">
                             <label
                               htmlFor="terms"
-                              className="font-light text-gray-500 dark:text-gray-300"
+                              className="font-light text-gray-500 testdark:text-gray-300"
                             >
                               I accept the{" "}
                               <Link
-                                className="font-medium text-primary hover:underline dark:text-primary"
+                                className="font-medium text-primary hover:underline testdark:text-primary"
                                 to={"/"}
                               >
                                 Terms and Conditions
@@ -337,15 +337,15 @@ function EpassRegistration() {
                         <button
                           type="submit"
                           onClick={props.handleSubmit}
-                          className="w-full text-white bg-primary hover:bg-primary focus:ring-4 focus:outline-none focus:ring-primary font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary dark:hover:bg-primary dark:focus:ring-primary"
+                          className="w-full text-white bg-primary hover:bg-primary focus:ring-4 focus:outline-none focus:ring-primary font-medium rounded-lg text-sm px-5 py-2.5 text-center testdark:bg-primary testdark:hover:bg-primary testdark:focus:ring-primary"
                         >
                           Create an account
                         </button>
-                        <p className="text-sm font-light text-gray-500 dark:text-gray-400">
+                        <p className="text-sm font-light text-gray-500 testdark:text-gray-400">
                           Already have an account?{" "}
                           <Link
                             to={"/"}
-                            className="font-medium text-primary hover:underline dark:text-primary"
+                            className="font-medium text-primary hover:underline testdark:text-primary"
                           >
                             Login here
                           </Link>

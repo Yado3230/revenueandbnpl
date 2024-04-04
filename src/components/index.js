@@ -198,7 +198,7 @@ function ModalFire() {
                         </span>
                         <label
                           htmlFor="pno"
-                          className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                          className="block mb-2 text-sm font-medium text-gray-900 testdark:text-white"
                         >
                           Phone Number
                         </label>

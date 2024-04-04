@@ -3,8 +3,8 @@ import React from "react";
 function RBFStats({ items }) {
   return (
     <>
-      <div className="mt-2 dark:bg-gray-900">
-        <div className="w-full mb-4 shadow stats dark:bg-gray-900 dark:text-white">
+      <div className="mt-2 testdark:bg-gray-900">
+        <div className="w-full mb-4 shadow stats testdark:bg-gray-900 testdark:text-white">
           <div className="stat">
             <div className="stat-figure text-primary">
               <svg

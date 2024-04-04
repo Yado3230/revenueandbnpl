@@ -160,8 +160,8 @@ const ReportAnalysis = React.memo(
               <div className="card bg-base-100 shadow-sm border">
                 <div className="card-body">
                   <h2 className="card-title">Statistics</h2>
-                  <div className="dark:bg-gray-900">
-                    <div className="w-full stats dark:bg-gray-900 dark:text-white">
+                  <div className="testdark:bg-gray-900">
+                    <div className="w-full stats testdark:bg-gray-900 testdark:text-white">
                       <div className="stat">
                         <div className="stat-figure text-primary">
                           <svg
