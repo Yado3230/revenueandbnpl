@@ -147,8 +147,7 @@ function RepaymentSchedule() {
     },
     {
       name: "TRANSACTION_DATE",
-      selector: (row) =>
-        new Date(row.transOrderedAt)?.toISOString().split("T")[0],
+      selector: (row) => new Date()?.toISOString().split("T")[0],
       sortable: true,
     },
   ];
@@ -226,13 +225,13 @@ function RepaymentSchedule() {
         aria-label="Search Input"
         value={filterText}
         onChange={onFilter}
-        className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm focus:ring-primary focus:border-primary block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm focus:ring-primary focus:border-primary block p-2.5testdark:bg-gray-700testdark:border-gray-600testdark:placeholder-gray-400testdark:text-whitetestdark:focus:ring-blue-500testdark:focus:border-blue-500"
       />
 
       <button
         type="button"
         onClick={onClear}
-        className="text-white bg-primary hover:bg-primary focus:ring-4 focus:outline-none focus:ring-primary font-medium text-sm px-3.5 py-2.5 mr-2 text-center dark:bg-primary dark:hover:bg-primary dark:focus:ring-primary"
+        className="text-white bg-primary hover:bg-primary focus:ring-4 focus:outline-none focus:ring-primary font-medium text-sm px-3.5 py-2.5 mr-2 text-centertestdark:bg-primarytestdark:hover:bg-primarytestdark:focus:ring-primary"
       >
         Clear
       </button>
@@ -284,7 +283,7 @@ function RepaymentSchedule() {
   const Export = ({ onExport }) => (
     <button
       onClick={(e) => onExport(e.target.value)}
-      className="text-white bg-primary hover:bg-primary focus:ring-4 focus:outline-none focus:ring-primary font-medium text-sm px-2.5 py-2.5 mr-4 text-center dark:bg-primary dark:hover:bg-primary dark:focus:ring-primary"
+      className="text-white bg-primary hover:bg-primary focus:ring-4 focus:outline-none focus:ring-primary font-medium text-sm px-2.5 py-2.5 mr-4 text-centertestdark:bg-primarytestdark:hover:bg-primarytestdark:focus:ring-primary"
     >
       Export
     </button>
@@ -474,7 +473,7 @@ function RepaymentSchedule() {
                         }
                       })
                     }
-                    className="text-white bg-red-400 from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                    className="text-white bg-red-400 from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300testdark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
                   >
                     Reject
                   </button>
@@ -530,7 +529,7 @@ function RepaymentSchedule() {
                         })
                         .finally(() => setAcceptLoading(false));
                     }}
-                    className="text-white bg-cyan-500 from-cyan-500 via-cyan-600 to-cyan-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                    className="text-white bg-cyan-500 from-cyan-500 via-cyan-600 to-cyan-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300testdark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
                   >
                     Accept
                   </button>
@@ -565,7 +564,7 @@ function RepaymentSchedule() {
                     <input
                       type="text"
                       id="fiat-currency-input"
-                      className="block p-2.5 w-full rounded-l z-20 text-sm text-gray-900 bg-gray-50 outline-none rounded-s-lg border-e-gray-50 border-e-2 border border-cyan-300 focus:ring-cyan-500 focus:border-cyan-500 dark:bg-gray-700 dark:border-e-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500"
+                      className="block p-2.5 w-full rounded-l z-20 text-sm text-gray-900 bg-gray-50 outline-none rounded-s-lg border-e-gray-50 border-e-2 border border-cyan-300 focus:ring-cyan-500 focus:border-cyan-500testdark:bg-gray-700testdark:border-e-gray-700testdark:border-gray-600testdark:placeholder-gray-400testdark:text-whitetestdark:focus:border-blue-500"
                       placeholder={`Enter amount in ${defaultCurrency}`}
                       required
                       value={formatInputValue(amount)}
@@ -597,7 +596,7 @@ function RepaymentSchedule() {
                       showConfirmButton: false,
                     })
                   }
-                  className="text-white bg-cyan-500 from-cyan-500 via-cyan-600 to-cyan-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                  className="text-white bg-cyan-500 from-cyan-500 via-cyan-600 to-cyan-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300testdark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
                 >
                   Pay
                 </button>

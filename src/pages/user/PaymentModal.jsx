@@ -40,7 +40,7 @@ const PaymentModal = ({ amount, handleInputChange, formatInputValue }) => {
               <input
                 type="number"
                 id="fiat-currency-input"
-                className="block p-2.5 w-full rounded z-20 text-sm text-gray-900 bg-gray-50 outline-none rounded-s-lg border-e-gray-50 border-e-2 border border-cyan-300 focus:ring-cyan-500 focus:border-cyan-500 dark:bg-gray-700 dark:border-e-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500"
+                className="block p-2.5 w-full rounded z-20 text-sm text-gray-900 bg-gray-50 outline-none rounded-s-lg border-e-gray-50 border-e-2 border border-cyan-300 focus:ring-cyan-500 focus:border-cyan-500testdark:bg-gray-700testdark:border-e-gray-700testdark:border-gray-600testdark:placeholder-gray-400testdark:text-whitetestdark:focus:border-blue-500"
                 placeholder={`Account Number`}
                 required
                 value={account}
@@ -58,7 +58,7 @@ const PaymentModal = ({ amount, handleInputChange, formatInputValue }) => {
                     <input
                       type="number"
                       id="fiat-currency-input"
-                      className="block p-2.5 w-full rounded-r z-20 text-sm text-gray-900 bg-gray-50 outline-none rounded-s-lg border-e-gray-50 border-e-2 border border-cyan-300 focus:ring-cyan-500 focus:border-cyan-500 dark:bg-gray-700 dark:border-e-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500"
+                      className="block p-2.5 w-full rounded-r z-20 text-sm text-gray-900 bg-gray-50 outline-none rounded-s-lg border-e-gray-50 border-e-2 border border-cyan-300 focus:ring-cyan-500 focus:border-cyan-500testdark:bg-gray-700testdark:border-e-gray-700testdark:border-gray-600testdark:placeholder-gray-400testdark:text-whitetestdark:focus:border-blue-500"
                       placeholder={`Phone Number`}
                       required
                       value={phoneNumber}
@@ -73,7 +73,7 @@ const PaymentModal = ({ amount, handleInputChange, formatInputValue }) => {
                 <input
                   type="text"
                   id="fiat-currency-input"
-                  className="block p-2.5 w-full rounded-l z-20 text-sm text-gray-900 bg-gray-50 outline-none rounded-s-lg border-e-gray-50 border-e-2 border border-cyan-300 focus:ring-cyan-500 focus:border-cyan-500 dark:bg-gray-700 dark:border-e-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500"
+                  className="block p-2.5 w-full rounded-l z-20 text-sm text-gray-900 bg-gray-50 outline-none rounded-s-lg border-e-gray-50 border-e-2 border border-cyan-300 focus:ring-cyan-500 focus:border-cyan-500testdark:bg-gray-700testdark:border-e-gray-700testdark:border-gray-600testdark:placeholder-gray-400testdark:text-whitetestdark:focus:border-blue-500"
                   placeholder={`Enter amount in ${defaultCurrency}`}
                   required
                   disabled
@@ -89,7 +89,7 @@ const PaymentModal = ({ amount, handleInputChange, formatInputValue }) => {
             </div>
             <button
               type="button"
-              className="text-white bg-cyan-500 from-cyan-500 via-cyan-600 to-cyan-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+              className="text-white bg-cyan-500 from-cyan-500 via-cyan-600 to-cyan-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300testdark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
             >
               CONTINUE
             </button>

@@ -118,7 +118,10 @@ function RBFHome() {
 
         <div className="flex items-center justify-between">
           <div className="font-semibold text-2xl text-gray-600">Dashboard</div>
-          {Array.isArray(merchantLoan) && merchantLoan?.length > 0 ? (
+          {Array.isArray(merchantLoan) &&
+          merchantLoan?.length > 0 &&
+          merchantLoan.filter((item) => item.status === "PENDING").length &&
+          merchantLoan.filter((item) => item.status === "APPROVED").length ? (
             ""
           ) : (
             <Link to="loanrequest">
