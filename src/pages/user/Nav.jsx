@@ -1,7 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import AuthService from "../../services/auth.service";
 import { useEffect } from "react";
 import { useState } from "react";
 import { getEkyInfo, setlogOut } from "../../store/actions/userProfileAction";

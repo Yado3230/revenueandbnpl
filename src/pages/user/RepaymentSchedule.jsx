@@ -12,6 +12,8 @@ import {
 import CapacityService from "../../services/capacityServices";
 import PaymentModal from "./PaymentModal";
 import withReactContent from "sweetalert2-react-content";
+import jwtDecode from "jwt-decode";
+import { getAccounts } from "../../store/actions/bank_accountAction";
 
 function RepaymentSchedule() {
   const userData = useSelector((state) => state.userProfile);
@@ -21,6 +23,18 @@ function RepaymentSchedule() {
   const { merchantLoan, repaymentSchedule, loading } = capacityData;
   const [updated, setUpdated] = useState(false);
   const [acceptLoading, setAcceptLoading] = useState(false);
+
+  const AccountListData = useSelector((state) => state.accountsList);
+  const { bankAccounts } = AccountListData;
+
+  const tokenInfo = useSelector((state) => state.userProfile);
+  const { token } = tokenInfo;
+  const user_token = jwtDecode(token);
+  const merchant_id = user_token?.merchant_id;
+
+  useEffect(() => {
+    dispatch(getAccounts(merchant_id));
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(getLoanRequests(userID));
@@ -585,7 +599,7 @@ function RepaymentSchedule() {
                       html: (
                         <PaymentModal
                           amount={amount}
-                          kyc={kyc}
+                          bankAccounts={bankAccounts}
                           setAmount={setAmount}
                           formatInputValue={formatInputValue}
                           handleInputChange={handleInputChange}

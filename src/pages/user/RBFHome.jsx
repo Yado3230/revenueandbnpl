@@ -120,8 +120,9 @@ function RBFHome() {
           <div className="font-semibold text-2xl text-gray-600">Dashboard</div>
           {Array.isArray(merchantLoan) &&
           merchantLoan?.length > 0 &&
-          merchantLoan.filter((item) => item.status === "PENDING").length &&
-          merchantLoan.filter((item) => item.status === "APPROVED").length ? (
+          (merchantLoan.filter((item) => item.status === "PENDING").length ||
+            merchantLoan.filter((item) => item.status === "APPROVED")
+              .length) ? (
             ""
           ) : (
             <Link to="loanrequest">

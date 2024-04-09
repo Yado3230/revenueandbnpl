@@ -1,18 +1,44 @@
-import React, { useEffect, useState } from "react";
-import cbologo from "./../assets/images/Cooperative_Bank_of_Oromia-3.png";
-import ebirrlogo from "./../assets/images/ebirr.jpg";
-import souqpasslogo from "./../assets/images/logo.png";
+import React, { useState } from "react";
+import cbologo from "./../../assets/images/Cooperative_Bank_of_Oromia-3.png";
+import ebirrlogo from "./../../assets/images/ebirr.jpg";
+import souqpasslogo from "./../../assets/images/logo.png";
 
-import ReactDOM from "react-dom";
-
-const Gateway = () => {
+const PaymentModal = ({
+  amount,
+  bankAccounts,
+  handleInputChange,
+  formatInputValue,
+}) => {
   const [activeTab, setActiveTab] = useState("account");
+
   const [account, setAccount] = useState("");
-  const [amount, setAmount] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
+  const [showPopup, setShowPopup] = useState(false);
+
+  const handleInputsChange = (e) => {
+    const inputValue = e.target.value;
+    setAccount(inputValue);
+
+    // Filter account numbers based on input value
+    const filteredSuggestions = bankAccounts
+      ?.filter((item) => item.account_number.includes(inputValue.toString()))
+      .map((item) => item.account_number); // Extract account numbers from filtered suggestions
+    setSuggestions(filteredSuggestions);
+
+    // Show/hide popup based on input value
+    setShowPopup(!!inputValue);
+  };
+
+  console.log("bank accounts", bankAccounts);
+
+  const handleSuggestionClick = (suggestion) => {
+    setAccount(suggestion);
+    setSuggestions([]);
+    setShowPopup(false);
+  };
 
   const defaultCurrency = "ETB";
-
   return (
     <div style={{ width: "100%", marginTop: "1.25rem" }}>
       <div style={{ width: "100%" }}>
@@ -89,24 +115,24 @@ const Gateway = () => {
                   placeholder={`Account Number`}
                   required
                   value={account}
-                  // onChange={handleInputsChange}
+                  onChange={handleInputsChange}
                 />
 
                 {/* Display popup if showPopup is true */}
-                {/* {showPopup && ( */}
-                <div
-                  style={{
-                    position: "absolute",
-                    top: "100%",
-                    left: 0,
-                    zIndex: 999,
-                    backgroundColor: "#fff",
-                    boxShadow: "0px 0px 5px rgba(0, 0, 0, 0.2)",
-                    borderRadius: "5px",
-                    padding: "5px",
-                  }}
-                >
-                  {/* <ul>
+                {showPopup && (
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: "100%",
+                      left: 0,
+                      zIndex: 999,
+                      backgroundColor: "#fff",
+                      boxShadow: "0px 0px 5px rgba(0, 0, 0, 0.2)",
+                      borderRadius: "5px",
+                      padding: "5px",
+                    }}
+                  >
+                    <ul>
                       {suggestions.map((suggestion, index) => (
                         <li
                           style={{
@@ -115,14 +141,14 @@ const Gateway = () => {
                             borderBottom: "1px solid #cbd5e0",
                           }}
                           key={index}
-                          // onClick={() => handleSuggestionClick(suggestion)}
+                          onClick={() => handleSuggestionClick(suggestion)}
                         >
                           {suggestion}
                         </li>
                       ))}
-                    </ul> */}
-                </div>
-                {/* )} */}
+                    </ul>
+                  </div>
+                )}
               </div>
             ) : (
               activeTab === "ebirr" && (
@@ -181,8 +207,8 @@ const Gateway = () => {
                   placeholder={`Enter amount in ${defaultCurrency}`}
                   required
                   disabled
-                  // value={formatInputValue(amount)}
-                  // onChange={(e) => handleInputChange(e)}
+                  value={formatInputValue(amount)}
+                  onChange={(e) => handleInputChange(e)}
                 />
               </div>
               <div style={{ flexShrink: 0 }}>
@@ -251,83 +277,5 @@ const Gateway = () => {
     </div>
   );
 };
-const GatewayInNewWindow = () => {
-  const url =
-    "http://localhost:3001/gateway/0mYNIQ0EJmw3z71ZxyVUP0r5tT28JYz32o9UJS0qeNOv0";
 
-  const openGatewayInNewWindow = () => {
-    // Calculate the center position of the screen
-    const screenWidth = window.screen.width;
-    const screenHeight = window.screen.height;
-    const windowWidth = 500; // Width of the new window
-    const windowHeight = 600; // Height of the new window
-    const left = (screenWidth - windowWidth) / 2;
-    const top = (screenHeight - windowHeight) / 2;
-
-    // Open the Gateway component in a new window at the center
-    const newWindow = window.open(
-      url,
-      "_blank",
-      `width=${windowWidth},height=${windowHeight},left=${left},top=${top}`
-    );
-    newWindow.document.write(
-      "<html><head><title>Souqpass</title></head><body>"
-    );
-    newWindow.document.write("<div id='gateway-container'></div>");
-    newWindow.document.write("</body></html>");
-
-    // Render the Gateway component inside the new window
-    const gatewayContainer =
-      newWindow.document.getElementById("gateway-container");
-    ReactDOM.render(<Gateway />, gatewayContainer);
-
-    newWindow.onload = () => {
-      // Add the Souqpass logo to the top of the new window
-      const souqpassLogo = newWindow.document.createElement("img");
-      souqpassLogo.src = souqpasslogo;
-      souqpassLogo.alt = "Souqpass";
-      souqpassLogo.style.width = "120px";
-      souqpassLogo.style.margin = "20px auto"; // Adjust margin as needed
-      newWindow.document.body.appendChild(souqpassLogo);
-
-      // Render the Gateway component inside the new window
-      const gatewayContainer = newWindow.document.createElement("div");
-      newWindow.document.body.appendChild(gatewayContainer);
-      ReactDOM.render(<Gateway />, gatewayContainer);
-    };
-  };
-
-  // Automatically open the popup window when the component mounts
-  // useEffect(() => {
-  //   openGatewayInNewWindow();
-  // }, []); // Empty dependency array ensures this effect runs only once
-
-  return (
-    <button
-      type="button"
-      onClick={openGatewayInNewWindow}
-      style={{
-        color: "white",
-        backgroundColor: "#2d3748",
-        borderRadius: "0.375rem",
-        fontSize: "0.875rem",
-        fontWeight: 500,
-        letterSpacing: "0.025em",
-        padding: "0.75rem 1.5rem",
-        textAlign: "center",
-        transition:
-          "background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out",
-        cursor: "pointer",
-        display: "inline-block",
-        textDecoration: "none",
-        textTransform: "none",
-        whiteSpace: "nowrap",
-        lineHeight: 1.5,
-      }}
-    >
-      Open Payment Gateway
-    </button>
-  );
-};
-
-export default GatewayInNewWindow;
+export default PaymentModal;

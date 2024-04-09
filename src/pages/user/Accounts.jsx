@@ -89,7 +89,6 @@ const columns = [
 const MySwal = withReactContent(Swal);
 function Accounts() {
   const AccountListData = useSelector((state) => state.accountsList);
-  const [phoneNumber, setPhoneNumber] = useState("");
   const { loading, error, bankAccounts } = AccountListData;
   const dispatch = useDispatch();
 
@@ -98,8 +97,6 @@ function Accounts() {
   const { token } = tokenInfo;
   const user_token = jwtDecode(token);
   const merchant_id = user_token?.merchant_id;
-  const userData = useSelector((state) => state.userProfile);
-  const { phone_number } = userData?.userDetail;
 
   useEffect(() => {
     dispatch(getAccounts(merchant_id));
