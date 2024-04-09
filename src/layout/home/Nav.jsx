@@ -10,7 +10,7 @@ function Nav() {
   return (
     <>
       <header className="">
-        <nav className="fixed top-0 left-0 z-20 w-full px-4 py-4 bg-white border-b-2 border-gray-200 lg:px-6 dark:bg-gray-800 dark:border-gray-900">
+        <nav className="fixed top-0 left-0 z-20 w-full px-4 py-4 bg-white border-b-2 border-gray-200 lg:px-6 testdark:bg-gray-800 testdark:border-gray-900">
           <div className="flex flex-wrap items-center justify-between max-w-screen-xl mx-auto">
             <Link to={"/"} className="ml-8">
               <img src={logo} alt="logo" className="w-16 md:w-28" />
@@ -18,20 +18,20 @@ function Nav() {
             <div className="flex items-center lg:order-2">
               <Link
                 to={"/auth"}
-                className="text-gray-800 border border-primary dark:text-whitefocus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 dark:text-white focus:outline-none dark:focus:ring-gray-800"
+                className="text-gray-800 border border-primary testdark:text-whitefocus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 testdark:hover:bg-gray-700 testdark:text-white focus:outline-none testdark:focus:ring-gray-800"
               >
                 Log in
               </Link>
               <Link
                 to={"/auth/registration"}
-                className="text-white bg-primary hover:bg-primary focus:ring-4 focus:ring-primary font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:bg-default-600 dark:hover:bg-default-700 focus:outline-none dark:focus:ring-default-800"
+                className="text-white bg-primary hover:bg-primary focus:ring-4 focus:ring-primary font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 testdark:bg-default-600 testdark:hover:bg-default-700 focus:outline-none testdark:focus:ring-default-800"
               >
                 Sign up
               </Link>
               <button
                 data-collapse-toggle="mobile-menu-2"
                 type="button"
-                className="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                className="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 testdark:text-gray-400 testdark:hover:bg-gray-700 testdark:focus:ring-gray-600"
                 aria-controls="mobile-menu-2"
                 aria-expanded="false"
                 onClick={handleMenu}
@@ -77,8 +77,8 @@ function Nav() {
                     to={"/"}
                     className={
                       location.pathname === "/"
-                        ? "block py-2 pr-4 pl-3 text-white rounded bg-primary lg:bg-transparent lg:text-primary lg:p-0 dark:text-white"
-                        : "block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
+                        ? "block py-2 pr-4 pl-3 text-white rounded bg-primary lg:bg-transparent lg:text-primary lg:p-0 testdark:text-white"
+                        : "block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary lg:p-0 testdark:text-gray-400 lg:testdark:hover:text-white testdark:hover:bg-gray-700 testdark:hover:text-white lg:testdark:hover:bg-transparent testdark:border-gray-700"
                     }
                     aria-current="page"
                   >
@@ -89,9 +89,9 @@ function Nav() {
                   <Link
                     to={"/documentation"}
                     className={
-                      location.pathname === "/documentation"
-                        ? "block py-2 pr-4 pl-3 text-white rounded bg-primary lg:bg-transparent lg:text-primary lg:p-0 dark:text-white"
-                        : "block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
+                      location.pathname.startsWith("/documentation")
+                        ? "block py-2 pr-4 pl-3 text-white rounded bg-primary lg:bg-transparent lg:text-primary lg:p-0 testdark:text-white"
+                        : "block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary lg:p-0 testdark:text-gray-400 lg:testdark:hover:text-white testdark:hover:bg-gray-700 testdark:hover:text-white lg:testdark:hover:bg-transparent testdark:border-gray-700"
                     }
                   >
                     Documentation
@@ -100,7 +100,7 @@ function Nav() {
                 <li>
                   <Link
                     to={"/sandbox"}
-                    className="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
+                    className="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary lg:p-0 testdark:text-gray-400 lg:testdark:hover:text-white testdark:hover:bg-gray-700 testdark:hover:text-white lg:testdark:hover:bg-transparent testdark:border-gray-700"
                   >
                     Sandbox
                   </Link>

@@ -2,7 +2,6 @@ import axios from "axios";
 import authHeader from "./auth-header";
 import { NODE_API } from "../utils/API";
 
-const API_URL = process.env.REACT_APP_API_NODE_URLS;
 
 const addBank = async (bankName, bankCode) => {
   return await NODE_API.post(

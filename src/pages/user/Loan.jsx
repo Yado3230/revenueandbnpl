@@ -79,11 +79,6 @@ const Loans = () => {
       selector: (row) => row?.itemId,
       sortable: true,
     },
-    // {
-    //   name: "National ID",
-    //   selector: (row) => row?.nationalIdNumber,
-    //   sortable: true,
-    // },
     {
       name: "Loan Purpose",
       selector: (row) => row?.loanPurpose,
@@ -225,7 +220,7 @@ const Loans = () => {
     return (
       <div className="bg-gray-50">
         <span className="py-1 ml-2 text-xl font-semibold text-cyan-500">
-          Payment Schedule
+          Repayment Schedule
         </span>
         <div className="m-2 mx-12 border-x-2 border-cyan-500">
           <DataTable

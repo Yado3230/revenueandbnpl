@@ -19,7 +19,7 @@ const Cardpay = (props) => {
           type="text"
           name="cardholder"
           id="cardNumber"
-          className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 testdark:bg-gray-700 testdark:border-gray-600 testdark:placeholder-gray-400 testdark:text-white testdark:focus:ring-blue-500 testdark:focus:border-blue-500"
           placeholder="Card Holder"
           required=""
         />
@@ -33,8 +33,8 @@ const Cardpay = (props) => {
           className="bg-gray-50 border
             border-gray-300 text-gray-900 sm:text-sm rounded-lg
             focus:ring-primary focus:border-primary block w-full p-2.5
-            dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
-            dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            testdark:bg-gray-700 testdark:border-gray-600 testdark:placeholder-gray-400
+            testdark:text-white testdark:focus:ring-blue-500 testdark:focus:border-blue-500"
           required=""
         />
       </div>
@@ -48,7 +48,7 @@ const Cardpay = (props) => {
           <select
             name=""
             id=""
-            className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 testdark:bg-gray-700 testdark:border-gray-600 testdark:placeholder-gray-400 testdark:text-white testdark:focus:ring-blue-500 testdark:focus:border-blue-500"
             x-model="expired.month"
           >
             {month.map((arr) => (
@@ -58,7 +58,7 @@ const Cardpay = (props) => {
           <select
             name=""
             id=""
-            className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 testdark:bg-gray-700 testdark:border-gray-600 testdark:placeholder-gray-400 testdark:text-white testdark:focus:ring-blue-500 testdark:focus:border-blue-500"
             x-model="expired.year"
           >
             {year.map((arr) => (
@@ -71,7 +71,7 @@ const Cardpay = (props) => {
         to="/otp"
         type="submit"
         // onClick={props.handleSubmit}
-        className="w-full text-white bg-primary hover:bg-primary focus:ring-4 focus:outline-none focus:ring-primary font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary dark:hover:bg-primary dark:focus:ring-primary"
+        className="w-full text-white bg-primary hover:bg-primary focus:ring-4 focus:outline-none focus:ring-primary font-medium rounded-lg text-sm px-5 py-2.5 text-center testdark:bg-primary testdark:hover:bg-primary testdark:focus:ring-primary"
       >
         Pay now
       </Link>

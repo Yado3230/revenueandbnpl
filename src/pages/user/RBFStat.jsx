@@ -3,8 +3,8 @@ import React from "react";
 function RBFStats({ items }) {
   return (
     <>
-      <div className="mt-2 dark:bg-gray-900">
-        <div className="w-full mb-4 shadow stats dark:bg-gray-900 dark:text-white">
+      <div className="mt-2 testdark:bg-gray-900">
+        <div className="w-full mb-4 shadow stats testdark:bg-gray-900 testdark:text-white">
           <div className="stat">
             <div className="stat-figure text-primary">
               <svg
@@ -21,11 +21,11 @@ function RBFStats({ items }) {
                 />
               </svg>
             </div>
-            <div className="stat-title">Net Profit</div>
+            <div className="stat-title">Daily Revenue</div>
             <div className="stat-value text-primary">
               {(
-                items?.revenue -
-                (items?.totalexpence + items?.totalBuy)
+                items?.daily_revenue?.find((item) => item.sales_id === 0)
+                  .total || 0
               ).toLocaleString()}
             </div>
           </div>
@@ -46,9 +46,9 @@ function RBFStats({ items }) {
                 <polyline points="17 6 23 6 23 12" />
               </svg>
             </div>
-            <div className="stat-title">Revenue</div>
+            <div className="stat-title">Total Revenue</div>
             <div className="stat-value text-secondary">
-              {items?.revenue?.toLocaleString()}
+              {items?.total_revenue?.total?.toLocaleString() || 0}
             </div>
             {/* <div className="stat-desc">11% less than yesterday</div> */}
           </div>
@@ -69,9 +69,9 @@ function RBFStats({ items }) {
                 ></path>
               </svg>
             </div>
-            <div className="stat-title">Expense</div>
+            <div className="stat-title">Total Expense</div>
             <div className="stat-value text-primary">
-              {(items?.totalexpence + items?.totalBuy).toLocaleString()}
+              {items?.expense?.total?.toLocaleString() || 0}
             </div>
           </div>
 
@@ -93,9 +93,9 @@ function RBFStats({ items }) {
                 <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
               </svg>
             </div>
-            <div className="stat-title">Cost of Goods $ Services</div>
+            <div className="stat-title">Cost of Goods & Services</div>
             <div className="stat-value text-accent">
-              {items?.totalBuy?.toLocaleString()}
+              {items?.total_buy_price?.total?.toLocaleString() || 0}
             </div>
           </div>
         </div>

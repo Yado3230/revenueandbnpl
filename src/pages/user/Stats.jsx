@@ -9,8 +9,8 @@ function Stats({
 }) {
   return (
     <>
-      <div className="mt-2 dark:bg-gray-900">
-        <div className="w-full mb-4 shadow stats dark:bg-gray-900 dark:text-white">
+      <div className="mt-2 testdark:bg-gray-900">
+        <div className="w-full mb-4 shadow stats testdark:bg-gray-900 testdark:text-white">
           <div className="stat">
             <div className="stat-figure text-primary">
               <svg
@@ -331,7 +331,7 @@ l44 88 -241 3 -241 2 -62 -57 c-72 -68 -174 -124 -266 -148 -89 -23 -261 -17
             </div>
           </div>
         </div>
-        <div className="w-full mb-4 shadow stats dark:bg-gray-900 dark:text-white">
+        <div className="w-full mb-4 shadow stats testdark:bg-gray-900 testdark:text-white">
           <div className="stat">
             <div className="stat-figure text-primary">
               {/* <svg

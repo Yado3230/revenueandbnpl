@@ -11,9 +11,9 @@ function Mapi(props) {
   return (
     <>
       <div className="">
-        <section className="bg-white dark:bg-gray-900">
+        <section className="bg-white testdark:bg-gray-900">
           <div className="max-w-2xl px-4 py-8 mx-auto lg:py-16">
-            <h2 className="mb-4 text-xl font-bold text-gray-900 dark:text-white">
+            <h2 className="mb-4 text-xl font-bold text-gray-900 testdark:text-white">
               {props.title}
             </h2>
             <htmlForm action="#">
@@ -30,13 +30,17 @@ function Mapi(props) {
                   />
                 </div>
                 <div>
-                <Selectinput arr={dropdown} id="account" title="Choose Account" />
+                  <Selectinput
+                    arr={dropdown}
+                    id="account"
+                    title="Choose Account"
+                  />
                 </div>
               </div>
               <div className="flex items-center space-x-4">
                 <button
                   type="submit"
-                  className="text-white bg-primary hover:bg-primary focus:ring-4 focus:outline-none focus:ring-primary font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary dark:hover:bg-primary dark:focus:ring-primary"
+                  className="text-white bg-primary hover:bg-primary focus:ring-4 focus:outline-none focus:ring-primary font-medium rounded-lg text-sm px-5 py-2.5 text-center testdark:bg-primary testdark:hover:bg-primary testdark:focus:ring-primary"
                 >
                   Generate
                 </button>

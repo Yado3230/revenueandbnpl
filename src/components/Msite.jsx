@@ -5,9 +5,7 @@ function Msite(props) {
     <>
       <h3 className="text-lg font-bold">{props.title}</h3>
       <div className="">
-        <section className="bg-white dark:bg-gray-900">
-          
-        </section>
+        <section className="bg-white testdark:bg-gray-900"></section>
       </div>
     </>
   );

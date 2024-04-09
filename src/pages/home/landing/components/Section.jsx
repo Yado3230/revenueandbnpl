@@ -4,23 +4,23 @@ import landingRevolutionDark from "../../../../assets/images/landingRevolutionDa
 
 function Section() {
   return (
-    <section className="bg-white dark:bg-gray-900">
+    <section className="bg-white testdark:bg-gray-900">
       <div className="items-center max-w-screen-xl gap-8 px-4 py-8 mx-auto xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6">
         <img
-          className="w-full dark:hidden"
+          className="w-full testdark:hidden"
           src={landingRevolution}
           alt="dashboard image2"
         />
         <img
-          className="hidden w-full dark:block"
+          className="hidden w-full testdark:block"
           src={landingRevolutionDark}
           alt="dashboard image3"
         />
         <div className="mt-4 md:mt-0">
-          <h2 className="mb-4 text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white">
+          <h2 className="mb-4 text-4xl font-extrabold tracking-tight text-gray-900 testdark:text-white">
             Revolution Starts here.
           </h2>
-          <p className="mb-6 font-light text-gray-500 md:text-lg dark:text-gray-400">
+          <p className="mb-6 font-light text-gray-500 md:text-lg testdark:text-gray-400">
             The emergence of globalization has brought about significant changes
             in the business landscape. In order to thrive in this environment,
             fast and easy Internet access has become a fundamental requirement
@@ -33,7 +33,7 @@ function Section() {
           </p>
           <Link
             to={"/auth/registration"}
-            className="inline-flex items-center text-white bg-primary hover:bg-primary focus:ring-4 focus:ring-primary font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:focus:ring-primary"
+            className="inline-flex items-center text-white bg-primary hover:bg-primary focus:ring-4 focus:ring-primary font-medium rounded-lg text-sm px-5 py-2.5 text-center testdark:focus:ring-primary"
           >
             Get started
             <svg

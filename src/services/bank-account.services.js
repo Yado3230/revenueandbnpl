@@ -2,8 +2,6 @@ import axios from "axios";
 import { NODE_API } from "../utils/API";
 const API_URL = process.env.REACT_APP_API_NODE_URLS;
 const SPRING_ENDPOINT = process.env.REACT_APP_API_SPRING_URLS;
-const accountByPhoneEndpoint = "http://192.168.14.136:7090/userinfo";
-const otpEndpoint = "http://192.168.14.43:8081/payment/v1/";
 const getBankAccountById = async (id) => {
   return await NODE_API.get(`/eky/account?merchant_id=${id}`).then(
     (response) => response.data.account_number

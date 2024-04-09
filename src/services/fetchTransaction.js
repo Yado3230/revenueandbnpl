@@ -1,6 +1,5 @@
 import axios from "axios";
 import { NODE_API } from "../utils/API";
-const adminTransactionFetchUrl = "http://10.1.177.130:8081/payment/v1/";
 
 const getAllTransactions = async () => {
   return await NODE_API.get("transaction/fetchAllTransaction").then(
@@ -37,15 +36,15 @@ const getEbirrTransactions = async (id) => {
   );
 };
 
-const getTransactionByTransactionId = async (clientId) => {
-  return await axios
-    .post(adminTransactionFetchUrl + "fetchByTransactionid", {
-      clientId,
-    })
-    .then((response) => {
-      return response.data;
-    });
-};
+// const getTransactionByTransactionId = async (clientId) => {
+//   return await axios
+//     .post(adminTransactionFetchUrl + "fetchByTransactionid", {
+//       clientId,
+//     })
+//     .then((response) => {
+//       return response.data;
+//     });
+// };
 
 const getChappaTransactionsById = async (id) => {
   return await NODE_API.get(
@@ -61,7 +60,7 @@ const getChappaTransactions = async (id) => {
 const FetchTransactionServices = {
   getPaypalTransactionById,
   getAllTransactions,
-  getTransactionByTransactionId,
+  // getTransactionByTransactionId,
   getStripeandBankTransactionById,
   getEbirrTransactionsById,
   getPaypalTransactions,

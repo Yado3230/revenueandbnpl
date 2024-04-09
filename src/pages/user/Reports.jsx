@@ -14,7 +14,15 @@ import {
 } from "recharts";
 import ReportAnalysis from "./ReportsAnalysis";
 import { useDispatch, useSelector } from "react-redux";
-import { getDashboardCardDetail } from "../../store/actions/reportActions";
+import {
+  getAllSoldItems,
+  getCurrentAndPreviousMonthReport,
+  getDashboardCardDetail,
+  getModifiedReports,
+  getOnStockItems,
+  getYearlyRevenueandProfit,
+} from "../../store/actions/reportActions";
+import { getInventoryDetail } from "../../store/actions/getInventoryAction";
 
 const Tab = ({ label, onClick, isActive }) => (
   <button
@@ -28,122 +36,114 @@ const Tab = ({ label, onClick, isActive }) => (
 );
 
 const InventoryReport = () => {
+  const currentDate = new Date().toISOString().split("T")[0];
   const dispatch = useDispatch();
   const [activeTab, setActiveTab] = useState("analysis");
-
-  useEffect(() => {
-    dispatch(getDashboardCardDetail("2023-01-01", "2023-02-02"));
-  }, []);
+  const [fromDate, setFromDate] = useState();
+  const [toDate, setToDate] = useState(currentDate);
+  const [year, setYear] = useState(2024);
+  const [filtered, setFiltered] = useState(true);
 
   const reportData = useSelector((state) => state.reportInfo);
-  const { dashboardCardReport } = reportData;
+  const {
+    dashboardCardReport,
+    yearlyRevenueandprofit,
+    previousAndCurrentMonth,
+    soldItems,
+    onStockItems,
+    modifiedReports,
+  } = reportData;
+
+  const userData = useSelector((state) => state.userProfile);
+  const { userID } = userData;
+
+  useEffect(() => {
+    dispatch(getDashboardCardDetail(fromDate, toDate, userID));
+    dispatch(getYearlyRevenueandProfit(year, userID));
+    dispatch(getCurrentAndPreviousMonthReport(userID));
+    dispatch(getAllSoldItems(userID));
+    dispatch(getOnStockItems(userID));
+    dispatch(getInventoryDetail(userID));
+    dispatch(
+      getModifiedReports(
+        userID,
+        fromDate,
+        toDate,
+        currentDate,
+        true,
+        true,
+        true
+      )
+    );
+  }, [filtered, userID]);
+
+  const inventoryInfo = useSelector((state) => state.inventoryInfo);
+  const { inventoryDetail } = inventoryInfo;
+
+  inventoryDetail?.sort(function (a, b) {
+    return b.totalQuantity - a.totalQuantity; // Descending order
+  });
+
+  var top10inventory = inventoryDetail.slice(0, 10);
+
+  onStockItems?.sort(function (a, b) {
+    return b.onstock - a.onstock; // Descending order
+  });
+
+  // Return only the top 5 items
+  var top10onStockItems = onStockItems?.slice(0, 15);
 
   // Dummy data for demonstration purposes
-  const itemsWithCategory = [
-    {
-      id: 1,
-      name: "Laptop",
-      category: "Electronics",
-      brand: "Dell",
-      price: 1200,
-      quantity: 30,
-    },
-    {
-      id: 2,
-      name: "T-shirt",
-      category: "Clothing",
-      brand: "Nike",
-      price: 25,
-      quantity: 150,
-    },
-    {
-      id: 3,
-      name: "Book",
-      category: "Books",
-      author: "J.K. Rowling",
-      price: 15,
-      quantity: 100,
-    },
-    {
-      id: 4,
-      name: "Smartphone",
-      category: "Electronics",
-      brand: "Samsung",
-      price: 800,
-      quantity: 50,
-    },
-    {
-      id: 5,
-      name: "Sneakers",
-      category: "Clothing",
-      brand: "Adidas",
-      price: 70,
-      quantity: 80,
-    },
-    {
-      id: 6,
-      name: "Headphones",
-      category: "Electronics",
-      brand: "Sony",
-      price: 150,
-      quantity: 20,
-    },
-  ];
+  const itemsWithCategory = top10inventory.map((item) => ({
+    id: item.item_id,
+    name: item.item_name,
+    category: item.item_category_id,
+    brand: item.item_code,
+    price: item.totalQuantity,
+    quantity: item.totalQuantity,
+  }));
 
-  const stockReportThisMonth = [
-    { id: 1, name: "Laptop", stock: 30 },
-    { id: 2, name: "T-shirt", stock: 150 },
-    { id: 3, name: "Book", stock: 100 },
-    { id: 4, name: "Smartphone", stock: 50 },
-    { id: 5, name: "Sneakers", stock: 80 },
-    { id: 6, name: "Headphones", stock: 20 },
-    { id: 6, name: "Airpod", stock: 80 },
-    { id: 6, name: "Headphones", stock: 20 },
-  ];
+  const stockReportThisMonth = top10onStockItems?.map((item) => ({
+    id: item.item_id,
+    name: item.item_name,
+    stock: item.onstock,
+  }));
 
-  const revenueTrends = [
-    { month: "Jan", revenue: 5000 },
-    { month: "Feb", revenue: 6000 },
-    { month: "Mar", revenue: 7500 },
-    { month: "Apr", revenue: 6800 },
-    { month: "May", revenue: 8000 },
-    { month: "Jun", revenue: 9000 },
-    { month: "Jul", revenue: 10000 },
-    { month: "Aug", revenue: 8000 },
-    { month: "Sep", revenue: 9000 },
-    { month: "Oct", revenue: 7000 },
-    { month: "Nov", revenue: 6000 },
-    { month: "Dec", revenue: 11000 },
-  ];
+  const revenueMap = {};
 
-  const revenueDetails = [
-    { id: 1, name: "Laptop", revenue: 3000 },
-    { id: 2, name: "T-shirt", revenue: 3750 },
-    { id: 3, name: "Book", revenue: 1500 },
-    { id: 4, name: "Smartphone", revenue: 4000 },
-    { id: 5, name: "Sneakers", revenue: 5600 },
-    { id: 6, name: "Headphones", revenue: 2000 },
-  ];
+  yearlyRevenueandprofit?.monthly_revenue?.forEach((item) => {
+    const [year, month] = item.year_month.split("-");
+    const monthName = new Date(`${year}-${month}-01`).toLocaleString("en-US", {
+      month: "short",
+    });
 
-  const costExpenseRevenueReport = {
-    totalCost: 12000,
-    totalExpense: 3000,
-    totalRevenue: 15000,
-  };
+    revenueMap[monthName] = {
+      month: monthName,
+      revenue: parseInt(item.total),
+    };
+  });
 
-  const availableItemsReport = [
-    { id: 1, name: "Laptop", available: true },
-    { id: 2, name: "T-shirt", available: false },
-    { id: 3, name: "Book", available: true },
-    { id: 4, name: "Smartphone", available: false },
-    { id: 5, name: "Sneakers", available: true },
-    { id: 6, name: "Headphones", available: false },
-  ];
+  // Create an array with all months, setting revenue to 0 for missing months
+  const revenueTrends = Array.from({ length: 12 }, (_, index) => {
+    const date = new Date(2000, index, 1);
+    const monthName = date.toLocaleString("en-US", { month: "short" });
+
+    return revenueMap[monthName] || { month: monthName, revenue: 0 };
+  });
+
 
   const renderChart = () => {
     switch (activeTab) {
       case "analysis":
-        return <ReportAnalysis dashboardCardReport={dashboardCardReport} />;
+        return (
+          <ReportAnalysis
+            yearlyRevenueandprofit={yearlyRevenueandprofit}
+            dashboardCardReport={dashboardCardReport}
+            modifiedReports={modifiedReports}
+            previousAndCurrentMonth={previousAndCurrentMonth}
+            soldItems={soldItems}
+          />
+        );
       case "itemsWithCategory":
         return (
           <BarChart
@@ -210,9 +210,6 @@ const InventoryReport = () => {
       case "stockReportThisMonth":
         data = stockReportThisMonth;
         break;
-      case "revenueDetails":
-        data = revenueDetails;
-        break;
       default:
         break;
     }
@@ -271,19 +268,17 @@ const InventoryReport = () => {
             onClick={() => setActiveTab("revenueTrends")}
             isActive={activeTab === "revenueTrends"}
           />
-          <Tab
-            label="Revenue Details"
-            onClick={() => setActiveTab("revenueDetails")}
-            isActive={activeTab === "revenueDetails"}
-          />
         </div>
-        <div className="flex space-x-2">
+        <div className="flex space-x-2 items-center">
           <div>
             <div>
               <label htmlFor="from">From:</label>
               <input
                 type="date"
                 id="from"
+                max={toDate}
+                value={fromDate}
+                onChange={(e) => setFromDate(e.target.value)}
                 placeholder="Type here"
                 className="input input-bordered input-sm w-full max-w-xs"
               />
@@ -295,33 +290,23 @@ const InventoryReport = () => {
               <input
                 type="date"
                 id="to"
+                value={toDate}
+                min={fromDate}
+                max={currentDate}
+                onChange={(e) => setToDate(e.target.value)}
                 placeholder="Type here"
                 className="input input-bordered input-sm w-full max-w-xs"
               />
             </div>
           </div>
+          <button
+            onClick={() => setFiltered(!filtered)}
+            className="self-end btn btn-outline btn-accent btn-sm"
+          >
+            Filter
+          </button>
         </div>
       </div>
-      {/* <div className="flex justify-between">
-        <div>
-          <p className="text-gray-700">Total Cost of Goods:</p>
-          <p className="text-2xl font-bold text-gray-800">
-            ${costExpenseRevenueReport.totalCost}
-          </p>
-        </div>
-        <div>
-          <p className="text-gray-700">Total Revenue:</p>
-          <p className="text-2xl font-bold text-green-600">
-            ${costExpenseRevenueReport.totalRevenue}
-          </p>
-        </div>
-        <div>
-          <p className="text-gray-700">Total Expense:</p>
-          <p className="text-2xl font-bold text-red-600">
-            ${costExpenseRevenueReport.totalExpense}
-          </p>
-        </div>
-      </div> */}
     </div>
   );
 

@@ -14,6 +14,8 @@ import Gateway from "./components/Gateway";
 import RequireAuth from "./pages/auth/RequireAuth";
 import DataTable from "./components/DataTable";
 import Reports from "./pages/user/ReportsAnalysis";
+import Activated from "./pages/auth/Activated";
+import Generator from "./Generator";
 // import RequireAuth from "./pages/auth/RequireAuth";
 
 function App() {
@@ -41,6 +43,8 @@ function App() {
         <Route path="/auth/*" element={<Auth />}></Route>
         <Route path="/otp" element={<OTP />}></Route>
         <Route path="/try" element={<Reports />}></Route>
+        <Route path="/generator" element={<Generator />}></Route>
+        <Route path="/activate/:token" element={<Activated />}></Route>
         <Route path="/sandbox/*" element={<Sandbox />}></Route>
         <Route path="/table/*" element={<DataTable />}></Route>
         <Route element={<RequireAuth allowedRoles={"merchant"} />}>

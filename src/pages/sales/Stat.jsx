@@ -1,10 +1,10 @@
 import React from "react";
 
-function Stat({ items }) {
+function Stat({ sales_reports, items }) {
   return (
     <>
-      <div className="mt-2 dark:bg-gray-900">
-        <div className="w-full mb-4 shadow stats dark:bg-gray-900 dark:text-white">
+      <div className="mt-2 testdark:bg-gray-900">
+        <div className="w-full mb-4 shadow stats testdark:bg-gray-900 testdark:text-white">
           <div className="stat">
             <div className="stat-figure text-primary">
               <svg
@@ -22,7 +22,9 @@ function Stat({ items }) {
               </svg>
             </div>
             <div className="stat-title">Today Sales</div>
-            <div className="stat-value text-primary">-</div>
+            <div className="stat-value text-primary">
+              {sales_reports?.currentSales?.toLocaleString() || 0}
+            </div>
           </div>
 
           <div className="stat">
@@ -42,7 +44,9 @@ function Stat({ items }) {
               </svg>
             </div>
             <div className="stat-title">Monthly Sales</div>
-            <div className="stat-value text-secondary">-</div>
+            <div className="stat-value text-secondary">
+              {sales_reports?.monthlySales?.toLocaleString() || 0}
+            </div>
             {/* <div className="stat-desc">11% less than yesterday</div> */}
           </div>
 
@@ -63,7 +67,9 @@ function Stat({ items }) {
               </svg>
             </div>
             <div className="stat-title">Total Sales</div>
-            <div className="stat-value text-primary">-</div>
+            <div className="stat-value text-primary">
+              {sales_reports?.totalSales?.toLocaleString() || 0}
+            </div>
             {/* <div className="stat-desc">21% more than last month</div> */}
           </div>
 

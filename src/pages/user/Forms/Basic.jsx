@@ -85,7 +85,7 @@ function Basic() {
           {!successful && (
             <>
               <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
-                <h2 className="mb-4 text-xl font-bold text-gray-900 sm:col-span-2 dark:text-white">
+                <h2 className="mb-4 text-xl font-bold text-gray-900 sm:col-span-2 testdark:text-white">
                   Business In Formation
                 </h2>
 
@@ -224,7 +224,7 @@ function Basic() {
                 <button
                   type="submit"
                   onClick={props.handleSubmit}
-                  className="sm:col-span-2 text-white bg-primary hover:bg-primary focus:ring-4 focus:outline-none focus:ring-primary font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary dark:hover:bg-primary dark:focus:ring-primary"
+                  className="sm:col-span-2 text-white bg-primary hover:bg-primary focus:ring-4 focus:outline-none focus:ring-primary font-medium rounded-lg text-sm px-5 py-2.5 text-center testdark:bg-primary testdark:hover:bg-primary testdark:focus:ring-primary"
                 >
                   Continue
                 </button>

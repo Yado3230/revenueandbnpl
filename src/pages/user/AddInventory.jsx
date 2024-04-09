@@ -15,7 +15,7 @@ function AddInventory({ onSubmit, values, onCancel, kyc, categories }) {
     "image/png",
   ];
 
-  const item_option = categories.map((item) => ({
+  const item_option = categories?.map((item) => ({
     value: item?.item_category_id,
     label: item?.type,
   }));
@@ -33,20 +33,20 @@ function AddInventory({ onSubmit, values, onCancel, kyc, categories }) {
     //     "Unsupported Format",
     //     (value) => value && SUPPORTED_FORMATS.includes(value.type)
     //   ),
-    item_code: Yup.string().optional(),
+    item_code: Yup.string().nullable().optional(),
     item_price: Yup.string().required("Price is required"),
     item_name: Yup.string().required("Name is required"),
     // item_type: Yup.string().required("Type is required"),
-    loan_limit: Yup.string().optional(),
+    loan_limit: Yup.string().nullable().optional(),
     totalQuantity: Yup.string().required("Total Quantity is required"),
     totalBuyPrice: Yup.string().required("Total Buy Price is required"),
-    unitPrice: Yup.string().optional(),
+    unitPrice: Yup.string().nullable().optional(),
     reorderPointUnit: Yup.string().required("Reorder Point Unit is required"),
-    purchaseDate: Yup.string().optional(),
-    supplier: Yup.string().optional(),
-    location: Yup.string().optional(),
-    description: Yup.string().optional(),
-    item_category_id: Yup.string().optional(),
+    purchaseDate: Yup.string().nullable().optional(),
+    supplier: Yup.string().nullable().optional(),
+    location: Yup.string().nullable().optional(),
+    description: Yup.string().nullable().optional(),
+    item_category_id: Yup.string().nullable().optional(),
   });
   return (
     <>
@@ -74,31 +74,32 @@ function AddInventory({ onSubmit, values, onCancel, kyc, categories }) {
                   name="item_name"
                   id="item_name"
                   placeholder="Name"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 testdark:bg-gray-700 testdark:border-gray-600 testdark:placeholder-gray-400 testdark:text-white testdark:focus:ring-blue-500 testdark:focus:border-blue-500"
                   value={formik.values.item_name}
                   onChange={formik.handleChange}
                 />
               </div>
               <div className="w-full">
                 <label
-                  htmlFor="item_price"
+                  htmlFor="totalBuyPrice"
                   className="mb-2 text-sm font-medium text-gray-900"
                 >
-                  Item Price <span className="text-red-500">*</span>
+                  Buy Price <span className="text-red-500">*</span>
                 </label>
                 <span className="text-sm link-error">
-                  <ErrorMessage name="item_price"></ErrorMessage>
+                  <ErrorMessage name="totalBuyPrice"></ErrorMessage>
                 </span>
                 <input
                   type="number"
-                  name="item_price"
-                  id="item_price"
-                  placeholder="Price"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  value={formik.values.item_price}
+                  name="totalBuyPrice"
+                  id="totalBuyPrice"
+                  placeholder="Buy Price"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 testdark:bg-gray-700 testdark:border-gray-600 testdark:placeholder-gray-400 testdark:text-white testdark:focus:ring-blue-500 testdark:focus:border-blue-500"
+                  value={formik.values.totalBuyPrice}
                   onChange={formik.handleChange}
                 />
               </div>
+
               {/* <div className="w-full">
                 <label
                   htmlFor="item_category_id"
@@ -114,7 +115,7 @@ function AddInventory({ onSubmit, values, onCancel, kyc, categories }) {
                   name="item_category_id"
                   id="item_category_id"
                   placeholder="Type"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 testdark:bg-gray-700 testdark:border-gray-600 testdark:placeholder-gray-400 testdark:text-white testdark:focus:ring-blue-500 testdark:focus:border-blue-500"
                   value={formik.values.item_category_id}
                   onChange={formik.handleChange}
                 />
@@ -144,7 +145,7 @@ function AddInventory({ onSubmit, values, onCancel, kyc, categories }) {
                   name="item_code"
                   id="item_code"
                   placeholder="Code"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 testdark:bg-gray-700 testdark:border-gray-600 testdark:placeholder-gray-400 testdark:text-white testdark:focus:ring-blue-500 testdark:focus:border-blue-500"
                   value={formik.values.item_code}
                   onChange={formik.handleChange}
                 />
@@ -167,7 +168,7 @@ function AddInventory({ onSubmit, values, onCancel, kyc, categories }) {
                     min={0}
                     max={100}
                     placeholder="loan_limit"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 testdark:bg-gray-700 testdark:border-gray-600 testdark:placeholder-gray-400 testdark:text-white testdark:focus:ring-blue-500 testdark:focus:border-blue-500"
                     value={formik.values.loan_limit}
                     onChange={formik.handleChange}
                   />
@@ -187,36 +188,32 @@ function AddInventory({ onSubmit, values, onCancel, kyc, categories }) {
                   <ErrorMessage name="totalQuantity"></ErrorMessage>
                 </span>
                 <input
-                  type="text"
+                  type="number"
                   name="totalQuantity"
                   id="totalQuantity"
-                  min={0}
-                  max={100}
                   placeholder="Total Quantity"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 testdark:bg-gray-700 testdark:border-gray-600 testdark:placeholder-gray-400 testdark:text-white testdark:focus:ring-blue-500 testdark:focus:border-blue-500"
                   value={formik.values.totalQuantity}
                   onChange={formik.handleChange}
                 />
               </div>
               <div className="w-full">
                 <label
-                  htmlFor="totalBuyPrice"
+                  htmlFor="item_price"
                   className="mb-2 text-sm font-medium text-gray-900"
                 >
-                  Total Buy Price <span className="text-red-500">*</span>
+                  Sell Price <span className="text-red-500">*</span>
                 </label>
                 <span className="text-sm link-error">
-                  <ErrorMessage name="totalBuyPrice"></ErrorMessage>
+                  <ErrorMessage name="item_price"></ErrorMessage>
                 </span>
                 <input
-                  type="text"
-                  name="totalBuyPrice"
-                  id="totalBuyPrice"
-                  min={0}
-                  max={100}
-                  placeholder="Total Buy Price"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  value={formik.values.totalBuyPrice}
+                  type="number"
+                  name="item_price"
+                  id="item_price"
+                  placeholder="Price"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 testdark:bg-gray-700 testdark:border-gray-600 testdark:placeholder-gray-400 testdark:text-white testdark:focus:ring-blue-500 testdark:focus:border-blue-500"
+                  value={formik.values.item_price}
                   onChange={formik.handleChange}
                 />
               </div>
@@ -234,10 +231,9 @@ function AddInventory({ onSubmit, values, onCancel, kyc, categories }) {
                   type="text"
                   name="onStock"
                   id="onStock"
-                  min={0}
-                  max={100}
+
                   placeholder="On Stock"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 testdark:bg-gray-700 testdark:border-gray-600 testdark:placeholder-gray-400 testdark:text-white testdark:focus:ring-blue-500 testdark:focus:border-blue-500"
                   value={formik.values.onStock}
                   onChange={formik.handleChange}
                 />
@@ -256,10 +252,9 @@ function AddInventory({ onSubmit, values, onCancel, kyc, categories }) {
                   type="text"
                   name="unitPrice"
                   id="unitPrice"
-                  min={0}
-                  max={100}
+
                   placeholder="Unit Price"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 testdark:bg-gray-700 testdark:border-gray-600 testdark:placeholder-gray-400 testdark:text-white testdark:focus:ring-blue-500 testdark:focus:border-blue-500"
                   value={formik.values.unitPrice}
                   onChange={formik.handleChange}
                 />
@@ -275,13 +270,11 @@ function AddInventory({ onSubmit, values, onCancel, kyc, categories }) {
                   <ErrorMessage name="reorderPointUnit"></ErrorMessage>
                 </span>
                 <input
-                  type="text"
+                  type="number"
                   name="reorderPointUnit"
                   id="reorderPointUnit"
-                  min={0}
-                  max={100}
                   placeholder="Reorder Quantity"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 testdark:bg-gray-700 testdark:border-gray-600 testdark:placeholder-gray-400 testdark:text-white testdark:focus:ring-blue-500 testdark:focus:border-blue-500"
                   value={formik.values.reorderPointUnit}
                   onChange={formik.handleChange}
                 />
@@ -300,7 +293,7 @@ function AddInventory({ onSubmit, values, onCancel, kyc, categories }) {
                   type="date"
                   name="purchaseDate"
                   id="purchaseDate"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 testdark:bg-gray-700 testdark:border-gray-600 testdark:placeholder-gray-400 testdark:text-white testdark:focus:ring-blue-500 testdark:focus:border-blue-500"
                   value={formik.values.purchaseDate}
                   onChange={formik.handleChange}
                 />
@@ -320,7 +313,7 @@ function AddInventory({ onSubmit, values, onCancel, kyc, categories }) {
                   name="supplier"
                   id="supplier"
                   placeholder="Supplier"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 testdark:bg-gray-700 testdark:border-gray-600 testdark:placeholder-gray-400 testdark:text-white testdark:focus:ring-blue-500 testdark:focus:border-blue-500"
                   value={formik.values.supplier}
                   onChange={formik.handleChange}
                 />
@@ -340,7 +333,7 @@ function AddInventory({ onSubmit, values, onCancel, kyc, categories }) {
                   name="location"
                   id="location"
                   placeholder="Location"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 testdark:bg-gray-700 testdark:border-gray-600 testdark:placeholder-gray-400 testdark:text-white testdark:focus:ring-blue-500 testdark:focus:border-blue-500"
                   value={formik.values.location}
                   onChange={formik.handleChange}
                 />
@@ -361,7 +354,7 @@ function AddInventory({ onSubmit, values, onCancel, kyc, categories }) {
                   value={formik.values.description}
                   onChange={formik.handleChange}
                   rows="6"
-                  className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary focus:border-primary dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
+                  className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary focus:border-primary testdark:bg-gray-700 testdark:border-gray-600 testdark:placeholder-gray-400 testdark:text-white testdark:focus:ring-primary testdark:focus:border-primary"
                   placeholder="Your description here"
                 ></textarea>
               </div>

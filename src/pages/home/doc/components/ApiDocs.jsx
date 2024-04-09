@@ -14,7 +14,7 @@ function ApiDocs() {
               <ApiTable />
               <ApiRequest />
             </div>
-            <div className="mt-12 text-xl text-center dark:text-gray-300">
+            <div className="mt-12 text-xl text-center testdark:text-gray-300">
               <h1>You may receive a JSON sample in the following format.</h1>
             </div>
             <ApiResponse />

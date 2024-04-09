@@ -1,20 +1,38 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Icon from "../../components/Icon";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import jwtDecode from "jwt-decode";
+import {
+  getLoanRequests,
+  getRepaymentSchedule,
+} from "../../store/actions/capacityAction";
 
 function Sidebar() {
   const userData = useSelector((state) => state.userProfile);
-  const { kyc, token } = userData;
+  const { kyc, token, userID } = userData;
   const user_token = token && jwtDecode(token);
   const service_name = user_token?.service_name;
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getLoanRequests(userID));
+  }, [userID]);
+
+  const capacityData = useSelector((state) => state.capacityInfo);
+  const { merchantLoan, repaymentSchedule } = capacityData;
+
+  useEffect(() => {
+    if (merchantLoan[0]?.id) {
+      dispatch(getRepaymentSchedule(merchantLoan[0]?.id));
+    }
+  }, [merchantLoan[0]?.id]);
 
   return (
     <>
       <div className="shadow-md drawer-side">
         <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
-        <ul className="p-4 menu w-80 bg-base-100 text-base-content dark:bg-gray-900 dark:text-white">
+        <ul className="p-4 menu w-80 bg-base-100 text-base-content testdark:bg-gray-900 testdark:text-white">
           {/* <!-- Sidebar content here --> */}
           <Icon re="/users" />
           <div className=""></div>
@@ -410,30 +428,65 @@ function Sidebar() {
                 </li>
               )}
 
-              {service_name?.includes("BNPL") && (
-                <li className="mb-1">
-                  <Link to="loan">
-                    <svg
-                      className="h-6 w-6 text-primary"
-                      width="24"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      strokeWidth="2"
-                      stroke="currentColor"
-                      fill="none"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      {" "}
-                      <path stroke="none" d="M0 0h24v24H0z" />{" "}
-                      <rect x="7" y="9" width="14" height="10" rx="2" />{" "}
-                      <circle cx="14" cy="14" r="2" />{" "}
-                      <path d="M17 9v-2a2 2 0 0 0 -2 -2h-10a2 2 0 0 0 -2 2v6a2 2 0 0 0 2 2h2" />
-                    </svg>
-                    Loan List
-                  </Link>
-                </li>
-              )}
+              {service_name?.includes("BNPL") &&
+                kyc.rbf === true &&
+                Array.isArray(merchantLoan) &&
+                merchantLoan?.length > 0 && (
+                  <li className="mb-1">
+                    <Link to="merchantloanlist">
+                      <svg
+                        className="h-6 w-6 text-primary"
+                        width="24"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        strokeWidth="2"
+                        stroke="currentColor"
+                        fill="none"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        {" "}
+                        <path stroke="none" d="M0 0h24v24H0z" />{" "}
+                        <rect x="7" y="9" width="14" height="10" rx="2" />{" "}
+                        <circle cx="14" cy="14" r="2" />{" "}
+                        <path d="M17 9v-2a2 2 0 0 0 -2 -2h-10a2 2 0 0 0 -2 2v6a2 2 0 0 0 2 2h2" />
+                      </svg>
+                      Loan List
+                    </Link>
+                  </li>
+                )}
+
+              {service_name?.includes("BNPL") &&
+                kyc.rbf === true &&
+                Array.isArray(repaymentSchedule) &&
+                repaymentSchedule?.length > 0 &&
+                (merchantLoan[0]?.merchantAcceptanceStatus === null ||
+                  merchantLoan[0]?.merchantAcceptanceStatus === "ACCEPTED" ||
+                  merchantLoan[0]?.merchantAcceptanceStatus === "TIME_OUT") && (
+                  <li className="mb-1">
+                    <Link to="repaymentschedule">
+                      <svg
+                        className="h-6 w-6 text-primary"
+                        width="24"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        strokeWidth="2"
+                        stroke="currentColor"
+                        fill="none"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        {" "}
+                        <path stroke="none" d="M0 0h24v24H0z" />{" "}
+                        <rect x="7" y="9" width="14" height="10" rx="2" />{" "}
+                        <circle cx="14" cy="14" r="2" />{" "}
+                        <path d="M17 9v-2a2 2 0 0 0 -2 -2h-10a2 2 0 0 0 -2 2v6a2 2 0 0 0 2 2h2" />
+                      </svg>
+                      Repayment Schedule
+                    </Link>
+                  </li>
+                )}
+
               {service_name?.includes("BNPL") && kyc.rbf === true && (
                 <li className="mb-1">
                   <Link to="reports">

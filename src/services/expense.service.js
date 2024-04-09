@@ -6,15 +6,25 @@ const registerExpense = async (data, setUpdated, updated) => {
     return response.data;
   });
 };
+const editExpense = async (data, setUpdated, updated) => {
+  return await NODE_API.put(
+    `/rb/expense/update?expense_id=${data?.expense_id}`,
+    data
+  ).then((response) => {
+    setUpdated(!updated);
+    return response.data;
+  });
+};
 
 const getAllExpenses = async () => {
-  return await NODE_API.get("/rb/expense/getExpenses").then(
+  return await NODE_API.get("/rb/expense/getExpense").then(
     (response) => response.data
   );
 };
 
 const ExpenseService = {
   registerExpense,
+  editExpense,
   getAllExpenses,
 };
 

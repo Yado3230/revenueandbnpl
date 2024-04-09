@@ -1,4 +1,4 @@
-import { NODE_API } from "../utils/API";
+import { NODE_API, SPRING_API } from "../utils/API";
 
 const CreateLoanConfig = async (data) => {
   return await NODE_API.post("/loan/create", data).then((response) => response);

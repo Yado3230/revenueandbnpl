@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import DataTable from "react-data-table-component";
 import { useNavigate } from "react-router-dom";
 import { getInventoryDetail } from "../../store/actions/getInventoryAction";
@@ -22,6 +22,7 @@ function Inventory() {
         return (
           <div className="p-2">
             <img
+              crossorigin="anonymous"
               src={`${row.item_pic}`}
               style={{ width: "40px", height: "40px" }}
               alt=""
@@ -55,44 +56,46 @@ function Inventory() {
       selector: (row) => new Date(row.createdAt).toISOString().split("T")[0],
       sortable: true,
     },
-    // {
-    //   name: "Status",
-    //   cell: (row) => (
-    //     <input
-    //       // onChange={() => handleToggleEdit(row)}
-    //       type="checkbox"
-    //       className="toggle toggle-info"
-    //       // checked={row.status}
-    //     />
-    //   ),
-    // },
-    // {
-    //   name: "Actions",
-    //   // cell: (row) => (
-    //   //   <CustomizedMenus
-    //   //     data={row}
-    //   //     kyc={kyc}
-    //   //     showEditModal={showEditModal}
-    //   //     showDetailModal={showDetailModal}
-    //   //     showAssignLoan={showAssignLoan}
-    //   //     showAddExpense={showAddExpense}
-    //   //   />
-    //   // ),
-    //   sortable: true,
-    // },
   ];
+
+  const [selectedRows, setSelectedRows] = useState([]);
+
+  const handleRowClick = (rows) => {
+    setSelectedRows(rows.selectedRows);
+  };
+
+  const handleNavigateButtonClick = () => {
+    const selectedItemsIds = selectedRows.map((row) => row.item_id);
+    // Use the array of selected item_ids to navigate to the new page
+    navigate(`/sales/item-requests/${selectedItemsIds.join("-")}`);
+  };
+
   return (
     <div className="">
+      <span className="ml-2 py-1 text-3xl text-cyan-500 my2 font-semibold">
+        Items
+      </span>
       <div>
+        {selectedRows.length ? (
+          <div className="float-right border px-3 py-1 rounded mb-2 bg-cyan-500 text-lg text-white">
+            <button onClick={handleNavigateButtonClick}>Bulk Sell</button>
+          </div>
+        ) : (
+          ""
+        )}
         <DataTable
           title="Item Lists"
           columns={columns}
           data={inventoryDetail}
           pagination
-          onRowClicked={(row) => navigate(`/sales/item-request/${row.item_id}`)}
+          onRowClicked={(row) =>
+            navigate(`/sales/item-requests/${row.item_id}`)
+          }
+          onSelectedRowsChange={handleRowClick}
           persistTableHeadstriped
           highlightOnHover
           dense
+          selectableRows
         />
       </div>
     </div>

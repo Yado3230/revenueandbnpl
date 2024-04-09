@@ -10,7 +10,7 @@ function MultiStepForm() {
     <FormContext.Provider
       value={{ activeStepIndex, setActiveStepIndex, formData, setFormData }}
     >
-      <section className="m-8 bg-white dark:bg-gray-900">
+      <section className="m-8 bg-white testdark:bg-gray-900">
         <div className="max-w-2xl px-4 py-8 mx-auto lg:py-16">
           <Stepper />
           <Step></Step>

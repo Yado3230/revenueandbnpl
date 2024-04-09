@@ -13,10 +13,10 @@ function IntoLast() {
           />
         </div>
         <div className="flex flex-col items-center text-center lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 md:items-start md:text-left">
-          <h1 className="mb-4 text-3xl font-medium text-gray-900 title-font sm:text-4xl dark:text-gray-300">
+          <h1 className="mb-4 text-3xl font-medium text-gray-900 title-font sm:text-4xl testdark:text-gray-300">
             Try It Out!
           </h1>
-          <p className="mb-8 leading-relaxed dark:text-gray-400">
+          <p className="mb-8 leading-relaxed testdark:text-gray-400">
             Ethiopian Pay is easy to use and has a user-friendly interface that
             makes it simple for anyone to use. We are dedicated to providing a
             safe and secure platform for all users around the world, so you can

@@ -1,12 +1,12 @@
-import intro1 from "../../../../assets/images/intro1.png"
-import intro2 from "../../../../assets/images/intro2.png"
+import intro1 from "../../../../assets/images/intro1.png";
+import intro2 from "../../../../assets/images/intro2.png";
 
 function IntroSection() {
   return (
-    <section className="bg-white dark:bg-gray-900">
+    <section className="bg-white testdark:bg-gray-900">
       <div className="items-center max-w-screen-xl gap-16 px-4 py-8 mx-auto lg:grid lg:grid-cols-2 lg:py-16 lg:px-6">
-        <div className="font-light text-gray-500 sm:text-lg dark:text-gray-400">
-          <h2 className="mb-4 text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white">
+        <div className="font-light text-gray-500 sm:text-lg testdark:text-gray-400">
+          <h2 className="mb-4 text-4xl font-extrabold tracking-tight text-gray-900 testdark:text-white">
             We didn&apos;t reinvent the wheel
           </h2>
           <p className="mb-4">

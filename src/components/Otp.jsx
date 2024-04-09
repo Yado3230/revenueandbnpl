@@ -32,7 +32,7 @@ function Otp({ onSubmit, values }) {
 
   return (
     <>
-      {/* <section className="text-center bg-gray-50 dark:bg-gray-900">
+      {/* <section className="text-center bg-gray-50 testdark:bg-gray-900">
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0"> */}
       <div className="w-full p-6 bg-white rounded-lg shadow md:mt-0 sm:max-w-md sm:p-8">
         <h1 className="mb-1 text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">

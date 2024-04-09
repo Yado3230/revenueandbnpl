@@ -26,7 +26,7 @@ function BankModal({ values, onSubmit, onCancel }) {
       >
         {(formik) => (
           <>
-            <section className="bg-white dark:bg-gray-900">
+            <section className="bg-white testdark:bg-gray-900">
               <div className="max-w-2xl px-4 py-8 mx-auto lg:py-16">
                 <form onSubmit={formik.handleSubmit}>
                   <div className="flex items-center space-x-4">
@@ -79,9 +79,9 @@ function BankModal({ values, onSubmit, onCancel }) {
       </Formik>
 
       {/* <div className="">
-        <section className="bg-white dark:bg-gray-900">
+        <section className="bg-white testdark:bg-gray-900">
           <div className="max-w-2xl px-4 py-8 mx-auto lg:py-16">
-            <h2 className="mb-4 text-xl font-bold text-gray-900 dark:text-white">
+            <h2 className="mb-4 text-xl font-bold text-gray-900 testdark:text-white">
               {props.title}
             </h2>
             <htmlForm action="#">

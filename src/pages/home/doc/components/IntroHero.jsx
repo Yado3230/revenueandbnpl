@@ -1,9 +1,9 @@
 function IntroHero() {
   return (
-    <section className="bg-white dark:bg-gray-900">
+    <section className="bg-white testdark:bg-gray-900">
       <div className="max-w-screen-xl px-4 py-8 mx-auto lg:py-16 lg:px-6">
-        <div className="max-w-screen-lg text-gray-500 sm:text-lg dark:text-gray-400">
-          <h2 className="mb-4 text-4xl font-bold tracking-tight text-gray-900 dark:text-white">
+        <div className="max-w-screen-lg text-gray-500 sm:text-lg testdark:text-gray-400">
+          <h2 className="mb-4 text-4xl font-bold tracking-tight text-gray-900 testdark:text-white">
             Paying with <span className="font-extrabold">Souqpass</span> is
             fast, secure and easy.
           </h2>

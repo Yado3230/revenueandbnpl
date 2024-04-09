@@ -6,6 +6,7 @@ import { Formik } from "formik";
 import souq from "../../assets/images/logo.png";
 import * as Yup from "yup";
 import Spinner from "../../components/Spinner/Spinner";
+
 function Login() {
   const [successful] = useState(false);
   const [Loading, setLoading] = useState(false);
@@ -30,7 +31,7 @@ function Login() {
         /> */}
         <div className="relative bg-opacity-100 bg-cyan-600">
           <svg
-            className="absolute inset-x-0 text-white dark:text-gray-900 -bottom-1"
+            className="absolute inset-x-0 text-white testdark:text-gray-900 -bottom-1"
             viewBox="0 0 1160 163"
           >
             <path
@@ -67,14 +68,14 @@ function Login() {
                 </a>
               </div>
               <div className="w-full max-w-xl xl:w-5/12">
-                <div className="bg-white rounded shadow-2xl p-7 sm:p-10 dark:bg-gray-800">
+                <div className="bg-white rounded shadow-2xl p-7 sm:p-10 testdark:bg-gray-800">
                   <div className={`space-y-4 relative  md:space-y-4`}>
                     {Loading && (
                       <div className="absolute flex w-full items-center justify-center h-full z-[100]">
                         <Spinner />
                       </div>
                     )}
-                    <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+                    <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl testdark:text-white">
                       Sign in to your account
                     </h1>
                     <Formik
@@ -100,7 +101,7 @@ function Login() {
                           <div>
                             <label
                               htmlFor="username"
-                              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                              className="block mb-2 text-sm font-medium text-gray-900 testdark:text-white"
                             >
                               Username <span className="text-red-500">*</span>
                             </label>
@@ -115,7 +116,7 @@ function Login() {
                               id="username"
                               value={props.values.username}
                               onChange={props.handleChange}
-                              className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                              className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 testdark:bg-gray-700 testdark:border-gray-600 testdark:placeholder-gray-400 testdark:text-white testdark:focus:ring-blue-500 testdark:focus:border-blue-500"
                               placeholder="username"
                               required=""
                             />
@@ -123,7 +124,7 @@ function Login() {
                           <div>
                             <label
                               htmlFor="password"
-                              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                              className="block mb-2 text-sm font-medium text-gray-900 testdark:text-white"
                             >
                               Password <span className="text-red-500">*</span>
                             </label>
@@ -139,7 +140,7 @@ function Login() {
                               value={props.values.password}
                               onChange={props.handleChange}
                               placeholder="••••••••"
-                              className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                              className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 testdark:bg-gray-700 testdark:border-gray-600 testdark:placeholder-gray-400 testdark:text-white testdark:focus:ring-blue-500 testdark:focus:border-blue-500"
                               required=""
                             />
                           </div>
@@ -150,14 +151,14 @@ function Login() {
                                   id="remember"
                                   aria-describedby="remember"
                                   type="checkbox"
-                                  className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary dark:ring-offset-gray-800"
+                                  className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary testdark:bg-gray-700 testdark:border-gray-600 testdark:focus:ring-primary testdark:ring-offset-gray-800"
                                   required=""
                                 />
                               </div>
                               <div className="ml-3 text-sm">
                                 <label
                                   htmlFor="remember"
-                                  className="text-gray-500 dark:text-gray-300"
+                                  className="text-gray-500 testdark:text-gray-300"
                                 >
                                   Remember me
                                 </label>
@@ -165,7 +166,7 @@ function Login() {
                             </div>
                             <Link
                               to={"/auth/recover"}
-                              className="text-sm font-medium text-primary hover:underline dark:text-primary"
+                              className="text-sm font-medium text-primary hover:underline testdark:text-primary"
                             >
                               Forgot password?
                             </Link>
@@ -173,15 +174,15 @@ function Login() {
                           <button
                             type="submit"
                             onClick={props.handleSubmit}
-                            className="w-full text-white bg-primary hover:bg-primary focus:ring-4 focus:outline-none focus:ring-primary font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary dark:hover:bg-primary dark:focus:ring-primary"
+                            className="w-full text-white bg-primary hover:bg-primary focus:ring-4 focus:outline-none focus:ring-primary font-medium rounded-lg text-sm px-5 py-2.5 text-center testdark:bg-primary testdark:hover:bg-primary testdark:focus:ring-primary"
                           >
                             Sign in
                           </button>
-                          <p className="text-sm font-light text-gray-500 dark:text-gray-400">
+                          <p className="text-sm font-light text-gray-500 testdark:text-gray-400">
                             Don’t have an account yet?
                             <Link
                               to={"/auth/registration"}
-                              className="font-medium text-primary hover:underline dark:text-primary"
+                              className="font-medium text-primary hover:underline testdark:text-primary"
                             >
                               Sign up
                             </Link>
@@ -212,16 +213,16 @@ function Login() {
       </div>
     </>
     // <>
-    //   <section className="bg-gray-50 dark:bg-gray-900">
+    //   <section className="bg-gray-50 testdark:bg-gray-900">
     //     <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-    //       <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+    //       <div className="w-full bg-white rounded-lg shadow testdark:border md:mt-0 sm:max-w-md xl:p-0 testdark:bg-gray-800 testdark:border-gray-700">
     //         <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
 
     //           <htmlForm className="space-y-4 md:space-y-6" action="#">
     //             <div>
     //               <label
     //                 htmlFor="email"
-    //                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+    //                 className="block mb-2 text-sm font-medium text-gray-900 testdark:text-white"
     //               >
     //                 Your email
     //               </label>
@@ -229,7 +230,7 @@ function Login() {
     //                 type="email"
     //                 name="email"
     //                 id="email"
-    //                 className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+    //                 className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 testdark:bg-gray-700 testdark:border-gray-600 testdark:placeholder-gray-400 testdark:text-white testdark:focus:ring-blue-500 testdark:focus:border-blue-500"
     //                 placeholder="name@company.com"
     //                 required=""
     //               />
@@ -237,7 +238,7 @@ function Login() {
     //             <div>
     //               <label
     //                 htmlFor="password"
-    //                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+    //                 className="block mb-2 text-sm font-medium text-gray-900 testdark:text-white"
     //               >
     //                 Password
     //               </label>
@@ -246,7 +247,7 @@ function Login() {
     //                 name="password"
     //                 id="password"
     //                 placeholder="••••••••"
-    //                 className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+    //                 className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 testdark:bg-gray-700 testdark:border-gray-600 testdark:placeholder-gray-400 testdark:text-white testdark:focus:ring-blue-500 testdark:focus:border-blue-500"
     //                 required=""
     //               />
     //             </div>
@@ -257,14 +258,14 @@ function Login() {
     //                     id="remember"
     //                     aria-describedby="remember"
     //                     type="checkbox"
-    //                     className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary dark:ring-offset-gray-800"
+    //                     className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary testdark:bg-gray-700 testdark:border-gray-600 testdark:focus:ring-primary testdark:ring-offset-gray-800"
     //                     required=""
     //                   />
     //                 </div>
     //                 <div className="ml-3 text-sm">
     //                   <label
     //                     htmlFor="remember"
-    //                     className="text-gray-500 dark:text-gray-300"
+    //                     className="text-gray-500 testdark:text-gray-300"
     //                   >
     //                     Remember me
     //                   </label>
@@ -272,7 +273,7 @@ function Login() {
     //               </div>
     //               <Link
     //                 to="/auth/recover"
-    //                 className="text-sm font-medium text-primary hover:underline dark:text-primary"
+    //                 className="text-sm font-medium text-primary hover:underline testdark:text-primary"
     //               >
     //                 Forgot password?
     //               </Link>
@@ -280,15 +281,15 @@ function Login() {
     //             <Link
     //               to="/users"
     //               type="submit"
-    //               className="w-full text-white bg-primary hover:bg-primary focus:ring-4 focus:outline-none focus:ring-primary font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary dark:hover:bg-primary dark:focus:ring-primary"
+    //               className="w-full text-white bg-primary hover:bg-primary focus:ring-4 focus:outline-none focus:ring-primary font-medium rounded-lg text-sm px-5 py-2.5 text-center testdark:bg-primary testdark:hover:bg-primary testdark:focus:ring-primary"
     //             >
     //               Sign in
     //             </Link>
-    //             <p className="text-sm font-light text-gray-500 dark:text-gray-400">
+    //             <p className="text-sm font-light text-gray-500 testdark:text-gray-400">
     //               Don’t have an account yet?
     //               <Link
     //                 to="/auth/registration"
-    //                 className="font-medium text-primary hover:underline dark:text-primary"
+    //                 className="font-medium text-primary hover:underline testdark:text-primary"
     //               >
     //                 Sign up
     //               </Link>

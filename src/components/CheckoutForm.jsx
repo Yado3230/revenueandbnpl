@@ -82,7 +82,7 @@ export default function CheckoutForm(props) {
       redirect: "if_required",
     });
     if (paymentIntent.status == "succeeded") {
-      fetch("https://10.1.151.51:5000/api/verify-stripe-payment", {
+      fetch("https://souqpass.coopbankoromiasc.com/api/verify-stripe-payment", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -72,10 +72,11 @@ const columns = [
     sortable: true,
   },
   {
-    name: "Primary",
+    name: "Account Level",
     selector: (row) => row.account_level,
     sortable: true,
   },
+
   // {
   //   name: "Status",
   //   selector: (row) => (row.status === "1" ? "activated" : "pending"),
@@ -88,7 +89,6 @@ const columns = [
 const MySwal = withReactContent(Swal);
 function Accounts() {
   const AccountListData = useSelector((state) => state.accountsList);
-  const [phoneNumber, setPhoneNumber] = useState("");
   const { loading, error, bankAccounts } = AccountListData;
   const dispatch = useDispatch();
 
@@ -97,8 +97,6 @@ function Accounts() {
   const { token } = tokenInfo;
   const user_token = jwtDecode(token);
   const merchant_id = user_token?.merchant_id;
-  const userData = useSelector((state) => state.userProfile);
-  const { phone_number } = userData?.userDetail;
 
   useEffect(() => {
     dispatch(getAccounts(merchant_id));
@@ -131,6 +129,7 @@ function Accounts() {
   };
 
   const handleOtpSubmit = (e) => {
+    console.log(e)
     BankAccountServices.confirmOtp(
       e.target.options[e.target.selectedIndex].getAttribute(
         "data-phone-number"
@@ -152,7 +151,7 @@ function Accounts() {
     return new Promise((resolve, reject) => {
       MySwal.fire({
         title: "Are you sure?",
-        text: `You want to set ${e.target.value}Your Primary Account?`,
+        text: `You want to set ${e.target.value} Your Primary Account?`,
         icon: "warning",
         // dangerMode: true,
         showCancelButton: true,
@@ -161,7 +160,6 @@ function Accounts() {
         confirmButtonText: "Yes!",
       }).then((result) => {
         if (result.isConfirmed === true) {
-          console.log(e.target.options[e.target.selectedIndex]);
           BankAccountServices.sendOtp(
             e.target.options[e.target.selectedIndex].getAttribute(
               "data-phone-number"

@@ -1,187 +1,333 @@
-import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
-import queryString from "query-string";
-import Bankpay from "./Bankpay";
-import Cardpay from "./Cardpay";
-import Mobilepay from "./Mobilepay";
-import PayPal from "./PayPal";
-import PaymentServices from "../services/payment.service";
-import Stripe from "./Stripe";
-import { useParams, useSearchParams } from "react-router-dom";
-function Gateway() {
-  const [select, setSelect] = useState("");
-  const [currency, setCurrency] = useState("");
-  const [paymentService, setPaymentService] = useState("");
-  const [amount, setAmount] = useState();
-  const [orderID, setOrderId] = useState();
-  const [phoneNumber, setPhoneNumber] = useState();
-  const [returnUrl, setReturnUrl] = useState();
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [paypalPaymentStatus, setPaypalPaymentStatus] = useState();
-  const location = useLocation();
-  const path = location.pathname;
-  const data = path.substring(path.lastIndexOf("gateway/") + 8);
-  const encodedUri = encodeURIComponent(data);
-  useEffect(() => {
-    PaymentServices.getPendingPaymentInfo(encodedUri)
-      .then((res) => {
-        setCurrency(res[1].currency);
-        setAmount(res[1].amount);
-        setOrderId(res[1].orderID);
-        setPhoneNumber(res[1].phoneNumber);
-        setReturnUrl(res[1].returnUrl);
-        setPaymentService(res[1].paymentServices);
-        setPaypalPaymentStatus(res[1].status);
-      })
-      .catch((error) => {
-        return error;
-      });
-    if (paymentService == "CBOA") {
-      setSelect("CBOA");
-    } else if (paymentService == "stripe") {
-      setSelect("stripe");
-    } else if (paymentService == "paypal") {
-      setSelect("paypal");
-    } else if (paymentService == "coopass") {
-      setSelect("CBOA");
-    } else if (paymentService == "ebirr") {
-      setSelect("ebirr");
-    }
-  }, [currency, paymentService]);
+import React, { useEffect, useState } from "react";
+import cbologo from "./../assets/images/Cooperative_Bank_of_Oromia-3.png";
+import ebirrlogo from "./../assets/images/ebirr.jpg";
+import souqpasslogo from "./../assets/images/logo.png";
+
+import ReactDOM from "react-dom";
+
+const Gateway = () => {
+  const [activeTab, setActiveTab] = useState("account");
+  const [account, setAccount] = useState("");
+  const [amount, setAmount] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+
+  const defaultCurrency = "ETB";
+
   return (
-    <div>
-      <section className="bg-gray-100 dark:bg-gray-900">
-        <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-          <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-            <div className="flex flex-1 p-2 bg-gray-50 shadow">
-              <img
-                width={120}
-                className=""
-                src="../PaymentGateway.png"
-                alt="front credit card"
-              />
-            </div>
-            <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-              <div className="grid grid-cols-2">
-                <h1 className="leading-tight mt-2 text-lg tracking-tight text-gray-900 dark:text-white">
-                  Choose payment
-                </h1>
-                {/* <div className="w-full col-span-2"> */}
-                <h1 className="mt-2 text-lg font-bold text-center dark:text-white">
-                  {amount} {currency}
-                </h1>
-                {/* </div> */}
-              </div>
-
-              <div className="">
-                <select
-                  onChange={(e) => {
-                    setSelect(e.target.value);
+    <div style={{ width: "100%", marginTop: "1.25rem" }}>
+      <div style={{ width: "100%" }}>
+        <div
+          style={{
+            fontSize: "1.25rem",
+            lineHeight: "1.75rem",
+            fontWeight: 600,
+          }}
+        >
+          <h2>Select Your Payment Method</h2>
+        </div>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: "1rem",
+            paddingTop: "1.5rem",
+            paddingBottom: "1.5rem",
+          }}
+        >
+          <button
+            onClick={() => setActiveTab("account")}
+            style={{
+              border: activeTab === "account" ? "2px solid #f59e0b" : "none",
+              boxShadow:
+                activeTab === "account"
+                  ? "0 0 10px rgba(0, 0, 0, 0.2)"
+                  : "none",
+              cursor: "pointer",
+            }}
+          >
+            <img
+              src={cbologo}
+              alt="ebirr"
+              width="80px"
+              style={{ margin: "4px" }}
+            />
+          </button>
+          <button
+            onClick={() => setActiveTab("ebirr")}
+            style={{
+              border: activeTab === "ebirr" ? "2px solid #f59e0b" : "none",
+              boxShadow:
+                activeTab === "ebirr" ? "0 0 10px rgba(0, 0, 0, 0.2)" : "none",
+              cursor: "pointer",
+            }}
+          >
+            <img
+              src={ebirrlogo}
+              alt="ebirr"
+              width="48px"
+              style={{ margin: "2px 6px" }}
+            />
+          </button>
+        </div>
+        <div>
+          <div
+            style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}
+          >
+            {activeTab === "account" ? (
+              <div style={{ position: "relative" }}>
+                <input
+                  type="number"
+                  id="fiat-currency-input"
+                  style={{
+                    padding: "10px",
+                    width: "100%",
+                    borderRadius: "5px",
+                    border: "2px solid #38b2ac",
+                    outline: "none",
                   }}
-                  className="my-6 select bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  placeholder={`Account Number`}
+                  required
+                  value={account}
+                  // onChange={handleInputsChange}
+                />
+
+                {/* Display popup if showPopup is true */}
+                {/* {showPopup && ( */}
+                <div
+                  style={{
+                    position: "absolute",
+                    top: "100%",
+                    left: 0,
+                    zIndex: 999,
+                    backgroundColor: "#fff",
+                    boxShadow: "0px 0px 5px rgba(0, 0, 0, 0.2)",
+                    borderRadius: "5px",
+                    padding: "5px",
+                  }}
                 >
-                  {currency === "ETB" ? (
-                    <option
-                      value={"CBOA"}
-                      hidden={paymentService === "CBOC"}
-                      disabled={paymentService === "CBOC"}
-                      selected={paymentService === "coopass"}
-                    >
-                      Coopass
-                    </option>
-                  ) : (
-                    ""
-                  )}
-                  {currency === "ETB" ? (
-                    <option
-                      value={"CBOC"}
-                      hidden={paymentService === "coopass"}
-                      disabled={paymentService === "coopass"}
-                      selected={paymentService === "CBOC"}
-                    >
-                      Cooperative bank of Oromia Card {paymentService}
-                    </option>
-                  ) : (
-                    ""
-                  )}
-                  {/* {currency === "ETB" ? (
-                    <option value={"EB"}>E-birr</option>
-                  ) : (
-                    ""
-                  )} */}
-                  {currency === "USD" ? (
-                    <option
-                      value={"stripe"}
-                      hidden={paymentService === "paypal"}
-                      disabled={paymentService === "paypal"}
-                      selected={paymentService === "stripe"}
-                    >
-                      Stripe
-                    </option>
-                  ) : (
-                    ""
-                  )}
-                  {currency === "USD" && (
-                    <>
-                      <option
-                        value={"paypal"}
-                        hidden={paymentService === "stripe"}
-                        disabled={paymentService === "stripe"}
-                        selected={paymentService === "paypal"}
-                      >
-                        payPal
-                      </option>
-                      {/* <option value={"payPal"}>payPal</option> */}
-                    </>
-                  )}
-
-                  {/* <option value={"payPal"}>payPal</option> */}
-                </select>
+                  {/* <ul>
+                      {suggestions.map((suggestion, index) => (
+                        <li
+                          style={{
+                            cursor: "pointer",
+                            padding: "8px",
+                            borderBottom: "1px solid #cbd5e0",
+                          }}
+                          key={index}
+                          // onClick={() => handleSuggestionClick(suggestion)}
+                        >
+                          {suggestion}
+                        </li>
+                      ))}
+                    </ul> */}
+                </div>
+                {/* )} */}
               </div>
-
-              <htmlForm className="space-y-4 md:space-y-6" action="">
-                {currency === "ETB"
-                  ? select === "CBOA" && (
-                      <Bankpay
-                        amount={amount}
-                        data={data}
-                        paymentId={data}
-                        phoneNumber={phoneNumber}
-                      />
-                    )
-                  : ""}
-                {currency === "ETB"
-                  ? select === "CBOC" && <Cardpay amount={amount} />
-                  : ""}
-                {currency === "ETB" ? select === "EB" && <Mobilepay /> : ""}
-                {currency === "USD" && select === "paypal" && (
-                  <PayPal
-                    amount={amount}
-                    paymentId={encodedUri}
-                    orderId={orderID}
-                    status={paypalPaymentStatus}
-                  />
-                )}
-                {currency === "USD" && select === "stripe" && (
-                  <Stripe
-                    amount={amount}
-                    orderId={orderID}
-                    paymentId={encodedUri}
-                    returnUrl={returnUrl}
-                  />
-                )}
-                {/* {currency === "USD" ? select === "stripe" && <Stripe /> : ""} */}
-                {/* {select === "CBOC" && <Cardpay />}
-                {select === "EB" && <Mobilepay />}
-                {select === "payPal" && <PayPal />} */}
-                {/* {select === "payPal" && <PayPal />} */}
-              </htmlForm>
+            ) : (
+              activeTab === "ebirr" && (
+                <div style={{ display: "flex", gap: "0" }}>
+                  <div style={{ flexShrink: 0 }}>
+                    <div
+                      style={{
+                        display: "inline-flex",
+                        alignItems: "center",
+                        padding: "10px",
+                        fontSize: "0.875rem",
+                        fontWeight: "500",
+                        color: "#374151",
+                        backgroundColor: "#f3f4f6",
+                        border: "1px solid #e5e7eb",
+                        borderTopLeftRadius: "0.375rem",
+                        borderBottomLeftRadius: "0.375rem",
+                        cursor: "not-allowed",
+                      }}
+                    >
+                      <span>+251</span>
+                    </div>
+                  </div>
+                  <div style={{ position: "relative", flex: 1 }}>
+                    <input
+                      type="number"
+                      id="fiat-currency-input"
+                      style={{
+                        padding: "10px",
+                        width: "100%",
+                        borderRadius: "5px",
+                        border: "2px solid #38b2ac",
+                        outline: "none",
+                      }}
+                      placeholder={`Phone Number`}
+                      required
+                      value={phoneNumber}
+                      onChange={(e) => setPhoneNumber(e.target.value)}
+                    />
+                  </div>
+                </div>
+              )
+            )}
+            <div style={{ display: "flex", gap: "0" }}>
+              <div style={{ position: "relative", flex: 1 }}>
+                <input
+                  type="text"
+                  id="fiat-currency-input"
+                  style={{
+                    padding: "10px",
+                    width: "calc(100% - 70px)",
+                    borderRadius: "5px",
+                    border: "2px solid #38b2ac",
+                    outline: "none",
+                  }}
+                  placeholder={`Enter amount in ${defaultCurrency}`}
+                  required
+                  disabled
+                  // value={formatInputValue(amount)}
+                  // onChange={(e) => handleInputChange(e)}
+                />
+              </div>
+              <div style={{ flexShrink: 0 }}>
+                <div
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    padding: "10px",
+                    fontSize: "0.875rem",
+                    fontWeight: "500",
+                    color: "#374151",
+                    backgroundColor: "#f3f4f6",
+                    border: "1px solid #e5e7eb",
+                    borderTopRightRadius: "0.375rem",
+                    borderBottomRightRadius: "0.375rem",
+                    cursor: "not-allowed",
+                  }}
+                >
+                  <span>{defaultCurrency}</span>
+                </div>
+              </div>
+            </div>
+            <button
+              type="button"
+              style={{
+                padding: "10px 24px",
+                fontSize: "0.875rem",
+                fontWeight: "500",
+                color: "#fff",
+                backgroundColor:
+                  "linear-gradient(to bottom right, #37b8e9, #1883ba)",
+                borderRadius: "0.375rem",
+                border: "none",
+                cursor: "pointer",
+              }}
+            >
+              CONTINUE
+            </button>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "0.75rem",
+              marginTop: "1.25rem",
+            }}
+          >
+            <div style={{}}>
+              <span style={{}}>secure payment</span>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "0.5rem",
+                fontSize: "1.125rem",
+                fontWeight: 600,
+              }}
+            >
+              <span>Powered by</span>
+              <img src={souqpasslogo} alt="ebirr" width="120px" />
             </div>
           </div>
         </div>
-      </section>
+      </div>
     </div>
   );
-}
+};
+const GatewayInNewWindow = () => {
+  const url =
+    "http://localhost:3001/gateway/0mYNIQ0EJmw3z71ZxyVUP0r5tT28JYz32o9UJS0qeNOv0";
 
-export default Gateway;
+  const openGatewayInNewWindow = () => {
+    // Calculate the center position of the screen
+    const screenWidth = window.screen.width;
+    const screenHeight = window.screen.height;
+    const windowWidth = 500; // Width of the new window
+    const windowHeight = 600; // Height of the new window
+    const left = (screenWidth - windowWidth) / 2;
+    const top = (screenHeight - windowHeight) / 2;
+
+    // Open the Gateway component in a new window at the center
+    const newWindow = window.open(
+      url,
+      "_blank",
+      `width=${windowWidth},height=${windowHeight},left=${left},top=${top}`
+    );
+    newWindow.document.write(
+      "<html><head><title>Souqpass</title></head><body>"
+    );
+    newWindow.document.write("<div id='gateway-container'></div>");
+    newWindow.document.write("</body></html>");
+
+    // Render the Gateway component inside the new window
+    const gatewayContainer =
+      newWindow.document.getElementById("gateway-container");
+    ReactDOM.render(<Gateway />, gatewayContainer);
+
+    newWindow.onload = () => {
+      // Add the Souqpass logo to the top of the new window
+      const souqpassLogo = newWindow.document.createElement("img");
+      souqpassLogo.src = souqpasslogo;
+      souqpassLogo.alt = "Souqpass";
+      souqpassLogo.style.width = "120px";
+      souqpassLogo.style.margin = "20px auto"; // Adjust margin as needed
+      newWindow.document.body.appendChild(souqpassLogo);
+
+      // Render the Gateway component inside the new window
+      const gatewayContainer = newWindow.document.createElement("div");
+      newWindow.document.body.appendChild(gatewayContainer);
+      ReactDOM.render(<Gateway />, gatewayContainer);
+    };
+  };
+
+  // Automatically open the popup window when the component mounts
+  // useEffect(() => {
+  //   openGatewayInNewWindow();
+  // }, []); // Empty dependency array ensures this effect runs only once
+
+  return (
+    <button
+      type="button"
+      onClick={openGatewayInNewWindow}
+      style={{
+        color: "white",
+        backgroundColor: "#2d3748",
+        borderRadius: "0.375rem",
+        fontSize: "0.875rem",
+        fontWeight: 500,
+        letterSpacing: "0.025em",
+        padding: "0.75rem 1.5rem",
+        textAlign: "center",
+        transition:
+          "background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out",
+        cursor: "pointer",
+        display: "inline-block",
+        textDecoration: "none",
+        textTransform: "none",
+        whiteSpace: "nowrap",
+        lineHeight: 1.5,
+      }}
+    >
+      Open Payment Gateway
+    </button>
+  );
+};
+
+export default GatewayInNewWindow;

@@ -6,7 +6,7 @@ import Iframe from "react-iframe";
 function Contact() {
   return (
     <>
-      <div className="md:flex md:px-32 md:space-x-8 dark:bg-gray-900">
+      <div className="md:flex md:px-32 md:space-x-8 testdark:bg-gray-900">
         <div className="md:w-1/2 md:mt-20">
           {/* <img src={landingContactUs} alt="dummy600*600" /> */}
           <Iframe
@@ -19,12 +19,12 @@ function Contact() {
             referrerPolicy="no-referrer-when-downgrade"
           ></Iframe>
         </div>
-        <section className="bg-white dark:bg-gray-900">
+        <section className="bg-white testdark:bg-gray-900">
           <div className="max-w-screen-md px-4 py-8 mx-auto lg:py-16">
-            <h2 className="mt-4 mb-4 text-4xl font-extrabold tracking-tight text-center text-gray-900 dark:text-white">
+            <h2 className="mt-4 mb-4 text-4xl font-extrabold tracking-tight text-center text-gray-900 testdark:text-white">
               Contact Us
             </h2>
-            <p className="mb-8 font-light text-center text-gray-500 dark:text-gray-400 sm:text-xl">
+            <p className="mb-8 font-light text-center text-gray-500 testdark:text-gray-400 sm:text-xl">
               Got a technical issue? Want to send feedback about a beta feature?
               Need details about our Business plan? Let us know.
             </p>

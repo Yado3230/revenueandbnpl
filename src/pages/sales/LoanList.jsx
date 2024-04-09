@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
+import { getSalesPayments } from "../../store/actions/getSalesAction";
+import { useDispatch, useSelector } from "react-redux";
 // import { useDispatch } from "react-redux";
 // import {
 //   getLoanDetail,
@@ -13,7 +15,7 @@ import DataTable from "react-data-table-component";
 
 const Loans = () => {
   const [activeTab, setActiveTab] = useState("all");
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   // const [currentPage, setCurrentPage] = useState(1);
   // const pageSize = 10; // Number of items per page
@@ -21,12 +23,12 @@ const Loans = () => {
   // const userData = useSelector((state) => state.userProfile);
   // // const { username } = userData;
 
-  // useEffect(() => {
-  //   dispatch(getLoanDetail(currentPage - 1));
-  // }, [currentPage, dispatch]);
+  useEffect(() => {
+    dispatch(getSalesPayments());
+  }, [dispatch]);
 
-  // const loanData = useSelector((state) => state.loanInfo);
-  // const { loans } = loanData;
+  const salesData = useSelector((state) => state.salesInfo);
+  const { payments } = salesData;
 
   const loans = [
     {
@@ -75,175 +77,61 @@ const Loans = () => {
     },
   ];
 
-  const filterData = () => {
-    if (activeTab === "pending") {
-      return loans.filter(
-        (item) =>
-          item?.approvalStatus === "PENDING" ||
-          item?.approvalStatus === "IN_PROCESS"
-      );
-    } else if (activeTab === "approved") {
-      return loans.filter((item) => item.approvalStatus === "APPROVED");
-    } else if (activeTab === "rejected") {
-      return loans.filter((item) => item.approvalStatus === "REJECTED");
-    } else {
-      return loans;
-    }
-  };
-
-  const filteredData = filterData();
-
   const columns = [
     {
-      name: "Sales ID",
-      selector: (row) => row?.salesId,
+      name: "Amount",
+      selector: (row) => row?.amount,
       sortable: true,
     },
     {
-      name: "Item ID",
-      selector: (row) => row?.itemId,
-      sortable: true,
-    },
-    // {
-    //   name: "National ID",
-    //   selector: (row) => row?.nationalIdNumber,
-    //   sortable: true,
-    // },
-    {
-      name: "Loan Purpose",
-      selector: (row) => row?.loanPurpose,
+      name: "Tip",
+      selector: (row) => row?.tip_amount,
       sortable: true,
     },
     {
-      name: "Loan Amount",
-      selector: (row) => row?.loanAmount,
+      name: "Discount",
+      selector: (row) => row?.discount,
       sortable: true,
     },
     {
-      name: "Interest Rate",
-      selector: (row) => row?.interestRate,
+      name: "Currency",
+      selector: (row) => row?.currency,
       sortable: true,
     },
     {
-      name: "Comulative Interest",
-      selector: (row) => row?.cumulativeInterest,
+      name: "Payment Method",
+      selector: (row) => row?.payment_method,
       sortable: true,
     },
     {
-      name: "Total Payment",
-      selector: (row) => row?.totalRepayment,
-      sortable: true,
-    },
-    {
-      name: "status",
-      cell: (row) => {
-        return (
-          <div>
-            {row?.approvalStatus === "PENDING" ? (
-              <div className="border flex items-center justify-center rounded-lg bg-gray-300 w-24 h-6">
-                <span className="text-black">PENDING</span>
-              </div>
-            ) : row?.approvalStatus === "IN_PROCESS" ? (
-              <div className="border flex items-center justify-center rounded-lg bg-green-500 w-24 h-6">
-                <span className="text-white">IN_PROCESS</span>
-              </div>
-            ) : row?.approvalStatus === "REJECTED" ? (
-              <div className="border flex items-center justify-center rounded-lg bg-orange-500 w-24 h-6">
-                <span className="text-white">REJECTED</span>
-              </div>
-            ) : (
-              row?.approvalStatus === "APPROVED" && (
-                <div className="border flex items-center justify-center rounded-lg bg-cyan-500 w-24 h-6">
-                  <span className="text-white">APPROVED</span>
-                </div>
-              )
-            )}
-          </div>
-        );
-      },
-      left: true,
-    },
-    {
-      name: "Requested At",
-      selector: (row) =>
-        new Date(row?.requestedAt)?.toISOString().split("T")[0],
+      name: "Payed At",
+      selector: (row) => new Date(row?.createdAt)?.toISOString()?.split("T")[0],
       sortable: true,
     },
   ];
 
   const ExpandableTableComponent = ({ data }) => {
-    const testData = [
-      {
-        payment_date: "10/20/2023",
-        biginning_balance: 20000,
-        scheduled_payment: "housing",
-        total_payment: 2000,
-        principal: 5,
-        interest: 25,
-        ending_balance: 2025,
-        cumulative_interest: "PENDING",
-      },
-      {
-        payment_date: "10/20/2023",
-        biginning_balance: 20000,
-        scheduled_payment: "housing",
-        total_payment: 2000,
-        principal: 5,
-        interest: 25,
-        ending_balance: 2025,
-        cumulative_interest: "PENDING",
-      },
-      {
-        payment_date: "10/20/2023",
-        biginning_balance: 20000,
-        scheduled_payment: "housing",
-        total_payment: 2000,
-        principal: 5,
-        interest: 25,
-        ending_balance: 2025,
-        cumulative_interest: "PENDING",
-      },
-    ];
 
     const loanColumns = [
       {
-        name: "Payment Date",
-        selector: (row) => row.payment_date,
+        name: "Item ID",
+        selector: (row) => row.itemItemId,
         sortable: true,
       },
       {
-        name: "Beginning Balance",
-        selector: (row) => row.biginning_balance,
+        name: "Item Sale Price",
+        selector: (row) => row.item_sale_price,
         sortable: true,
       },
       {
-        name: "Scheduled Payment",
-        selector: (row) => row?.scheduled_payment,
+        name: "Quantity",
+        selector: (row) => row.quantity,
         sortable: true,
       },
       {
-        name: "Total Payment",
-        selector: (row) => row?.total_payment,
-        sortable: true,
-      },
-      {
-        name: "Principal",
-        selector: (row) => row?.principal,
-        sortable: true,
-      },
-      {
-        name: "Interest",
-        selector: (row) => row?.interest,
-        sortable: true,
-      },
-      {
-        name: "Ending Balance",
-        selector: (row) => row?.ending_balance,
-        sortable: true,
-      },
-      {
-        name: "Cumulative Interest",
-        selector: (row) => row?.cumulative_interest,
+        name: "Payed At",
+        selector: (row) =>
+          new Date(row?.createdAt)?.toISOString()?.split("T")[0],
         sortable: true,
       },
     ];
@@ -251,12 +139,12 @@ const Loans = () => {
     return (
       <div className="bg-gray-50">
         <span className="ml-2 py-1 text-xl text-cyan-500 font-semibold">
-          Payment Schedule
+          Sold Items
         </span>
         <div className="m-2 mx-12 border-x-2 border-cyan-500">
           <DataTable
             columns={loanColumns}
-            data={testData}
+            data={data || []}
             // pagination
             dense
             persistTableHeadstriped
@@ -272,62 +160,21 @@ const Loans = () => {
   return (
     <div>
       <div className="container mx-auto">
+        <span className="ml-2 py-1 text-3xl text-cyan-500 font-semibold">
+          Payments
+        </span>
         <div className="my-4">
-          <div className="tabs tabs-boxed">
-            <span
-              className={`tab ${activeTab === "all" && "tab-active"}`}
-              onClick={() => setActiveTab("all")}
-              style={{
-                color: activeTab === "all" ? "white" : null,
-                backgroundColor: activeTab === "all" ? "#01BBF2" : null,
-              }}
-            >
-              All
-            </span>
-            <span
-              className={`tab ${activeTab === "pending" && "tab-active"}`}
-              onClick={() => setActiveTab("pending")}
-              style={{
-                color: activeTab === "pending" ? "white" : null,
-                backgroundColor: activeTab === "pending" ? "#01BBF2" : null,
-              }}
-            >
-              Pending
-            </span>
-            <span
-              className={`tab ${
-                activeTab === "approved" && "tab-active text-white"
-              }`}
-              onClick={() => setActiveTab("approved")}
-              style={{
-                color: activeTab === "approved" ? "white" : null,
-                backgroundColor: activeTab === "approved" ? "#01BBF2" : null,
-              }}
-            >
-              Accepted
-            </span>
-            <span
-              className={`tab ${activeTab === "rejected" && "tab-active"}`}
-              style={{
-                color: activeTab === "rejected" ? "white" : null,
-                backgroundColor: activeTab === "rejected" ? "#01BBF2" : null,
-              }}
-              onClick={() => setActiveTab("rejected")}
-            >
-              Rejected
-            </span>
-          </div>
-
           <div className="bg-white rounded-b-lg shadow p-4">
             <DataTable
               columns={columns}
-              data={filteredData}
+              data={payments}
               dense
               highlightOnHover
               pagination
               expandableRows
-              expandableRowDisabled={(row) => row.approvalStatus !== "APPROVED"}
-              expandableRowsComponent={ExpandableTableComponent}
+              expandableRowsComponent={({ data }) => (
+                <ExpandableTableComponent data={data?.sold_items} />
+              )}
             />
           </div>
         </div>

@@ -18,6 +18,7 @@ const AddExpense = ({
   onCancel,
   general,
   product,
+  isUpdate,
 }) => {
   const FILE_SIZE = 1600 * 1024;
   const SUPPORTED_FORMATS = [
@@ -35,18 +36,18 @@ const AddExpense = ({
   const ValidationSchema = Yup.object().shape({
     item_id: Yup.string().optional(),
     product_id: Yup.string().optional(),
-    picture: Yup.mixed()
-      .required("A file is required")
-      .test(
-        "fileSize",
-        "File too large",
-        (value) => value && value.size <= FILE_SIZE
-      )
-      .test(
-        "fileFormat",
-        "Unsupported Format",
-        (value) => value && SUPPORTED_FORMATS.includes(value.type)
-      ),
+    // picture: Yup.mixed()
+    //   .required("A file is required")
+    //   .test(
+    //     "fileSize",
+    //     "File too large",
+    //     (value) => value && value.size <= FILE_SIZE
+    //   )
+    //   .test(
+    //     "fileFormat",
+    //     "Unsupported Format",
+    //     (value) => value && SUPPORTED_FORMATS.includes(value.type)
+    //   ),
     expense_name: Yup.string().required("Name is required"),
     expense_amount: Yup.string().required("Amount is required"),
     expense_date: Yup.string().required("Date is required"),
@@ -94,7 +95,7 @@ const AddExpense = ({
               <div className="w-full">
                 <label
                   htmlFor="expense_name"
-                  className="mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  className="mb-2 text-sm font-medium text-gray-900 testdark:text-white"
                 >
                   Name
                 </label>
@@ -106,7 +107,7 @@ const AddExpense = ({
                   name="expense_name"
                   id="expense_name"
                   placeholder="Name"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 testdark:bg-gray-700 testdark:border-gray-600 testdark:placeholder-gray-400 testdark:text-white testdark:focus:ring-blue-500 testdark:focus:border-blue-500"
                   value={formik.values.expense_name}
                   onChange={formik.handleChange}
                 />
@@ -114,7 +115,7 @@ const AddExpense = ({
               <div className="w-full">
                 <label
                   htmlFor="expense_amount"
-                  className="mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  className="mb-2 text-sm font-medium text-gray-900 testdark:text-white"
                 >
                   Amount
                 </label>
@@ -126,7 +127,7 @@ const AddExpense = ({
                   name="expense_amount"
                   id="expense_amount"
                   placeholder="1025.63"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 testdark:bg-gray-700 testdark:border-gray-600 testdark:placeholder-gray-400 testdark:text-white testdark:focus:ring-blue-500 testdark:focus:border-blue-500"
                   value={formik.values.expense_amount}
                   onChange={formik.handleChange}
                 />
@@ -134,7 +135,7 @@ const AddExpense = ({
               <div className="w-full">
                 <label
                   htmlFor="expense_date"
-                  className="mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  className="mb-2 text-sm font-medium text-gray-900 testdark:text-white"
                 >
                   Date
                 </label>
@@ -145,7 +146,7 @@ const AddExpense = ({
                   type="date"
                   name="expense_date"
                   id="expense_date"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 testdark:bg-gray-700 testdark:border-gray-600 testdark:placeholder-gray-400 testdark:text-white testdark:focus:ring-blue-500 testdark:focus:border-blue-500"
                   value={formik.values.expense_date}
                   onChange={formik.handleChange}
                 />
@@ -163,7 +164,7 @@ const AddExpense = ({
               <div className="w-full">
                 <label
                   htmlFor="description"
-                  className="mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  className="mb-2 text-sm font-medium text-gray-900 testdark:text-white"
                 >
                   Description
                 </label>
@@ -175,7 +176,7 @@ const AddExpense = ({
                   name="description"
                   id="description"
                   placeholder="Some description here..."
-                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 testdark:bg-gray-700 testdark:border-gray-600 testdark:placeholder-gray-400 testdark:text-white testdark:focus:ring-blue-500 testdark:focus:border-blue-500"
                   value={formik.values.description}
                   onChange={formik.handleChange}
                 />
@@ -183,7 +184,7 @@ const AddExpense = ({
               <div className="w-full">
                 <label
                   htmlFor="paymentMethod"
-                  className="mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  className="mb-2 text-sm font-medium text-gray-900 testdark:text-white"
                 >
                   Payment Method
                 </label>
@@ -195,7 +196,7 @@ const AddExpense = ({
                   name="paymentMethod"
                   id="paymentMethod"
                   placeholder="payment-method"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 testdark:bg-gray-700 testdark:border-gray-600 testdark:placeholder-gray-400 testdark:text-white testdark:focus:ring-blue-500 testdark:focus:border-blue-500"
                   value={formik.values.paymentMethod}
                   onChange={formik.handleChange}
                 />
@@ -229,7 +230,7 @@ const AddExpense = ({
               style={{ backgroundColor: "#01AFEF" }}
               className="swal2-confirm swal2-styled"
             >
-              Register
+              {isUpdate ? "Update" : "Register"}
             </button>
           </form>
         )}

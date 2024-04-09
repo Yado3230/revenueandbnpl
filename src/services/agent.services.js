@@ -1,5 +1,5 @@
 import axios from "axios";
-const agentUrl = process.env.REACT_APP_API_SPRING_URLS;
+const agentUrl = "";
 
 const getAllAgents = async (id) => {
   return await axios.get(agentUrl + `get`).then((response) => {
@@ -128,21 +128,6 @@ const getNedajPrices = async (id) => {
     });
 };
 
-const login = async (phone_number, password) => {
-  const response = await axios.post(
-    process.env.REACT_APP_API_NODE_URLS + "api/agent/login",
-    {
-      phone_number,
-      password,
-    },
-    { withCredentials: true, credentials: "include" }
-  );
-  if (response.data.token) {
-    const user = jwt(response.data.token);
-    localStorage.setItem("user", JSON.stringify(user));
-    return user;
-  }
-};
 
 const getTotalAmount = async (id) => {
   return await axios
